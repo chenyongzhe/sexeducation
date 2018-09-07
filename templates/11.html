@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+    {% load staticfiles %}
+    <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <!-- Bootstrap Styles-->
+     {% load staticfiles %}
+
+    <link href="{% static "assets/css/bootstrap.css"  %}" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+
+    <link href="{% static "assets/css/font-awesome.css"  %}"  rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="{% static "assets/js/morris/morris-0.4.3.min.css" %}" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="{% static "assets/css/custom-styles.css"  %}"rel="stylesheet" />
+    <!-- Google Fonts-->
+  <style>
+        .page{
+            display: inline-block;
+            padding: 5px;
+            background-color: #4cae4c;
+            margin: 5px;
+
+        }
+        .isactive{
+            background-color: #5bc0de;
+
+        }
+        h1{
+          font-size:25px;
+            margin-top: 40px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Doe</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Today</em>
+                                    </span>
+                                </div>
+                                <div>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem Ipsum has been the industry's standard dummy text ever since the...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>Read All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-tasks">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 1</strong>
+                                        <span class="pull-right text-muted">60% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                            <span class="sr-only">60% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 2</strong>
+                                        <span class="pull-right text-muted">28% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100" style="width: 28%">
+                                            <span class="sr-only">28% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 3</strong>
+                                        <span class="pull-right text-muted">60% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                            <span class="sr-only">60% Complete (warning)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 4</strong>
+                                        <span class="pull-right text-muted">85% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%">
+                                            <span class="sr-only">85% Complete (danger)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Tasks</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-tasks -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-comment fa-fw"></i> New Comment
+                                    <span class="pull-right text-muted small">4 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                    <span class="pull-right text-muted small">12 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                    <span class="pull-right text-muted small">4 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-tasks fa-fw"></i> New Task
+                                    <span class="pull-right text-muted small">4 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                    <span class="pull-right text-muted small">4 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                         <li><a href="/login/"><i class="fa fa-user fa-fw"></i>登录</a>
+                        </li>
+                        <li><a href="/userinfor/"><i class="fa fa-user fa-fw"></i> 用户主页</a>
+                        </li>
+                         <li><a href="/register/"><i class="fa fa-user fa-fw"></i>注册</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+        </nav>
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+		<div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
+            <div class="sidebar-collapse" >
+                <ul class="nav" id="main-menu" >
+
+                    <li>
+                        <a  href="/"><i class="fa fa-search"></i> 搜索</a>
+                    </li>
+                    <li>
+                        <a href="/videoeducation"><i class="fa fa-youtube-play"></i> 视频教育</a>
+                    </li>
+					<li>
+                        <a   class="active-menu" href="/twjx/"><i class="fa fa-picture-o"></i>图文教育</a>
+                    </li>
+                    <li>
+                        <a href="tab-panel.html"><i class="fa fa-qrcode"></i> 栏目四</a>
+                    </li>
+
+                    <li>
+                        <a href="table.html"><i class="fa fa-table"></i>栏目五</a>
+                    </li>
+                    <li>
+                        <a href="form.html"><i class="fa fa-edit"></i> 栏目六 </a>
+                    </li>
+
+
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap"></i>栏目七<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Second Level Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Second Level Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Second Level Link<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="empty.html"><i class="fa fa-fw fa-file"></i>栏目九</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+ {% load staticfiles %}
+<h1 style="text-indent:2em;text-align:left;">3.男生的内在性器官
+</h1>
+<p style="text-indent:2em;text-align:left;">
+</p>
+<p style="text-indent:2em;text-align:left;">该性器官一个人的身体内（内部性器官）是：
+</p>
+<p style="text-indent:2em;text-align:left;">· 睾丸;
+</p>
+<p style="text-indent:2em;text-align:left;">· 附睾;
+</p>
+<p style="text-indent:2em;text-align:left;">· 精子管;
+</p>
+<p style="text-indent:2em;text-align:left;">· 前列腺;
+</p>
+<p style="text-indent:2em;text-align:left;">· 精囊。
+</p>
+<p style="text-indent:2em;text-align:left;">一名男子腹部底部也有骨盆底肌肉。它们不是性器官，但对男性的性幸福和性快感很重要。
+</p>
+                 <img src="{% static "assets/img/sexedu/11_1.png" %}"/>
+<p style="text-indent:2em;text-align:left;">男人站。重点是内部性器官。
+</p>
+                 <img src="{% static "assets/img/sexedu/11_2.png" %}"/>
+<p style="text-indent:2em;text-align:left;">男人的内部性器官是：1。睾丸，2。附睾，3。精子管，4。前列腺，5。精囊。
+</p>
+<h1 style="text-indent:2em;text-align:left;">睾丸
+</h1>
+<p style="text-indent:2em;text-align:left;">一个男人有2个睾丸：其中一个睾丸可能比另一个小，并且稍微低一点。
+</p>
+<p style="text-indent:2em;text-align:left;">睾丸位于阴囊中。
+</p>
+<p style="text-indent:2em;text-align:left;">它们产生数百万个精子细胞。
+</p>
+<h1 style="text-indent:2em;text-align:left;">附睾
+</h1>
+<p style="text-indent:2em;text-align:left;">一个男人有2个附睾。
+</p>
+<p style="text-indent:2em;text-align:left;">每个都连接到一个睾丸。
+</p>
+<p style="text-indent:2em;text-align:left;">精子细胞保留在睾丸中。他们也可以在那里进一步发展。
+</p>
+<h1 style="text-indent:2em;text-align:left;">精子管
+</h1>
+<p style="text-indent:2em;text-align:left;">一个男人有2个精子管。
+</p>
+<p style="text-indent:2em;text-align:left;">每一个都连接到一个附睾。
+</p>
+<p style="text-indent:2em;text-align:left;">他们将精子细胞运送到前列腺。
+</p>
+<h1 style="text-indent:2em;text-align:left;">前列腺
+</h1>
+<p style="text-indent:2em;text-align:left;">前列腺位于膀胱下方。这是草莓的大小。
+</p>
+<p style="text-indent:2em;text-align:left;">将流体添加到前列腺中的精子细胞中。液体和精子细胞一起构成精液。在射精期间，前列腺收缩并推出精液。膀胱的入口也同时收缩。这可以防止精液进入膀胱并阻止尿液泄漏到精液中。
+</p>
+<h1 style="text-indent:2em;text-align:left;">精囊
+</h1>
+<p style="text-indent:2em;text-align:left;">一个人有2个精囊。他们躺在前列腺旁边。它们为精子细胞增加了更多的液体。</p>
+
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    {% load staticfiles %}
+    <script src="{% static "assets/js/jquery-1.10.2.js" %}"></script>
+    <!-- Bootstrap Js -->
+    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
+
+    <!-- Metis Menu Js -->
+    <script src="{% static "assets/js/jquery.metisMenu.js" %}"></script>
+    <!-- Morris Chart Js -->
+    <script src="{% static "assets/js/morris/raphael-2.1.0.min.js" %}"></script>
+    <script src="{% static "assets/js/morris/morris.js" %}"></script>
+
+
+	<script src="{% static "assets/js/easypiechart.js" %}"></script>
+	<script src="{% static "assets/js/easypiechart-data.js" %}"></script>
+
+
+    <!-- Custom Js -->
+    <script src="{% static "assets/js/custom-scripts.js" %}"></script>
+
+
+</body>
+
+</html>

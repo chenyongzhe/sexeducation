@@ -1,0 +1,180 @@
+运行前先安装
+python 数据库驱动
+
+pip install pymysql
+
+
+安装Django 
+
+pip install Django
+
+
+
+导入sexeducation.sql数据库文件到本地mySQL数据库
+
+
+
+修改sexeducation\sexeducation目录下的setting.py配置文件
+
+找到
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sexeducation',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'HOST':'127.0.0.1',
+        'PORT': '3307',
+
+    }
+}
+
+修改对应mysql 主机账号密码和端口号  (我把MySQL端口号改为了3307)
+
+
+在项目根目录（即manage.py文件）
+执行
+python manage.py migrate
+
+再执行
+python manage.py runserver
+启动服务
+
+
+grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
+
+
+ uwsgi --http :8008 --chdir /home/cyz1276316543/Desktop/sexeducation --wsgi-file sexeducation/wsgi.py --master --processes 4 --threads 2 --stats 127.0.0.1:9192
+
+
+nginx 安装
+https://blog.csdn.net/huanbia/article/details/54630180
+
+
+wget http://nginx.org/download/nginx-1.5.6.tar.gz
+tar xf nginx-1.5.6.tar.gz
+cd nginx-1.5.6
+
+./configure --prefix=/usr/local/nginx
+make && make install
+
+
+
+三、关闭nignx
+
+　　查询nginx主进程号
+
+　　ps -ef | grep nginx
+
+　　从容停止   kill -QUIT 主进程号
+
+　　快速停止   kill -TERM 主进程号
+
+　　强制停止   kill -9 nginx
+
+
+uwsgi --ini myweb.ini  & /chen/nginx/sbin/nginx
+
+
+favicon.ico
+
+url(r'^favicon.ico$',RedirectView.as_view(url=r'/static/favicon.ico')),
+
+
+from django.views.generic.base import RedirectView
+
+
+
+https://www.cnblogs.com/wswang/p/5519101.html
+
+
+uwsgi.ini 文件
+
+[uwsgi]
+
+# Django-related settings
+
+socket   =127.0.0.1:8008
+
+# the base directory (full path)
+chdir           =/home/cyz1276316543/Desktop/sexeducation
+
+# Django s wsgi file
+module          = sexeducation.wsgi
+
+# process-related settings
+# master
+#master          = true
+
+# maximum number of worker processes
+processes       = 4
+
+# ... with appropriate permissions - may be needed
+# chmod-socket    = 664
+# clear environment on 
+daemonize   =uwsgi.log
+                            
+
+nginx.conf文件
+
+user  root;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+   sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+        #charset koi8-r;
+        charset utf-8;
+        #access_log  logs/host.access.log  main;
+
+        location / {
+            include     uwsgi_params;
+            uwsgi_pass 127.0.0.1:8008;
+            #uwsgi_read_timeout 2;
+            uwsgi_param UWSGI_CHDIR  /home/cyz1276316543/Desktop/sexeducation;
+            uwsgi_param UWSGI_SCRIPT sexeducation.wsgi;
+            #root   html;
+        }
+
+
+
+
+       location /static/ {
+            alias /home/cyz1276316543/Desktop/sexeducation/collect_static/;
+          }
+    location /favicon.ico {
+      alias /home/cyz1276316543/Desktop/sexeducation/collect_static/favicon.ico;
+
+         }
+
+
+
+
+    }
+
+}

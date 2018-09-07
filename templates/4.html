@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+    {% load staticfiles %}
+    <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <!-- Bootstrap Styles-->
+     {% load staticfiles %}
+
+    <link href="{% static "assets/css/bootstrap.css"  %}" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+
+    <link href="{% static "assets/css/font-awesome.css"  %}"  rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="{% static "assets/js/morris/morris-0.4.3.min.css" %}" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="{% static "assets/css/custom-styles.css"  %}"rel="stylesheet" />
+    <!-- Google Fonts-->
+  <style>
+        .page{
+            display: inline-block;
+            padding: 5px;
+            background-color: #4cae4c;
+            margin: 5px;
+
+        }
+        .isactive{
+            background-color: #5bc0de;
+
+        }
+        h1{
+          font-size:25px;
+            margin-top: 40px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Doe</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Today</em>
+                                    </span>
+                                </div>
+                                <div>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem Ipsum has been the industry's standard dummy text ever since the...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>Read All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-tasks">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 1</strong>
+                                        <span class="pull-right text-muted">60% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                            <span class="sr-only">60% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 2</strong>
+                                        <span class="pull-right text-muted">28% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100" style="width: 28%">
+                                            <span class="sr-only">28% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 3</strong>
+                                        <span class="pull-right text-muted">60% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                            <span class="sr-only">60% Complete (warning)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 4</strong>
+                                        <span class="pull-right text-muted">85% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%">
+                                            <span class="sr-only">85% Complete (danger)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Tasks</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-tasks -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-comment fa-fw"></i> New Comment
+                                    <span class="pull-right text-muted small">4 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                    <span class="pull-right text-muted small">12 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                    <span class="pull-right text-muted small">4 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-tasks fa-fw"></i> New Task
+                                    <span class="pull-right text-muted small">4 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                    <span class="pull-right text-muted small">4 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                         <li><a href="/login/"><i class="fa fa-user fa-fw"></i>登录</a>
+                        </li>
+                        <li><a href="/userinfor/"><i class="fa fa-user fa-fw"></i> 用户主页</a>
+                        </li>
+                         <li><a href="/register/"><i class="fa fa-user fa-fw"></i>注册</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+        </nav>
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+		<div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
+            <div class="sidebar-collapse" >
+                <ul class="nav" id="main-menu" >
+
+                    <li>
+                        <a  href="/"><i class="fa fa-search"></i> 搜索</a>
+                    </li>
+                    <li>
+                        <a href="/videoeducation"><i class="fa fa-youtube-play"></i> 视频教育</a>
+                    </li>
+					<li>
+                        <a href="/sent_article/"><i class="fa fa-pencil"></i>发表文章</a>
+                    </li>
+                    <li>
+                       <a   class="active-menu" href="/twjx/"><i class="fa fa-picture-o"></i>图文教育</a>
+                    </li>
+
+                    <li>
+                        <a href="table.html"><i class="fa fa-table"></i>栏目五</a>
+                    </li>
+                    <li>
+                        <a href="form.html"><i class="fa fa-edit"></i> 栏目六 </a>
+                    </li>
+
+
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap"></i>栏目七<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Second Level Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Second Level Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Second Level Link<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="empty.html"><i class="fa fa-fw fa-file"></i>栏目九</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+ {% load staticfiles %}
+   <h1 style="text-indent:2em;text-align:left;">4.乳房
+</h1>
+<p style="text-indent:2em;text-align:left;">每个乳房包括：
+</p>
+<p style="text-indent:2em;text-align:left;">乳房内的脂肪，乳腺和导管：
+</p>
+<p style="text-indent:2em;text-align:left;">· 乳腺：产生母乳的小器官;
+</p>
+<p style="text-indent:2em;text-align:left;">· 导管：将乳汁带向乳头的小管;
+</p>
+<p style="text-indent:2em;text-align:left;">乳房外面的乳头和乳晕：
+</p>
+<p style="text-indent:2em;text-align:left;">· 乳头：乳房中间的小旋钮;
+</p>
+<p style="text-indent:2em;text-align:left;">· 乳晕：乳头周围的黑眼圈。
+</p>
+                <img src="{% static "assets/img/sexedu/4_1.png" %}"/>
+<p style="text-indent:2em;text-align:left;">女人站。重点是乳房。
+</p>
+                <img src="{% static "assets/img/sexedu/4_2.png" %}"/>
+<p style="text-indent:2em;text-align:left;">内侧乳房的部分是：1。乳腺，2。管道。
+</p>
+                <img src="{% static "assets/img/sexedu/4_3.png" %}"/>
+<p style="text-indent:2em;text-align:left;">外面的乳房部分是：3。乳头，4。乳晕。
+</p>
+<h1 style="text-indent:2em;text-align:left;">乳房的功能
+</h1>
+<p style="text-indent:2em;text-align:left;">乳房有两个功能：
+</p>
+<p style="text-indent:2em;text-align:left;">1. 一个女人可以用母乳喂养她的宝宝。
+</p>
+<p style="text-indent:2em;text-align:left;">2. 乳头非常敏感。触摸或爱抚乳头可以给女人带来性快感。如果一个女人被唤醒，乳头会变硬。由于其他原因，乳头也会变硬。例如：如果女人感觉冷。
+</p>
+<h1 style="text-indent:2em;text-align:left;">乳房的类型
+</h1>
+<p style="text-indent:2em;text-align:left;">每个女人的乳房都不一样。乳房可以是小的或大的，圆形或略呈椭圆形。它们的外观对它们的运作方式并不重要。
+</p>
+                <img src="{% static "assets/img/sexedu/4_4.png" %}"/>
+<p style="text-indent:2em;text-align:left;">不同的乳房：小而尖的乳房
+</p>
+                <img src="{% static "assets/img/sexedu/4_5.png" %}"/>
+<p style="text-indent:2em;text-align:left;">不同的乳房：大乳房
+</p>
+                <img src="{% static "assets/img/sexedu/4_6.png" %}"/>
+<p style="text-indent:2em;text-align:left;">不同的乳房：中等大小的梨形（略呈椭圆形）乳房
+</p>
+                <img src="{% static "assets/img/sexedu/4_7.png" %}"/>
+<p style="text-indent:2em;text-align:left;">不同的乳房：中等大小的圆形乳房
+</p>
+              
+<h1 style="text-indent:2em;text-align:left;">怀孕期间的乳房
+</h1>
+<p style="text-indent:2em;text-align:left;">在怀孕期间，乳房准备生产母乳。他们：
+</p>
+<p style="text-indent:2em;text-align:left;">· 变得更大;
+</p>
+<p style="text-indent:2em;text-align:left;">· 变得更敏感，有时更痛苦;
+</p>
+<p style="text-indent:2em;text-align:left;">· 可能已经漏了一点母乳</p>
+
+
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    {% load staticfiles %}
+    <script src="{% static "assets/js/jquery-1.10.2.js" %}"></script>
+    <!-- Bootstrap Js -->
+    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
+
+    <!-- Metis Menu Js -->
+    <script src="{% static "assets/js/jquery.metisMenu.js" %}"></script>
+    <!-- Morris Chart Js -->
+    <script src="{% static "assets/js/morris/raphael-2.1.0.min.js" %}"></script>
+    <script src="{% static "assets/js/morris/morris.js" %}"></script>
+
+
+	<script src="{% static "assets/js/easypiechart.js" %}"></script>
+	<script src="{% static "assets/js/easypiechart-data.js" %}"></script>
+
+
+    <!-- Custom Js -->
+    <script src="{% static "assets/js/custom-scripts.js" %}"></script>
+
+
+</body>
+
+</html>
