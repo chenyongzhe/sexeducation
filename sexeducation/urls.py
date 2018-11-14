@@ -42,7 +42,6 @@ urlpatterns = [
     path('insert_comment/',views.insert_comment),
     path('user/',views.showuser),
     path('zhan/',views.zhan),
-    path('zhifu/',views.zhifu),
     path('gettip/',views.gettip),
 
 
