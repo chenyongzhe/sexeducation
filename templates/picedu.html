@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html >
+<html xmlns="http://www.w3.org/1999/html">
 
 <head>
     {% load staticfiles %}
     <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Home</title>
     <!-- Bootstrap Styles-->
      {% load staticfiles %}
@@ -19,7 +19,7 @@
     <!-- Custom Styles-->
     <link href="{% static "assets/css/custom-styles.css"  %}"rel="stylesheet" />
     <!-- Google Fonts-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
      <style>
         .page{
             display: inline-block;
@@ -38,7 +38,7 @@
 
 <body>
     <div id="wrapper">
-        <nav class="navbar navbar-default top-navbar" role="navigation">
+        <nav class="navbar navbar-default top-navbar" role="navigation" >
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
+                <a class="navbar-brand" href="/"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -267,7 +267,7 @@
                 <ul class="nav" id="main-menu" >
 
                     <li>
-                        <a " href="/"><i class="fa fa-search"></i> 搜索</a>
+                        <a  href="/"><i class="fa fa-search"></i> 搜索</a>
                     </li>
                     <li>
                         <a href="/videoeducation"><i class="fa fa-youtube-play"></i> 视频教育</a>
@@ -326,8 +326,28 @@
         <div id="page-wrapper">
             <div id="page-inner">
 
+
+       <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-header">
+                             <small>基于web2.0性教育系统</small>
+                        </h1>
+						<ol class="breadcrumb">
+  <li><a href="/">文章发表</a></li>
+  <li><a href="/sent_article">文章发表</a></li>
+  <li class="active"><a href="/twjx">图文教育</a></li>
+  <li><a href="/videoeducation">视频教育</a></li>
+
+</ol>
+                    </div>
+                </div>
+
+
+
+
+
                  <style>
-.box{width:70%; text-align:center; font-szie:18px;}
+.box{width:70%; text-align:center; font-szie:18px; border-radius: 4px}
 .box img {width:100%;}
 .row {margin-top: 40px}
 </style>
@@ -339,12 +359,22 @@
        <div class="row">
            <div class="col-md-4  ">
                <div class="box">
-              <a href="/twjx/manbody/"><img src="{% static "assets/img/sexedu/manbody.png" %}"/>男生的身体</a>
+
+              <a   href="/twjx/manbody/">
+                   <div class="container-fluid" style="background-color:#22CCFE;border-radius: 4px">
+                  <img class="img-circle" src="{% static "assets/img/sexedu/manbody.png" %}"/>
+                   </div>男生的身体</a>
+                   </div>
                </div>
-           </div>
+
            <div class="col-md-4  ">
                <div class="box">
-                  <a href="/twjx/womanbody/"><img src="{% static "assets/img/sexedu/womanbody.png" %}"/>女生的身体</a>
+
+                  <a href="/twjx/womanbody/">
+                      <div class="container-fluid" style="background-color:#22CCFE;border-radius: 4px">
+                      <img class="img-circle" src="{% static "assets/img/sexedu/womanbody.png" %}"/>
+                      </div>女生的身体</a>
+
                </div>
            </div>
        </div>
@@ -370,8 +400,6 @@
     <script src="{% static "assets/js/morris/morris.js" %}"></script>
 
 
-	<script src="{% static "assets/js/easypiechart.js" %}"></script>
-	<script src="{% static "assets/js/easypiechart-data.js" %}"></script>
 
 
     <!-- Custom Js -->

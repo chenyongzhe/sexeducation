@@ -39,6 +39,11 @@ urlpatterns = [
     path('twjx/',views.picedu),
     path('twjx/manbody/',views.manbody),
     path('twjx/womanbody/',views.womanbody),
+    path('insert_comment/',views.insert_comment),
+    path('user/',views.showuser),
+    path('zhan/',views.zhan),
+    path('zhifu/',views.zhifu),
+    path('gettip/',views.gettip),
 
 
     #url(r'^favicon.ico$',RedirectView.as_view(url=r'/static/favicon.ico')),

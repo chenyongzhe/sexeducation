@@ -5,7 +5,7 @@
     {% load staticfiles %}
     <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Home</title>
     <!-- Bootstrap Styles-->
      {% load staticfiles %}
@@ -19,7 +19,7 @@
     <!-- Custom Styles-->
     <link href="{% static "assets/css/custom-styles.css"  %}"rel="stylesheet" />
     <!-- Google Fonts-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
      <style>
         .page{
             display: inline-block;
@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
+                <a class="navbar-brand" href="/"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -325,6 +325,23 @@
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
             <div id="page-inner">
+
+              <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-header">
+                             <small>基于web2.0性教育系统</small>
+                        </h1>
+						<ol class="breadcrumb">
+  <li><a href="/">文章发表</a></li>
+  <li><a href="/sent_article">文章发表</a></li>
+  <li class="active"><a href="/twjx">图文教育</a></li>
+  <li><a href="/videoeducation">视频教育</a></li>
+
+</ol>
+                    </div>
+                </div>
+
+
       <h2>男生的身体</h2>
                 <br>
                 <br>
@@ -336,25 +353,37 @@
        <div class="row">
            <div class="col-md-4  ">
                <div class="box">
-              <a href="/9.html/"><img src="{% static "assets/img/sexedu/mantype.png" %}"/><span style="margin-top: 40px">男生的身体类型</span></a>
+              <a href="/9.html/">
+                  <div class="container-fluid" style="background-color:#22CCFE;border-radius: 4px">
+                  <img class="img-circle" src="{% static "assets/img/sexedu/mantype.png" %}"/>
+                  </div>男生的身体类型</a>
                        </div>
                </div>
 
            <div class="col-md-4  ">
                <div class="box">
-                      <a href="/10.html/"><img src="{% static "assets/img/sexedu/manvisible.png" %}"/>男生的外生殖器官</a>
+                      <a href="/10.html/">
+                          <div class="container-fluid" style="background-color:#22CCFE;border-radius: 4px">
+                          <img class="img-circle" src="{% static "assets/img/sexedu/manvisible.png" %}"/>
+                          </div>男生的外生殖器官</a>
                </div>
            </div>
        </div>
                 <div class="row">
            <div class="col-md-4  ">
                 <div class="box">
-                       <a href="/11.html/"><img src="{% static "assets/img/sexedu/maninternal.png" %}"/>男生的内生殖器官</a>
+                       <a href="/11.html/">
+                           <div class="container-fluid" style="background-color:#22CCFE;border-radius: 4px">
+                           <img class="img-circle" src="{% static "assets/img/sexedu/maninternal.png" %}"/>
+                           </div>男生的内生殖器官</a>
                 </div>
            </div>
            <div class="col-md-4  ">
                <div class="box">
-                    <a href="/12.html/"><img src="{% static "assets/img/sexedu/zj.png" %}"/>精液的产生</a>
+                    <a href="/12.html/">
+                        <div class="container-fluid" style="background-color:#22CCFE;border-radius: 4px">
+                        <img class="img-circle" src="{% static "assets/img/sexedu/zj.png" %}"/>
+                        </div>精液的产生</a>
                </div>
            </div>
        </div>
@@ -362,12 +391,18 @@
                 <div class="row">
            <div class="col-md-4  ">
                <div class="box">
-                     <a href="/13.html/"><img src="{% static "assets/img/sexedu/mangl.png" %}"/>割礼</a>
+                     <a href="/13.html/">
+                         <div class="container-fluid" style="background-color:#22CCFE;border-radius: 4px">
+                         <img class="img-circle" src="{% static "assets/img/sexedu/mangl.png" %}"/>
+                         </div>割礼</a>
                </div>
            </div>
            <div class="col-md-4  ">
               <div class="box">
-                  <a href="/8.html/"><img src="{% static "assets/img/sexedu/womanbody.png" %}"/>骨盆底肌肉</a>
+                  <a href="/8.html/">
+                      <div class="container-fluid" style="background-color:#22CCFE;border-radius: 4px">
+                      <img class="img-circle" src="{% static "assets/img/sexedu/womanbody.png" %}"/>
+                      </div>骨盆底肌肉</a>
                </div>
            </div>
        </div>
@@ -393,8 +428,7 @@
     <script src="{% static "assets/js/morris/morris.js" %}"></script>
 
 
-	<script src="{% static "assets/js/easypiechart.js" %}"></script>
-	<script src="{% static "assets/js/easypiechart-data.js" %}"></script>
+
 
 
     <!-- Custom Js -->

@@ -5,8 +5,8 @@
     {% load staticfiles %}
     <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>{{  article.title }}</title>
     <!-- Bootstrap Styles-->
      {% load staticfiles %}
 
@@ -19,6 +19,7 @@
     <!-- Custom Styles-->
     <link href="{% static "assets/css/custom-styles.css"  %}"rel="stylesheet" />
     <!-- Google Fonts-->
+
     <style>
         .page{
             display: inline-block;
@@ -30,6 +31,94 @@
         .isactive{
             background-color: #5bc0de;
         }
+        #page-wrapper{
+    overflow-x: hidden;
+    }
+
+
+         *{ margin:0; padding:0; list-style:none;outline-style: none;}
+
+    .w500{
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+        overflow: hidden;}
+    .list{}
+    .list li{
+        padding:10px 0;
+        border-bottom:1px solid #ccc;
+        overflow: hidden;
+        line-height: 180%;
+    }
+    .send{padding:10px 0;}
+    .send textarea{
+        width: 100%;
+        border-radius:5px;
+        padding: 5px}
+    .send a.btn{
+        padding:5px 20px;
+        display: block;
+        color: #fff;
+        background: #ff4c51;
+        border-radius: 3px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+        float: right;
+        margin-top: 5px;
+
+    }
+    .send a.btn:hover{
+        background: #c53d41;
+        -webkit-transition:all 0.2s linear;
+        -moz-transition:all 0.2s linear;
+        -ms-transition:all 0.2s linear;
+        -o-transition:all 0.2s linear;
+        transition:all 0.2s linear;
+    }
+    .send .faces{
+        width: 25px;
+        height:25px;
+        display: block;
+        float: left;
+        background-image: url(/static/image/faces.png) ;
+        background-position: 0 0;
+        margin-right:5px;
+        margin-top:5px;
+    }
+    .send .on{
+        background-position: left bottom;
+    }
+    .showit{
+        display: none;
+    }
+    .face{
+        overflow: hidden;
+        width: 97%;
+        }
+    .face li{
+        width: 23px;
+        height: 23px;
+        margin:4px;
+        float: left;
+    }
+    #content {
+        width: 98%;
+        height: 150px;
+        float: left;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 3px 10px;
+        overflow:scroll;
+    }
+
+
+     .plq{border: 2px solid #dddddd; }
+
+
+
+
     </style>
 
 
@@ -45,7 +134,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
+                <a class="navbar-brand" href="/"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -333,9 +422,11 @@
                              <small>基于web2.0性教育系统</small>
                         </h1>
 						<ol class="breadcrumb">
-  <li><a href="#">Home</a></li>
-  <li><a href="#">Library</a></li>
-  <li class="active">Data</li>
+  <li><a href="/">首页</a></li>
+  <li><a href="/twjx">图文教育</a></li>
+  <li class="active">文章</li>
+  <li><a href="/sent_article">文章发表</a></li>
+  <li><a href="/videoeducation">视频教育</a></li>
 </ol>
                     </div>
                 </div>
@@ -367,7 +458,91 @@
             </div>
 
 
+             <div class="row">
+                 <div class="col-xs-6">
+                    <i class="fa fa-comment-o" aria-hidden="true"  style="float: right;cursor: pointer;"></i>
 
+                 </div>
+                 <div class="col-xs-6">
+             <i class="{{ myclass }}" id="zhan" aria-hidden="true" style="float: right;cursor: pointer;">{{ supportcount }}</i>
+
+                 </div>
+             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+             <div class="showit plq" >
+               <p>发表评论</p>
+              <div class="row" >
+                  <div class="col-md-9">
+                <div class="send">
+                      <div id="content"   cols="30" rows="2"  class="idcommment" contenteditable="true"  myid="{{ article.article_id }}">{{ comment_cookie | safe }}</div> <!-- style="display: none;" -->
+                            <a href="javascript:;" class="btn">发布</a>
+                            <a style="border-radius: 15px" href="javascript:;" class='faces on'></a>
+
+                </div>
+                  </div>
+              </div>
+                 <div class="face w500 showit"></div>
+               </div>
+
+
+
+                <div class="commentss">
+                <br>
+                <br>
+                <span style="font-size: 30px">评论区</span>
+                <br>
+                <br>
+                    {% for co in comment %}
+                        <div class="row">
+                          <div class="col-md-12" style="border: 2px solid #dddddd;">
+                        <a href="/user/?user_id={{ co.user_id }}">{{ co.nickname }}</a>
+                        <br>
+                        <div> {{ co.comment_content | safe }}</div>
+                        <br>
+                          </div>
+                        </div>
+                    {% endfor %}
+                </div>
 
 
 
@@ -386,26 +561,389 @@
     <!-- JS Scripts-->
     <!-- jQuery Js -->
     {% load staticfiles %}
-    <script src="{% static "assets/js/jquery-1.10.2.js" %}"></script>
+    <script src="{% static "assets/js/jquery-2.1.4.min.js" %}"></script>
     <!-- Bootstrap Js -->
     <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
 
     <!-- Metis Menu Js -->
     <script src="{% static "assets/js/jquery.metisMenu.js" %}"></script>
     <!-- Morris Chart Js -->
-    <script src="{% static "assets/js/morris/raphael-2.1.0.min.js" %}"></script>
-    <script src="{% static "assets/js/morris/morris.js" %}"></script>
-
-
-	<script src="{% static "assets/js/easypiechart.js" %}"></script>
-	<script src="{% static "assets/js/easypiechart-data.js" %}"></script>
+    <script src="{% static "assets/js/emoji-list-with-image.js" %}"></script>
+    <script src="{% static "assets/js/emoji.js" %}"></script>
+    <script src="{% static "assets/js/punycode.min.js" %}"></script>
 
 
     <!-- Custom Js -->
     <script src="{% static "assets/js/custom-scripts.js" %}"></script>
+    
+ <script>
+     var isopen=0
+     $('.fa-comment-o').click(function () {
+         if(isopen==0){
+          $('.plq').removeClass('showit');
+          isopen=1;
+          }else {
+             $('.plq').addClass('showit');
+             isopen=0;
+         }
+     });
 
+
+
+
+
+
+
+  $('#zhan').click(function () {
+         var z=$("#zhan").attr("class");
+        //alert(z);
+        if(z.indexOf("fa-thumbs-o-up") >= 0){
+        //包含；
+            $.ajax({
+             url:'/zhan/',
+             type:'POST',
+             data:{'add':"1",'article_id':$(".idcommment").attr("myid")},
+             success:function (data) {
+                 var obj=JSON.parse(data);
+                 if(obj.islogin=='True'){
+                     if(obj.state){
+                          $('#zhan').removeClass('fa-thumbs-o-up');
+                          $('#zhan').addClass('fa-thumbs-up');
+                          $('#zhan').text(obj.count)
+                    //alert("点赞成功");
+                    //location.reload();
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+
+                 }else{
+                     alert('您还没登录，点击OK即将登录');
+                     window.location.href="/login";
+                 }
+
+
+                 }
+
+
+         });
+
+       }else{
+
+            $.ajax({
+             url:'/zhan/',
+             type:'POST',
+             data:{'add':"0",'article_id':$(".idcommment").attr("myid")},
+             success:function (data) {
+                 var obj=JSON.parse(data);
+                 if(obj.islogin=='True'){
+                     if(obj.state){
+                           $('#zhan').removeClass('fa-thumbs-up');
+                           $('#zhan').addClass('fa-thumbs-o-up');
+                           $('#zhan').text(obj.count)
+                    //alert("点赞成功");
+                    //location.reload();
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+
+                 }else{
+                     alert('您还没登录，点击OK即将登录');
+                     window.location.href="/login";
+                 }
+
+
+                 }
+
+
+         });
+
+
+
+
+
+
+
+
+        }
+
+
+
+  });   
+     
+     
+ </script>   
+    
+    
+<script>
+        $('.sent_button').click(function () {
+             if($('.mycomment').val()==""){
+                alert("不能发表空评论");
+             }else{
+                $.ajax({
+             url:'/insert_comment/',
+             type:'POST',
+             data:{'mycomment':$('.mycomment').val(),'article_id':$(".mycomment").attr("id")},
+             success:function (data) {
+                 var obj=JSON.parse(data);
+                 if(obj.islogin=='True'){
+                     if(obj.state){
+                    alert("评论成功");
+                    location.reload();
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+
+                 }else{
+                     alert('您还没登录，点击OK即将登录');
+                     window.location.href="/login";
+                 }
+
+
+                 }
+
+
+         })
+
+             }
+
+
+         });
+    </script>
+
+<script>
+
+
+
+
+
+
+
+
+
+
+       $('.send .faces').click( function () {
+
+           if (lanren.cur == 0) {
+               $('.faces').removeClass('on');
+               lanren.cur = 1;
+               $('.face').removeClass('showit');
+
+
+
+
+
+
+
+
+
+
+
+
+
+           } else if (lanren.cur == 1) {
+               $('.faces').addClass('on');
+               $('.face').addClass('showit');
+               lanren.cur = 0;
+           }
+       });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+<script>
+
+
+
+   $('.send a.btn').on('click',function(){
+
+      if($('#content').html()==""){
+                alert("不能发表空评论");
+             }else{
+                $.ajax({
+             url:'/insert_comment/',
+             type:'POST',
+             data:{'mycomment':$('#content').html(),'article_id':$("#content").attr("myid")},
+             success:function (data) {
+                 var obj=JSON.parse(data);
+                 if(obj.islogin=='True'){
+                     if(obj.state){
+                    alert("评论成功");
+                    location.reload();
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+
+                 }else{
+                     alert('您还没登录，点击OK即将登录');
+                     window.location.href="/login";
+                 }
+
+
+                 }
+
+
+         })
+
+             }
+
+
+
+
+
+
+
+   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  function renderEmoji()
+{
+var emos = getEmojiList()[0];//此处按需是否生成所有emoji
+            var html = '<div >常用表情</div><ul>';
+            for (var j = 0; j < emos.length; j++) {
+                var emo = emos[j];
+                var data = 'data:image/png;base64,' + emo[2];
+                if (j % 20 == 0) {
+                    html += '<li class="">';
+                } else {
+                    html += '<li>';
+
+                }
+                html += '<img style="width: 20px;height: 20px;" src="' + data + '"  unicode16="' + emo[1] + '" /></li>';
+
+            }
+
+   $('.face').html(html);
+
+
+//.......
+}
+renderEmoji();
+  var lanren = {
+           face: function (_this) {
+               var target = $(_this).html();
+               if (target.length < 5) {
+                   $(_this).html("<img src='/static/image/face/" + target + ".gif' />")
+               }
+           },
+           faceimg: '',
+           imgs: function (min, max) {
+               for (i = min; i < max; i++) {  //通过循环创建60个表情，可扩展
+                   lanren.faceimg += '<li><a href="javascript:void(0)"><img  src="/static/image/face/' + (i + 1) + '.gif" face="<emt>' + (i + 1) + '</emt>"/></a></li>';
+               }
+               ;
+           },
+           cur: 0
+       }
+
+
+       lanren.imgs(0, 60);
+
+       $('.face').append(lanren.faceimg);
+
+       $('.list li emt').each(function () {
+           lanren.face(this);
+       });
+
+   $('.face li img').click( function () {
+
+           var target = $(this).prop("outerHTML");
+           var pre = $('#content').html();//可以作为显示用
+           var showimg = target;
+           //alert(showimg);
+           $('#content').html(pre + showimg);//target对应showimg
+           //$(this).parents('.face').hide(0);
+          // $('.send .faces').removeClass('on');
+           $('.faces').addClass('on');
+           $('.face').addClass('showit');
+
+             lanren.cur = 0;
+           // lanren.face(this);
+       });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
 
 </body>
 
-</html>
 </html>

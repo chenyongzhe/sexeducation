@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title></title>
 	<!-- Bootstrap Styles-->
      {% load staticfiles %}
@@ -301,7 +301,25 @@
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
+        <br>
             <div id="page-inner">
+            <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-header">
+                             <small>基于web2.0性教育系统</small>
+                        </h1>
+						<ol class="breadcrumb">
+  <li><a href="/">首页</a></li>
+  <li><a href="/sent_article">文章发表</a></li>
+  <li><a href="/twjx">图文教育</a></li>
+  <li class="active">视频教育</li>
+
+</ol>
+                    </div>
+                </div>
+
+
+
 			 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
@@ -336,6 +354,7 @@
             </div>
          <!-- /. PAGE WRAPPER  -->
         </div>
+    </div>
      <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
@@ -347,6 +366,9 @@
     <script src="{% static "assets/js/jquery.metisMenu.js"  %}"></script>
       <!-- Custom Js -->
     <script src="{% static "assets/js/custom-scripts.js"  %}"></script>
- 
+
+
+
+
 </body>
 </html>

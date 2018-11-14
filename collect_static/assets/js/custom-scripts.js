@@ -59,12 +59,12 @@
                 labels: ['Series A', 'Series B'],
 				 barColors: [
     '#A6A6A6','#1cc09f',
-    '#A8E9DC' 
+    '#A8E9DC'
   ],
                 hideHover: 'auto',
                 resize: true
             });
-	 
+
 
 
             /* MORRIS DONUT CHART
@@ -83,7 +83,7 @@
                 }],
 				   colors: [
     '#A6A6A6','#1cc09f',
-    '#A8E9DC' 
+    '#A8E9DC'
   ],
                 resize: true
             });
@@ -172,8 +172,8 @@
 					  { y: '2023', a: 145, b: 155},
 					  { y: '2024', a: 160, b: 195}
 				],
-            
-				 
+
+
       xkey: 'y',
       ykeys: ['a', 'b'],
       labels: ['Total Income', 'Total Outcome'],
@@ -184,10 +184,10 @@
       pointFillColors:['#ffffff'],
       pointStrokeColors: ['black'],
       lineColors:['gray','#1cc09f']
-	  
+
             });
-           
-     
+
+
         },
 
         initialization: function () {
@@ -216,3 +216,15 @@
     });
 
 }(jQuery));
+
+
+var system ={};
+var p = navigator.platform;
+system.win = p.indexOf("Win") == 0;
+system.mac = p.indexOf("Mac") == 0;
+system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+if(system.win||system.mac||system.xll){//如果是电脑跳转到
+
+       }else{  //如果是手机,跳转到
+             $('#page-inner').css('margin-top','30px');
+       }

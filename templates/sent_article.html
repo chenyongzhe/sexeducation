@@ -5,7 +5,7 @@
     {% load staticfiles %}
     <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Home</title>
     <!-- Bootstrap Styles-->
      {% load staticfiles %}
@@ -19,7 +19,7 @@
     <!-- Custom Styles-->
     <link href="{% static "assets/css/custom-styles.css"  %}"rel="stylesheet" />
     <!-- Google Fonts-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
      <style>
         .page{
             display: inline-block;
@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
+                <a class="navbar-brand" href="/"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -378,8 +378,7 @@
     <script src="{% static "assets/js/morris/morris.js" %}"></script>
 
 
-	<script src="{% static "assets/js/easypiechart.js" %}"></script>
-	<script src="{% static "assets/js/easypiechart-data.js" %}"></script>
+
 
 
     <!-- Custom Js -->
@@ -391,7 +390,7 @@
              type:'POST',
              data:{'title':$('.article_title').val(),'content':$('.article_content').val()},
              success:function (data) {
-                 var obj=JSON.parse(data)
+                 var obj=JSON.parse(data);
                  if(obj.state){
                     alert("发表成功");
                  }

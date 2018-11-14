@@ -132,3 +132,19 @@ STATICFILES_DIRS=(
     os.path.join(BASE_DIR,'static'),
     #os.path.join(BASE_DIR,'article','statics')
 )
+
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+             "PASSWORD": "123456",
+        },
+    },
+}
+
+ALIPAY_APPID="2016092200568182"
+ALIPAY_URL = 'https://openapi.alipaydev.com/gateway.do?'

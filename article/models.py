@@ -14,6 +14,7 @@ class Article(models.Model):
     content = models.TextField(blank=True, null=True)
     type = models.ForeignKey('Type', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey('ArticleUserinfor', models.DO_NOTHING, blank=True, null=True)
+    supportcount = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = True
@@ -25,6 +26,7 @@ class ArticleUserinfor(models.Model):
     password = models.CharField(max_length=11)
     email = models.CharField(max_length=22, blank=True, null=True)
     phone_number = models.BigIntegerField(blank=True, null=True)
+    nickname = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         managed = True
@@ -97,6 +99,16 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
+class Comment(models.Model):
+    article = models.ForeignKey(Article, models.DO_NOTHING, blank=True, null=True)
+    comment_content = models.TextField()
+    user = models.ForeignKey(ArticleUserinfor, models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'comment'
+
+
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
     object_id = models.TextField(blank=True, null=True)
@@ -139,6 +151,15 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
+
+
+class Support(models.Model):
+    user_id = models.IntegerField(blank=True, null=True)
+    article_id = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'support'
 
 
 class Type(models.Model):

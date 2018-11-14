@@ -5,7 +5,7 @@
     {% load staticfiles %}
     <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <title>Home</title>
     <!-- Bootstrap Styles-->
      {% load staticfiles %}
@@ -41,6 +41,191 @@
     <script type="text/javascript" src="{% static "assets/js/clock/functions.js"  %}" charset="utf-8"></script>
 
 
+
+
+
+
+
+
+    <script type="text/javascript">
+        //测试用的数据，这里可以用AJAX获取服务器数据
+        var test_list = [""];
+        var old_value = "";
+        var highlightindex = -1;   //高亮
+        //自动完成
+        function AutoComplete(auto, search, mylist) {
+            if ($("#" + search).val() != old_value || old_value == "") {
+                var autoNode = $("#" + auto);   //缓存对象（弹出框）
+                var carlist = new Array();
+                var n = 0;
+                old_value = $("#" + search).val();
+                for (i in mylist) {
+                    if (mylist[i].indexOf(old_value) >= 0) {
+                        carlist[n++] = mylist[i];
+                    }
+                }
+                if (carlist.length == 0) {
+                    autoNode.hide();
+                    return;
+                }
+                autoNode.empty();  //清空上次的记录
+                for (i in carlist) {
+                    var wordNode = carlist[i];   //弹出框里的每一条内容
+                    var newDivNode = $("<div>").attr("id", i);    //设置每个节点的id值
+                    newDivNode.attr("style", "font:14px/25px arial;height:25px;padding:0 8px;cursor: pointer;background-color: #FFFFFF;");
+                    newDivNode.html(wordNode).appendTo(autoNode);  //追加到弹出框
+                    //鼠标移入高亮，移开不高亮
+                    newDivNode.mouseover(function () {
+                        if (highlightindex != -1) {        //原来高亮的节点要取消高亮（是-1就不需要了）
+                            autoNode.children("div").eq(highlightindex).css("background-color", "white");
+                        }
+                        //记录新的高亮节点索引
+                        highlightindex = $(this).attr("id");
+                        $(this).css("background-color", "#ebebeb");
+                    });
+                    newDivNode.mouseout(function () {
+                        $(this).css("background-color", "white");
+                    });
+                    //鼠标点击文字上屏
+                    newDivNode.click(function () {
+                        //取出高亮节点的文本内容
+                        var comText = autoNode.hide().children("div").eq(highlightindex).text();
+                        highlightindex = -1;
+                        //文本框中的内容变成高亮节点的内容
+                        $("#" + search).val(comText);
+                    })
+                    if (carlist.length > 0) {    //如果返回值有内容就显示出来
+                        autoNode.show();
+                    } else {               //服务器端无内容返回 那么隐藏弹出框
+                        autoNode.hide();
+                        //弹出框隐藏的同时，高亮节点索引值也变成-1
+                        highlightindex = -1;
+                    }
+                }
+            }
+            //点击页面隐藏自动补全提示框
+            document.onclick = function (e) {
+                var e = e ? e : window.event;
+                var tar = e.srcElement || e.target;
+                if (tar.id != search) {
+                    if ($("#" + auto).is(":visible")) {
+                        $("#" + auto).css("display", "none")
+                    }
+                }
+            }
+        }
+        $(function () {
+            old_value = $("#search_text").val();
+            $("#search_text").focus(function () {
+                if ($("#search_text").val() == "") {
+                    AutoComplete("auto_div", "search_text", test_list);
+                }
+            });
+            $("#search_text").keyup(function () {
+
+
+                $.ajax({
+             url:'/gettip/',
+             type:'POST',
+             data:{'key':$('#search_text').val()},
+             success:function (data) {
+                 var obj=JSON.parse(data);
+
+                     if(obj.state){
+                    //alert("评论成功");
+                   // location.reload();
+                         var rs=obj.result
+                         test_list=rs.split("//")
+                         //test_list[0]="aa";
+                         //test_list[1]=rl;
+                         if(test_list.length>10){
+                             var ttlist=[];
+                             for(i=0;i<10;i++){
+                                 ttlist[i]=test_list[i];
+                             }
+                             AutoComplete("auto_div", "search_text", ttlist);
+                         }else {
+                              AutoComplete("auto_div", "search_text", test_list);
+                         }
+
+
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+
+                 }
+
+
+
+
+
+         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                //AutoComplete("auto_div", "search_text", test_list);
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </head>
 
 <body>
@@ -66,7 +251,7 @@
                             <a href="#">
                                 <div>
                                     <strong>John Doe</strong>
-                                    <span class="pull-right text-muted">
+                                    <span class="pull-right text-muted" >
                                         <em>Today</em>
                                     </span>
                                 </div>
@@ -288,7 +473,7 @@
                     </li>
                     
                     <li>
-                        <a href="table.html"><i class="fa fa-table"></i>栏目五</a>
+                        <a href="/zhifu/"><i class="fa fa-table"></i>关于我们</a>
                     </li>
                     <li>
                         <a href="form.html"><i class="fa fa-edit"></i> 栏目六 </a>
@@ -341,53 +526,68 @@
                              <small>基于web2.0性教育系统</small>
                         </h1>
 						<ol class="breadcrumb">
-  <li><a href="#">Home</a></li>
-  <li><a href="#">Library</a></li>
-  <li class="active">Data</li>
+  <li class="active">首页</li>
+  <li><a href="/sent_article">文章发表</a></li>
+  <li><a href="/twjx">图文教育</a></li>
+  <li><a href="/videoeducation">视频教育</a></li>
+
 </ol>
                     </div>
                 </div>
+
+                            <div class="search">
                             <div class="row">
-                               
+
+
+
+
 
                                           <form action="/s/" action="GET">
                                              <div class="col-md-9 col-sm-9 col-xs-9">
-                                            <input type="text" class="form-control" name="keyword" placeholder="输入关键词" >
-                                               </div>
+
+                                            <input type="text" class="form-control" name="keyword" id="search_text" placeholder="输入关键词" autocomplete="off" >
+
+                                             </div>
                                                <div class="col-md-1 col-sm-1 col-xs-1">
                                                      <!-- Buttons -->
                                                   <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                                               </div >
+                                               </div>
+
+
+
+
                                        </form>
                                 
 
                              </div>
 
                             <div class="row">
-                               <div class="col-md-3">
+                               <div class="col-md-2">
                                 <span> 热门搜索</span>
 
                                </div>
-                               <div class="col-md-2">
-                                <a style="color: red" href="#"><i style="margin-left: 15px" class="fa-li fa fa-spinner fa-spin"></i>男生</a>
+                               <div class="col-xs-3">
+                                <a style="color: red; margin-left: 25px" href="/s?keyword=男生"><i style="margin-left: 35px" class="fa-li fa fa-spinner fa-spin"></i>男生</a>
 
                                </div>
-                               <div class="col-md-2">
-                                <a style="color: red" href="#"><i style="margin-left: 15px" class="fa-li fa fa-spinner fa-spin"></i>女生</a>
+                               <div class="col-xs-3">
+                                <a style="color: red" href="/s?keyword=女生" style="margin-left: 20px"><i style="margin-left: 15px" class="fa-li fa fa-spinner fa-spin"></i>女生</a>
 
                                </div>
-                               <div class="col-md-2">
-                                <a style="color: red" href="#"><i style="margin-left: 15px" class="fa-li fa fa-spinner fa-spin"></i>性教育</a>
+                               <div class="col-xs-3">
+                                <a style="color: red" href="/s?keyword=性教育"><i style="margin-left: 15px" class="fa-li fa fa-spinner fa-spin"></i>性教育</a>
 
                                </div>
                             </div>
                 
-				            <br>
+
+                                <div id="auto_div" style="border: 2px solid #FFFFFF;">
+                                </div>
+                            </div>
+
                             <br>
                             <br>
-
-
-
+                            <br>
 
             <div class="row">
 
@@ -488,17 +688,16 @@
 	 
     <!-- Metis Menu Js -->
     <script src="{% static "assets/js/jquery.metisMenu.js" %}"></script>
-    <!-- Morris Chart Js -->
-    <script src="{% static "assets/js/morris/raphael-2.1.0.min.js" %}"></script>
-    <script src="{% static "assets/js/morris/morris.js" %}"></script>
+
 	
 	
-	<script src="{% static "assets/js/easypiechart.js" %}"></script>
-	<script src="{% static "assets/js/easypiechart-data.js" %}"></script>
+
 	
 	
     <!-- Custom Js -->
     <script src="{% static "assets/js/custom-scripts.js" %}"></script>
+
+
 
 
 </body>

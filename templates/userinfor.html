@@ -5,7 +5,7 @@
     {% load staticfiles %}
     <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>{{ user.username }}的主页</title>
     <!-- Bootstrap Styles-->
      {% load staticfiles %}
@@ -45,7 +45,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
+                <a class="navbar-brand" href="/"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -325,10 +325,31 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                    <p class="navbar-text">欢迎{{ user.username }}</p>
+                    <p class="navbar-text">欢迎{{ user.nickname }}</p>
                     </div>
                 </div>
 
+               <div class="row">
+
+			  <div class="col-md-6">
+			     <div class="panel panel-default">
+				   <div class="panel-heading">
+				      {{ user.nickname }}发表所有的文章
+				    </div>
+
+							<div class="panel-body">
+								{% for item in myarticle %}
+								<div class="alert alert-info">
+									<strong></strong> <a href="/article/?id={{ item.article_id }}">{{ item.title}}</a>
+								</div>
+                                {% endfor %}
+
+							</div>
+                 </div>
+			  </div>
+
+
+            </div>
 
 
 
@@ -352,8 +373,6 @@
     <script src="{% static "assets/js/morris/morris.js" %}"></script>
 
 
-	<script src="{% static "assets/js/easypiechart.js" %}"></script>
-	<script src="{% static "assets/js/easypiechart-data.js" %}"></script>
 
 
     <!-- Custom Js -->

@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>{{ title }}</title>
     <!-- Bootstrap Styles-->
     {% load staticfiles %}
     <link href="{% static "assets/css/bootstrap.css"  %}" rel="stylesheet" />
@@ -15,7 +15,7 @@
     <!-- Custom Styles-->
     <link href="{% static "assets/css/custom-styles.css"  %}" rel="stylesheet" />
     <!-- Google Fonts-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
      <style>
         .page{
             display: inline-block;
@@ -42,7 +42,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
+                <a class="navbar-brand" href="/"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -327,18 +327,31 @@
                 <br>
                 <br>
                 <br>
+         <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-header">
+                             <small>基于web2.0性教育系统</small>
+                        </h1>
+						<ol class="breadcrumb">
+  <li><a href="/">首页</a></li>
+  <li><a href="/sent_article">文章发表</a></li>
+  <li><a href="/twjx">图文教育</a></li>
+  <li class="active">视频教育</li>
 
+</ol>
+                    </div>
+                </div>
                 <div class="row">
 
                      <div class="col-md-9" >
 
                     <p  style="color: #319DB5" >{{ title }}</p>
                     </div>
-                    <div class="col-md-12" >
+                    <div class="col-xs-12" >
 
-
-                        <iframe height=456 width=100% src='{{ url }}' frameborder=0 'allowfullscreen'></iframe>
-
+                        <div style="border: 2px solid #dddddd;">
+                        <iframe class="myvedio" style="height: 450px" width=100% src="{{ url }}" frameborder="allowfullscreen"></iframe>
+                        </div>
                     </div>
                 </div>
 
@@ -358,16 +371,26 @@
     <!-- Metis Menu Js -->
     <script src="{% static "assets/js/jquery.metisMenu.js"  %}"></script>
     <!-- Morris Chart Js -->
-    <script src="{% static "assets/js/morris/raphael-2.1.0.min.js"  %}"></script>
-    <script src="{% static "assets/js/morris/morris.js"  %}"></script>
 
-
-	<script src="{% static "assets/js/easypiechart.js"  %}"></script>
-	<script src="{% static "assets/js/easypiechart-data.js"  %}"></script>
 
 
     <!-- Custom Js -->
     <script src="{% static "assets/js/custom-scripts.js"  %}"></script>
+
+
+<script>
+    var system ={};
+var p = navigator.platform;
+system.win = p.indexOf("Win") == 0;
+system.mac = p.indexOf("Mac") == 0;
+system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+if(system.win||system.mac||system.xll){//如果是电脑跳转到
+
+       }else{  //如果是手机,跳转到
+             $('.myvedio').css('height','250px');
+       }
+</script>
+
 
 
 </body>
