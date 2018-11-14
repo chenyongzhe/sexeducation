@@ -8,7 +8,7 @@ import os
 import json
 from article import models
 from django.core.cache import cache
-from alipay import AliPay
+##from alipay import AliPay
 from django.conf import settings
 
 def  index1(request):
@@ -452,55 +452,54 @@ def zhan(request):
 
     return   HttpResponse(json.dumps(response))
 
-
-def create_alipay():
-    ali_pay = AliPay(
-        appid=settings.ALIPAY_APPID,
-        app_notify_url=None,
-        app_private_key_path=os.path.join(settings.BASE_DIR, 'static\\s2048.txt'),
-        alipay_public_key_path=os.path.join(settings.BASE_DIR, 'static\\g2048.txt'),
-        sign_type='RSA2',
-        debug=True)
-    return ali_pay
-
-
-
-def get_alipay_page():
-    ali_pay = AliPay(
-        appid=settings.ALIPAY_APPID,
-        app_notify_url=None,
-        app_private_key_path=os.path.join(settings.BASE_DIR, 'static\\s2048.txt'),
-        alipay_public_key_path=os.path.join(settings.BASE_DIR, 'static\\g2048.txt'),
-        sign_type='RSA2',
-        debug=True)
-    order_string = ali_pay.api_alipay_trade_page_pay(
-        out_trade_no="20161112123",
-        total_amount=0.01,
-        subject="计科162王狗蛋的狗头",
-        #return_url="http://",
-        #notify_url="https://openapi.alipay.com/gateway.do"  # this is optional
-    )
-
-    print(order_string)
-    return settings.ALIPAY_URL + order_string
-
-
-
-
-def get_alipay_query(order_id):
-     """查询订单状态"""
-     alipay = create_alipay()
-     result = alipay.api_alipay_trade_query(out_trade_no=order_id)
-     print(result)
-     if result.get("trade_status", "") == "TRADE_SUCCESS":
-          return True
-     else:
-       return False
-
-
-def zhifu(request):
-    u=get_alipay_page()
-    return redirect(u)
+# def create_alipay():
+#     ali_pay = AliPay(
+#         appid=settings.ALIPAY_APPID,
+#         app_notify_url=None,
+#         app_private_key_path=os.path.join(settings.BASE_DIR, 'static\\s2048.txt'),
+#         alipay_public_key_path=os.path.join(settings.BASE_DIR, 'static\\g2048.txt'),
+#         sign_type='RSA2',
+#         debug=True)
+#     return ali_pay
+#
+#
+#
+# def get_alipay_page():
+#     ali_pay = AliPay(
+#         appid=settings.ALIPAY_APPID,
+#         app_notify_url=None,
+#         app_private_key_path=os.path.join(settings.BASE_DIR, 'static\\s2048.txt'),
+#         alipay_public_key_path=os.path.join(settings.BASE_DIR, 'static\\g2048.txt'),
+#         sign_type='RSA2',
+#         debug=True)
+#     order_string = ali_pay.api_alipay_trade_page_pay(
+#         out_trade_no="20161112123",
+#         total_amount=0.01,
+#         subject="计科162王狗蛋的狗头",
+#         #return_url="http://",
+#         #notify_url="https://openapi.alipay.com/gateway.do"  # this is optional
+#     )
+#
+#     print(order_string)
+#     return settings.ALIPAY_URL + order_string
+#
+#
+#
+#
+# def get_alipay_query(order_id):
+#      """查询订单状态"""
+#      alipay = create_alipay()
+#      result = alipay.api_alipay_trade_query(out_trade_no=order_id)
+#      print(result)
+#      if result.get("trade_status", "") == "TRADE_SUCCESS":
+#           return True
+#      else:
+#        return False
+#
+#
+# def zhifu(request):
+#     u=get_alipay_page()
+#     return redirect(u)
 
 
 def gettip(request):
