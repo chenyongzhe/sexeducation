@@ -29,6 +29,7 @@
         }
         .isactive{
             background-color: #5bc0de;
+
         }
     </style>
 
@@ -325,7 +326,7 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                    <p class="navbar-text">欢迎{{ user.nickname }}</p>
+                    <p class="navbar-text">{{ user.nickname }}</p>
                     </div>
                 </div>
 
@@ -333,13 +334,9 @@
 
 			  <div class="col-md-6">
 			     <div class="panel panel-default">
-                 <a href="/modify/">编辑个人资料</a>
 				   <div class="panel-heading">
                        <img id="avatar-img" src="{{ imgurl }}" style=" border-radius:100%;" width="80px" height="80px">
-				      {{ user.nickname }}&nbsp;&nbsp;
-                      <span style="{{ csssex }}"><i class="{{ sex }}"></i></span> <br>
-                       <span>简介：{{ user.desc }}</span>
-                       <br>发表所有的文章
+				      {{ user.nickname }}发表所有的文章
 				    </div>
 
 							<div class="panel-body">
@@ -376,6 +373,7 @@
     <!-- Morris Chart Js -->
     <script src="{% static "assets/js/morris/raphael-2.1.0.min.js" %}"></script>
     <script src="{% static "assets/js/morris/morris.js" %}"></script>
+
 
 
 

@@ -301,8 +301,15 @@ def userinfor(request):
         return redirect('/login/')
     user=models.ArticleUserinfor.objects.filter(username=name).first()
     myarticle= models.Article.objects.filter(user_id=user.id)
-
-    return render(request,'userinfor.html',{'user':user,'myarticle':myarticle})
+    sex=""
+    csssex=""
+    if user.gender==0:
+        sex='fa fa-mars'
+        csssex="color:blue"
+    else:
+        sex = 'fa fa-venus'
+        csssex = "color:pink"
+    return render(request,'userinfor.html',{'user':user,'myarticle':myarticle,"imgurl":user.imgurl,"sex":sex,"csssex":csssex})
 
 def sent_aritcle(request):
     name = request.COOKIES.get('username')
@@ -421,7 +428,7 @@ def showuser(request):
     user_id=request.GET.get('user_id', None)
     user = models.ArticleUserinfor.objects.filter(id=user_id).first()
     myarticle = models.Article.objects.filter(user_id=user_id)
-    return render(request, 'user.html', {'user': user, 'myarticle': myarticle})
+    return render(request, 'user.html', {'user': user, 'myarticle': myarticle,'imgurl':user.imgurl})
 
 def zhan(request):
     name = request.COOKIES.get('username')
@@ -521,3 +528,49 @@ def gettip(request):
     response['result']=st
     print(key)
     return HttpResponse(json.dumps(response))
+
+def modify(request):
+    mesg=""
+    if request.method=="POST":
+        name = request.COOKIES.get('username')
+        if not name:
+            return redirect('/login/')
+        try:
+              user = models.ArticleUserinfor.objects.filter(username=name).first()
+              nickname= request.POST.get("nickname")
+              if nickname!="":
+                  #print("提交了昵称")
+                  models.ArticleUserinfor.objects.filter(id=user.id).update( nickname=nickname)
+                  mesg =mesg+ "昵称修改成功 "
+              else:
+                  pass
+              gender = request.POST.get("gender")
+              if gender!="":
+                  # print("提交了昵称")
+                  models.ArticleUserinfor.objects.filter(id=user.id).update(gender=gender)
+                  mesg = mesg+"性别修改成功 "
+              else:
+                  pass
+              desc = request.POST.get("desc")
+              if desc!="":
+                  # print("提交了昵称")
+                  models.ArticleUserinfor.objects.filter(id=user.id).update(desc=desc)
+                  mesg = mesg + "简介修改成功 "
+              else:
+                  pass
+              f = request.FILES.get("head")
+              if  f:
+
+                 filename = f.name
+                 last = filename.split('.')[1]
+                 filepath = os.path.join("article/static/headimg", str(user.id)+ "."+last)
+                 loadfile = open(filepath, mode="wb")
+                 for fi in f.chunks():
+                    loadfile.write(fi)
+                 loadfile.close()
+                 mesg = mesg+"头像修改成功"
+                 models.ArticleUserinfor.objects.filter(id=user.id).update(imgurl="/static/headimg/"+str(user.id)+ "."+last)
+        except:
+              mesg = "修改失败"
+        return  render(request,"modify.html",{"isupload":mesg})
+    return render(request,"modify.html",{"isupload":mesg})

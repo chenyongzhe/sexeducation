@@ -10,7 +10,7 @@ from django.db import models
 
 class Article(models.Model):
     article_id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=60, blank=True, null=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
     content = models.TextField(blank=True, null=True)
     type = models.ForeignKey('Type', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey('ArticleUserinfor', models.DO_NOTHING, blank=True, null=True)
@@ -27,6 +27,9 @@ class ArticleUserinfor(models.Model):
     email = models.CharField(max_length=22, blank=True, null=True)
     phone_number = models.BigIntegerField(blank=True, null=True)
     nickname = models.CharField(max_length=50, blank=True, null=True)
+    imgurl = models.CharField(max_length=255, blank=True, null=True)
+    gender = models.IntegerField(blank=True, null=True)
+    desc = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = True
@@ -151,6 +154,14 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
+
+
+class Sample(models.Model):
+    text = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'sample'
 
 
 class Support(models.Model):

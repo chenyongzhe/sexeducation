@@ -6,7 +6,7 @@
     <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>{{ user.username }}的主页</title>
+    <title>修改个人资料</title>
     <!-- Bootstrap Styles-->
      {% load staticfiles %}
 
@@ -244,12 +244,12 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="/userinfor/"><i class="fa fa-user fa-fw"></i> 个人主页</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="/"><i class="fa fa-gear fa-fw"></i> 首页</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="/"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -333,23 +333,21 @@
 
 			  <div class="col-md-6">
 			     <div class="panel panel-default">
-                 <a href="/modify/">编辑个人资料</a>
-				   <div class="panel-heading">
-                       <img id="avatar-img" src="{{ imgurl }}" style=" border-radius:100%;" width="80px" height="80px">
-				      {{ user.nickname }}&nbsp;&nbsp;
-                      <span style="{{ csssex }}"><i class="{{ sex }}"></i></span> <br>
-                       <span>简介：{{ user.desc }}</span>
-                       <br>发表所有的文章
-				    </div>
+                 <form  method="post" enctype="multipart/form-data" attion="/modify/">
+    <!----用一个label标签将上传文件输入框跟图片绑定一起，
+          点击图片的时候就相当于点击了上传文件的按钮---->
+    <label><img id="avatar-img" src="/static/assets/img/default.jpg" style=" border-radius:100%;" width="80px" height="80px">
+        <div>头像<input id="avatar-input" hidden type="file" name="head"></div>
+    </label>
+     <div>用户名:<input type="text" name="nickname"></div>
+     <div>性别:&nbsp;&nbsp;&nbsp;男<input type="radio" name="gender" value="0" checked>&nbsp;&nbsp;女<input type="radio" name="gender" value="1"></div>
+     <div>个人简介<br>
+         <textarea name="desc" cols="30" rows="4"></textarea>  </div>
 
-							<div class="panel-body">
-								{% for item in myarticle %}
-								<div class="alert alert-info">
-									<strong></strong> <a href="/article/?id={{ item.article_id }}">{{ item.title}}</a>
-								</div>
-                                {% endfor %}
+    <input id="submit-btn" type="submit" value="提交"><span>{{  isupload}}</span>
+</form>
 
-							</div>
+
                  </div>
 			  </div>
 
@@ -382,7 +380,22 @@
 
     <!-- Custom Js -->
     <script src="{% static "assets/js/custom-scripts.js" %}"></script>
+       <script>
 
+    // 上传文件按钮（label里的图片）点击事件
+    $('#avatar-input').on('change',function () {
+        // 获取用户最后一次选择的图片
+        var choose_file=$(this)[0].files[0];
+        // 创建一个新的FileReader对象，用来读取文件信息
+        var reader=new FileReader();
+        // 读取用户上传的图片的路径
+        reader.readAsDataURL(choose_file);
+        // 读取完毕之后，将图片的src属性修改成用户上传的图片的本地路径
+        reader.onload=function () {
+             $("#avatar-img").attr("src",reader.result)
+        }
+    });
+</script>
 
 </body>
 

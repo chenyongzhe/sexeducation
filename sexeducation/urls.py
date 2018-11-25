@@ -43,7 +43,7 @@ urlpatterns = [
     path('user/',views.showuser),
     path('zhan/',views.zhan),
     path('gettip/',views.gettip),
-
+    path('modify/',views.modify),
 
     #url(r'^favicon.ico$',RedirectView.as_view(url=r'/static/favicon.ico')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
