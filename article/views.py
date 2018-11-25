@@ -427,8 +427,17 @@ def insert_comment(request):
 def showuser(request):
     user_id=request.GET.get('user_id', None)
     user = models.ArticleUserinfor.objects.filter(id=user_id).first()
+
     myarticle = models.Article.objects.filter(user_id=user_id)
-    return render(request, 'user.html', {'user': user, 'myarticle': myarticle,'imgurl':user.imgurl})
+    sex = ""
+    csssex = ""
+    if user.gender == 0:
+        sex = 'fa fa-mars'
+        csssex = "color:blue"
+    else:
+        sex = 'fa fa-venus'
+        csssex = "color:pink"
+    return render(request, 'user.html', {'user': user, 'myarticle': myarticle,'imgurl':user.imgurl,"sex":sex,"csssex":csssex})
 
 def zhan(request):
     name = request.COOKIES.get('username')

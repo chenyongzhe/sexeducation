@@ -245,12 +245,12 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="/userinfor/"><i class="fa fa-user fa-fw"></i> 个人主页</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 设置</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="/"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -334,9 +334,12 @@
 
 			  <div class="col-md-6">
 			     <div class="panel panel-default">
-				   <div class="panel-heading">
+				      <div class="panel-heading">
                        <img id="avatar-img" src="{{ imgurl }}" style=" border-radius:100%;" width="80px" height="80px">
-				      {{ user.nickname }}发表所有的文章
+				      {{ user.nickname }}&nbsp;&nbsp;
+                      <span style="{{ csssex }}"><i class="{{ sex }}"></i></span> <br>
+                       <span>简介：{{ user.desc }}</span>
+                       <br>发表所有的文章
 				    </div>
 
 							<div class="panel-body">
