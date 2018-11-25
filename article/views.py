@@ -30,7 +30,13 @@ def index(request):
     current_page = int(current_page)
     start = (current_page - 1) * 10
     end = current_page * 10
-    data = result[start:end]
+    print(result[1].title)
+    result.reverse()
+    print(result[1].title)
+    data1 = result[count-end:count-start]
+    data=list(data1)
+    data.reverse()
+    print(data[1].title)
     all_count = count
     total_count, y = divmod(all_count, 10)
     if y:
