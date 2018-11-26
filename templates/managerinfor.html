@@ -6,7 +6,7 @@
     <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Home</title>
+    <title>{{ user.username }}的主页</title>
     <!-- Bootstrap Styles-->
      {% load staticfiles %}
 
@@ -19,7 +19,6 @@
     <!-- Custom Styles-->
     <link href="{% static "assets/css/custom-styles.css"  %}"rel="stylesheet" />
     <!-- Google Fonts-->
-
      <style>
         .page{
             display: inline-block;
@@ -245,14 +244,9 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                         <li><a href="/login/"><i class="fa fa-user fa-fw"></i>Login</a>
+                        <li><a href="/userinfor"><i class="fa fa-user fa-fw"></i> 个人资料</a>
                         </li>
-                        <li><a href="/userinfor/"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="/exit"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -270,13 +264,13 @@
                         <a  href="/"><i class="fa fa-search"></i> 搜索</a>
                     </li>
                     <li>
-                        <a href="/videoeducation"><i class="fa fa-youtube-play"></i> 视频教育</a>
+                        <a href="/videoeducation"><i class="fa fa-desktop"></i> 视频教育</a>
                     </li>
 					<li>
-                        <a href="/sent_article/"  class="active-menu"><i class="fa fa-pencil"></i>发表文章</a>
+                        <a href="/sent_article/"><i class="fa fa-bar-chart-o"></i> 发表文章</a>
                     </li>
                     <li>
-                        <a   href="/twjx/"><i class="fa fa-picture-o"></i>图文教育</a>
+                        <a href="tab-panel.html"><i class="fa fa-qrcode"></i> 栏目四</a>
                     </li>
 
                     <li>
@@ -325,36 +319,30 @@
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
             <div id="page-inner">
-                <div class="row">
 
+                <div class="row">
                     <div class="col-md-4">
-                    <p class="navbar-text">欢迎{{ user.username }}</p>
-                    <p class="navbar-text">文章发表</p>
-                    </div>
-
-
-                </div>
-
-                <div class="row">
-
-                    <div class="col-md-4">
-                    <p class="navbar-text ">文章标题</p>
-                    <input class="form-control article_title" type="text" placeholder="请填写文章标题">
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-8" style="margin-top:30px">
-                     <textarea cols="100" rows="100" class="article_content"></textarea>
+                    <p class="navbar-text">欢迎{{ user.nickname }}</p>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-2" style="margin-top:30px">
-                        <button class="btn btn-primary sent_button">发表</button>
-                    </div>
-                </div>
+               <div class="row">
+
+			  <div class="col-md-6">
+			     <div class="panel panel-default">
+                 <div class="panel-body">
+                     {% for co in mymessage %}
+                         <div class="alert alert-info">
+									<strong></strong> <a href="/message/?id={{ co.message_id }}">来自{{ co.nickname }}的留言</a>
+								</div>
+                     {% endfor %}
+                 </div>
+                 </div>
+			  </div>
+
+
+            </div>
+
 
 
             </div>
@@ -379,38 +367,9 @@
 
 
 
-
     <!-- Custom Js -->
     <script src="{% static "assets/js/custom-scripts.js" %}"></script>
-    <script>
-        $('.sent_button').click(function () {
-             $.ajax({
-             url:'/insert_article/',
-             type:'POST',
-             data:{'title':$('.article_title').val(),'content':$('.article_content').val()},
-             success:function (data) {
-                 var obj=JSON.parse(data);
-                 if(obj.state){
-                    alert("发表成功");
-                 }
-                 else {
-                     alert("请求出错");
-                 }
-                /** var obj=JSON.parse(data)
-                 if(obj.state){
-                    alert("名字是"+obj.name+"密码是"+obj.password);
-                 }
-                 else {
-                     alert("请求出错");
-                 }
-                 //alert("名字是"+$('#name').val()+"密码是"+$('#pw').val());
-                 **/
-                 }
 
-
-         })
-         });
-    </script>
 
 </body>
 

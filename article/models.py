@@ -109,7 +109,7 @@ class Comment(models.Model):
     user = models.ForeignKey(ArticleUserinfor, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
-        managed =True
+        managed = True
         db_table = 'comment'
 
 
@@ -157,11 +157,30 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
+class Manager(models.Model):
+    username = models.CharField(max_length=30, blank=True, null=True)
+    password = models.CharField(max_length=30, blank=True, null=True)
+    nickname = models.CharField(max_length=30, blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'manager'
+
+
+class Message(models.Model):
+    content = models.TextField(blank=True, null=True)
+    userid = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'message'
+
+
 class Sample(models.Model):
     text = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed =True
         db_table = 'sample'
 
 

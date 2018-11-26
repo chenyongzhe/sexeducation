@@ -614,3 +614,77 @@ def exit_login(request):
         res1 = redirect('/login')
         res1.set_cookie('username', "")
         return res1
+def sendmessage(request):
+       return render(request, "sendtomanager.html")
+
+def insert_message(request):
+    name = request.COOKIES.get('username')
+    response = {'state': True}
+    try:
+        content = request.POST.get('content', None)
+        if name:
+            user = models.ArticleUserinfor.objects.filter(username=name).first()
+            print("user.id",user.id)
+            models.Message.objects.create(content=content,userid=user.id)
+            print("插入成功")
+        else:
+            models.Message.objects.create(content=content)
+        #print(title)
+    except:
+        response['state'] = False
+    return HttpResponse(json.dumps(response))
+def managerlogin(request):
+    msg = {}
+    error = ""
+    msg['username'] = ""
+    msg['password'] = ""
+    if(request.method == 'GET'):
+        return render(request,"managerlogin.html",{'error': error, 'msg': msg})
+    if (request.method == 'POST'):
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        if username == "" or password == "":
+            error = "账号密码不能为空"
+            return render(request, "managerlogin.html", {'error': error, 'msg': msg})
+        else:
+            user = models.Manager.objects.filter(username=username).first()
+            if not user:
+                error = "该用户不存在"
+                return render(request, "managerlogin.html", {'error': error, 'msg': msg})
+
+            if user.password == password:
+                res = redirect('/manageruserinfor/')
+                res.set_cookie('manageusername', username)
+                return res
+            error = "密码错误"
+            return render(request, "managerlogin.html", {'error': error, 'msg': msg})
+
+def manageruserinfor(request):
+     name = request.COOKIES.get('manageusername')
+     if not name:
+        return redirect('/managerlogin/')
+     message= models.Message.objects.all()
+     mymessage=[]
+     for cc in message:
+         comment_tamp = {}
+         if cc.userid:
+             user = models.ArticleUserinfor.objects.filter(id=cc.userid).first()
+
+             comment_tamp["username"] = user.username
+             comment_tamp["user_id"] = user.id
+             comment_tamp["content"] = cc.content
+             comment_tamp["nickname"] = user.nickname
+             comment_tamp["message_id"] = cc.id
+             mymessage.append(comment_tamp)
+
+         else:
+             print("userid为空")
+             comment_tamp["content"] = cc.content
+             comment_tamp["nickname"] = "匿名用户"
+             comment_tamp["message_id"] = cc.id
+             mymessage.append(comment_tamp)
+     return   render(request,"managerinfor.html",{"mymessage":mymessage})
+def message(request):
+    id=request.GET.get("id",None)
+    mes = models.Message.objects.filter(id=id).first()
+    return  render(request,"showmessage.html",{"content":mes.content})
