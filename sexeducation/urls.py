@@ -44,6 +44,7 @@ urlpatterns = [
     path('zhan/',views.zhan),
     path('gettip/',views.gettip),
     path('modify/',views.modify),
+    path('exit/',views.exit_login)
 
     #url(r'^favicon.ico$',RedirectView.as_view(url=r'/static/favicon.ico')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -30,6 +30,7 @@ class ArticleUserinfor(models.Model):
     imgurl = models.CharField(max_length=255, blank=True, null=True)
     gender = models.IntegerField(blank=True, null=True)
     desc = models.CharField(max_length=255, blank=True, null=True)
+    score = models.BigIntegerField(blank=True, null=True)
 
     class Meta:
         managed = True
@@ -108,7 +109,7 @@ class Comment(models.Model):
     user = models.ForeignKey(ArticleUserinfor, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed =True
         db_table = 'comment'
 
 

@@ -11,6 +11,15 @@ from django.core.cache import cache
 ##from alipay import AliPay
 from django.conf import settings
 
+def addscore(myrequest,num):
+    name = myrequest.COOKIES.get('username')
+    if name:
+        user = models.ArticleUserinfor.objects.filter(username=name).first()
+        score=int(user.score)+num
+        models.ArticleUserinfor.objects.filter(id=user.id).update(score=score)
+
+
+
 def  index1(request):
     #result = models.Userinfor.objects.filter(username="chen").first()
     result1=models.Article.objects.filter(article_id=750).first()
@@ -19,6 +28,7 @@ def  index1(request):
 
 
 def index(request):
+    addscore(request,2)
     #cache.set("name","陈永喆")
     #myname=cache.get("name")
     #print(myname)
@@ -109,6 +119,7 @@ def index(request):
 
 
 def search(request):
+    addscore(request, 2)
     keyword=request.GET.get("keyword",None)
     result=None
     if  keyword :
@@ -201,6 +212,7 @@ def search(request):
     page_str = "".join(page_list)
     return   render(request, 'index.html',{'article':data,'num':num,'page_str':page_str})
 def article(request):
+    addscore(request, 2)
     myid=request.GET.get("id",None)
     myarticle=models.Article.objects.filter(article_id=myid ).first()
     #print(myarticle.title)
@@ -235,6 +247,7 @@ def article(request):
     return myrender
 
 def player(request):
+    addscore(request, 2)
     url='http://player.youku.com/embed/'
     id = request.GET.get("id", None)
     url=url+str(id)
@@ -242,7 +255,7 @@ def player(request):
     title=video_list.title
     return render(request,'youkuvideo.html',{'url':url,'title':title})
 def videoeducation(request):
-
+    addscore(request, 2)
     video_list = models.Video.objects.all()
     return render(request,'videoeducation.html',{'video_list':video_list})
 
@@ -309,7 +322,7 @@ def userinfor(request):
     else:
         sex = 'fa fa-venus'
         csssex = "color:pink"
-    return render(request,'userinfor.html',{'user':user,'myarticle':myarticle,"imgurl":user.imgurl,"sex":sex,"csssex":csssex})
+    return render(request,'userinfor.html',{'user':user,'myarticle':myarticle,"imgurl":user.imgurl,"sex":sex,"csssex":csssex,"score":user.score})
 
 def sent_aritcle(request):
     name = request.COOKIES.get('username')
@@ -319,6 +332,7 @@ def sent_aritcle(request):
     return render(request,'sent_article.html',{'user':user})
 
 def insert_article(request):
+    addscore(request, 20)
     name = request.COOKIES.get('username')
     response = {'state': True}
     try:
@@ -373,6 +387,7 @@ def register(request):
      return  render(request,'register.html')
 
 def showhtml(request,id):
+     addscore(request, 2)
      return render(request,id+'.html')
 def picedu(request):
     # result = models.Article.objects.all()
@@ -391,12 +406,16 @@ def picedu(request):
     #     print(i)
 
     #cache.set('article',json.dumps(article))
+    addscore(request, 2)
     return  render(request,'picedu.html')
 def manbody(request):
+    addscore(request, 2)
     return render(request,'manbody.html')
 def womanbody(request):
+    addscore(request, 2)
     return render(request,'womenbody.html')
 def insert_comment(request):
+    addscore(request, 10)
     name = request.COOKIES.get('username')
     response={}
     response['islogin']='True'
@@ -539,6 +558,7 @@ def gettip(request):
     return HttpResponse(json.dumps(response))
 
 def modify(request):
+
     mesg=""
     if request.method=="POST":
         name = request.COOKIES.get('username')
@@ -581,5 +601,16 @@ def modify(request):
                  models.ArticleUserinfor.objects.filter(id=user.id).update(imgurl="/static/headimg/"+str(user.id)+ "."+last)
         except:
               mesg = "修改失败"
+        addscore(request, 15)
         return  render(request,"modify.html",{"isupload":mesg})
     return render(request,"modify.html",{"isupload":mesg})
+
+
+def exit_login(request):
+    name = request.COOKIES.get('username')
+    if not name:
+        return redirect('/login/')
+    else:
+        res1 = redirect('/login')
+        res1.set_cookie('username', "")
+        return res1
