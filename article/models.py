@@ -180,7 +180,7 @@ class Sample(models.Model):
     text = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed =True
+        managed = True
         db_table = 'sample'
 
 
@@ -189,7 +189,7 @@ class Support(models.Model):
     article_id = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed =True
         db_table = 'support'
 
 
@@ -200,6 +200,17 @@ class Type(models.Model):
     class Meta:
         managed = True
         db_table = 'type'
+
+
+class Usermessage(models.Model):
+    content = models.CharField(max_length=255, blank=True, null=True)
+    from_id = models.IntegerField()
+    to_id = models.IntegerField()
+    time = models.CharField(max_length=30, blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'usermessage'
 
 
 class Video(models.Model):

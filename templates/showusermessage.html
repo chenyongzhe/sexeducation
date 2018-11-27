@@ -6,7 +6,7 @@
     <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>{{ user.username }}的主页</title>
+    <title>留言</title>
     <!-- Bootstrap Styles-->
      {% load staticfiles %}
 
@@ -320,34 +320,17 @@
         <div id="page-wrapper">
             <div id="page-inner">
 
-                <div class="row">
-                    <div class="col-md-4">
-                    <p class="navbar-text">欢迎{{ user.nickname }}</p>
-                    </div>
-                </div>
-
                <div class="row">
 
 			  <div class="col-md-6">
 			     <div class="panel panel-default">
-                 <a href="/modify/"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编辑个人资料</a>&nbsp;&nbsp;&nbsp;<a style="" href="/mymessage"><i class="fa fa-envelope-o" aria-hidden="true"></i>我的留言</a>
-				   <div class="panel-heading">
-                       <img id="avatar-img" src="{{ imgurl }}" style=" border-radius:100%;" width="80px" height="80px">
-				      {{ user.nickname }}&nbsp;&nbsp;
-                      <span style="{{ csssex }}"><i class="{{ sex }}"></i></span> <br>
-                       <span class="score" style="font-size: 14px">我的积分:&nbsp;&nbsp;&nbsp;&nbsp;{{  score }}&nbsp;<span style="color: gold;"><i class="fa fa-database" aria-hidden="true"></i></span></span><br>
-                       <span class="desc" style="font-size: 14px">简介：{{ user.desc }}</span>
-                       <br><br><br><i class="fa fa-file-text-o" aria-hidden="true"></i><span style="font-size: 16px;color: #2EA7EB">我的文章</span>
-				    </div>
+                 <div class="panel-body">
 
-							<div class="panel-body">
-								{% for item in myarticle %}
-								<div class="alert alert-info">
-									<strong></strong> <a href="/article/?id={{ item.article_id }}">{{ item.title}}</a>
+                         <div class="alert alert-info">
+									{{ content }}
 								</div>
-                                {% endfor %}
 
-							</div>
+                 </div>
                  </div>
 			  </div>
 
@@ -357,6 +340,7 @@
 
 
             </div>
+
             <!-- /. PAGE INNER  -->
         </div>
         <!-- /. PAGE WRAPPER  -->

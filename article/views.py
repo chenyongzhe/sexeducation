@@ -10,6 +10,7 @@ from article import models
 from django.core.cache import cache
 ##from alipay import AliPay
 from django.conf import settings
+import datetime
 
 def addscore(myrequest,num):
     name = myrequest.COOKIES.get('username')
@@ -688,3 +689,57 @@ def message(request):
     id=request.GET.get("id",None)
     mes = models.Message.objects.filter(id=id).first()
     return  render(request,"showmessage.html",{"content":mes.content})
+
+def sendto(request):
+    if  request.method=="GET":
+         to_userid=request.GET.get("id",None)
+         from_name=request.COOKIES.get('username')
+         if  from_name :
+                user = models.ArticleUserinfor.objects.filter(username=from_name).first()
+                user2 = models.ArticleUserinfor.objects.filter(id=to_userid).first()
+                from_id=user.id
+                return  render(request,"sendto.html",{"from_id":from_id,"to_id":to_userid,"tonickname":user2.nickname})
+         else:
+                return  redirect("/login")
+    if request.method=="POST":
+
+        response = {'state': True}
+        try:
+            content = request.POST.get("content", None)
+            from_id = request.POST.get("from_id", None)
+            to_id = request.POST.get("to_id", None)
+            nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 现在
+            models.Usermessage.objects.create(content=content,from_id=from_id,to_id=to_id,time=nowTime)
+
+            # print(title)
+        except:
+            response['state'] = False
+        return HttpResponse(json.dumps(response))
+
+def mymessage(request):
+    name = request.COOKIES.get('username')
+    if not name:
+        return redirect('/login/')
+    user=models.ArticleUserinfor.objects.filter(username=name).first()
+    message = models.Usermessage.objects.filter(to_id=user.id)
+    mymessage = []
+    for cc in message:
+        comment_tamp = {}
+
+        user3 = models.ArticleUserinfor.objects.filter(id=cc.from_id).first()
+
+        #comment_tamp["myusername"] = user.username
+        comment_tamp["myuser_id"] = user.id
+        comment_tamp["content"] = cc.content
+        comment_tamp["mynickname"] = user.nickname
+        comment_tamp["message_id"] = cc.id
+        comment_tamp["from_nickname"] = user3.nickname
+        comment_tamp["from_id"] = user3.id
+        comment_tamp["time"] = cc.time
+        mymessage.append(comment_tamp)
+    return render(request, "mymessage.html", {"mymessage": mymessage,"mynickname":user.nickname})
+
+def usermessage(request):
+    id=request.GET.get("id",None)
+    message = models.Usermessage.objects.filter(id=id).first()
+    return  render(request,"showusermessage.html",{"content":message.content})

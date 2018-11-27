@@ -50,6 +50,9 @@ path('sendmessage/',views.sendmessage),
 path('managerlogin/',views.managerlogin),
     path('manageruserinfor/',views.manageruserinfor),
     path('message/',views.message),
+    path('sendto/',views.sendto),
+    path('mymessage/',views.mymessage),
+    path('usermessage/',views.usermessage)
 
     #url(r'^favicon.ico$',RedirectView.as_view(url=r'/static/favicon.ico')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
