@@ -12,7 +12,7 @@ from django.core.cache import cache
 from django.conf import settings
 import datetime
 import time
-
+from django.db.models import Q
 
 def addscore(myrequest,num):
     name = myrequest.COOKIES.get('username')
@@ -723,13 +723,13 @@ def mymessage(request):
     if not name:
         return redirect('/login/')
     user=models.ArticleUserinfor.objects.filter(username=name).first()
-    message = models.Usermessage.objects.filter(to_id=user.id)
+    message = models.Usermessage.objects.filter(Q(to_id=user.id )|Q(from_id=user.id)).order_by('-time')
     mymessage = []
     for cc in message:
         comment_tamp = {}
 
         user3 = models.ArticleUserinfor.objects.filter(id=cc.from_id).first()
-
+        user4= models.ArticleUserinfor.objects.filter(id=cc.to_id).first()
         #comment_tamp["myusername"] = user.username
         comment_tamp["myuser_id"] = user.id
         comment_tamp["content"] = cc.content
@@ -737,9 +737,12 @@ def mymessage(request):
         comment_tamp["message_id"] = cc.id
         comment_tamp["from_nickname"] = user3.nickname
         comment_tamp["from_id"] = user3.id
+        comment_tamp["to_id"]=cc.to_id
+        comment_tamp["to_nickname"] = user4.nickname
         comment_tamp["time"] = cc.time
+        comment_tamp["from_img"] = user3.imgurl
         mymessage.append(comment_tamp)
-    return render(request, "mymessage.html", {"mymessage": mymessage,"mynickname":user.nickname})
+    return render(request, "mymessage.html", {"mymessage": mymessage,"mynickname":user.nickname,"myimg":user.imgurl,"user":user})
 
 def usermessage(request):
     id=request.GET.get("id",None)

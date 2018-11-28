@@ -328,15 +328,108 @@
 
                <div class="row">
 
-			  <div class="col-md-6">
+			  <div class="col-md-12">
 			     <div class="panel panel-default">
+                  <div class="col-md-8 col-md-offset-1 " id="inboxBody">
                  <div class="panel-body">
                      {% for co in mymessage %}
-                         <div class="alert alert-info">
-									<strong></strong> <a href="/usermessage/?id={{ co.message_id }}">来自{{ co.from_nickname }}的留言&nbsp;&nbsp;&nbsp;{{ co.time}}</a>
-								</div>
+
+                         <div class="row alert alert-info">
+                <div class="col-md-2 alert">
+
+                    <img width="80px"  style=" border-radius:100%;"  height="80px" class="img-responsive img-thumbnail" src="{{ co.from_img }}" />
+
+                </div>
+                <div class="col-md-10">
+                             <div class="row">
+                       {% if co.from_id == user.id %}
+                            <h4>
+                                你&nbsp;&nbsp;&nbsp;回复:&nbsp;&nbsp;&nbsp;{{ co.to_nickname }}
+                            </h4>
+                           {% elif co.to_id == user.id %}
+                            <h4>
+                                {{ co.from_nickname }}&nbsp;&nbsp;&nbsp;回复:&nbsp;&nbsp;&nbsp;你
+                            </h4>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <p style="font-size: medium">
+                            {{ co.content }}
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p style="color: gray">
+
+                                {{ co.time }}
+                            </p>
+                        </div>
+                        <div class="col-md-3 col-md-offset-6 text-center">
+                            <button name="reply" type="button" class="btn btn-primary" data-toggle="modal"
+
+                                    {% if co.from_id == user.id %}
+                                    userId="{{ co.to_id }}" who="{{ co.to_nickname }}"
+                                    {% elif co.to_id == user.id %}
+                                    userId="{{ co.from_id }}" who="{{ co.from_nickname }}"
+                                    {% endif %}
+
+                                    clientId="{{ user.id }}"
+                            >回复
+                            </button>
+                        </div>
+                    </div>
+                         </div>
+                         </div>
+
+
+
+{#                         <div class="alert alert-info">#}
+{#									<strong></strong> <a href="/usermessage/?id={{ co.message_id }}">来自{{ co.from_nickname }}的留言&nbsp;&nbsp;&nbsp;{{ co.time}}</a>#}
+{#								</div>#}
                      {% endfor %}
+
+
+                 <div class="modal fade" id="leave_message" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="messsage_to">私信</h4>
+            </div>
+            <div class="modal-body" id="privateMessageBody">
+                <form>
+                    <div class="form-group">
+                        <label  class="control-label">内容:</label>
+                        <textarea id="message_text" class="form-control" rows="3" placeholder="和TA说点什么吧！"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" id="sendTo" class="btn btn-primary">发送</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                  </div>
+
+                  </div>
+                  <!--inboxbody -->
                  </div>
 			  </div>
 
@@ -369,6 +462,78 @@
 
     <!-- Custom Js -->
     <script src="{% static "assets/js/custom-scripts.js" %}"></script>
+
+
+
+<script>
+        $(document).ready(function () {
+            var to_user_id;
+            var from_user_id;
+            var who;
+            $('button[name="reply"]').click(function () {
+                to_user_id = $(this).attr('userId');
+                 who = $(this).attr('who');
+                from_user_id = $(this).attr('clientId');
+                $('#messsage_to').html('回复给: ' + who);
+                $('#leave_message').modal();
+            });
+            $('#sendTo').click(function () {
+                $.ajax({
+                    url: '/sendto/',
+                    type: 'POST',
+                    dataType: 'text',
+                    data: {
+                        'from_id': from_user_id,
+                        'content': $('#message_text').val(),
+                        'to_id': to_user_id
+                    },
+                    success: function (data) {
+                          var obj=JSON.parse(data);
+                        if (obj.state) {
+                            var string = '<div class="row alert alert-danger"><div class="col-md-2 alert"> <img src="{{ myimg }}" width="100" class="img-responsive img-thumbnail"/></div><div class="col-md-10"><div class="row"><h4> 我 回复:  '+who+'</h4></div><div class="row"><p style="font-size: medium"> '+$('#message_text').val()+'</p></div><div class="row"> <div class="col-md-3"> <p style="color: gray">刚刚 </p></div><div class="col-md-3 col-md-offset-6 text-center">  <button name="reply" type="button" class="btn btn-primary" data-toggle="modal"  >已回复</button></div> </div> </div></div>'
+                            $('#inboxBody').prepend(string)
+                            $('#leave_message').modal('hide')
+                        }
+                    },
+                    error: function () {
+                        alert('出现错误!');
+                    }
+                });
+            });
+        });
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </body>
