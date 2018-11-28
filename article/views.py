@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
-
+#wangchaojun
 # Create your views here.
 from django.shortcuts import  HttpResponse
 from django.shortcuts import redirect
