@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<textarea id="editor_id"  name="content"style="width:700px;height:300px;">
+
+ </textarea>
+<script charset="utf-8" src="/static/kindeditor-4.1.10/kindeditor-all.js"></script>
+<script charset="utf-8" src="/static/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script>
+
+ KindEditor.create('#editor_id',{
+            uploadJson:'/upload_img/'
+        });
+
+
+</script>
+</body>
+</html>

@@ -11,6 +11,8 @@ from django.core.cache import cache
 ##from alipay import AliPay
 from django.conf import settings
 import datetime
+import time
+
 
 def addscore(myrequest,num):
     name = myrequest.COOKIES.get('username')
@@ -743,3 +745,20 @@ def usermessage(request):
     id=request.GET.get("id",None)
     message = models.Usermessage.objects.filter(id=id).first()
     return  render(request,"showusermessage.html",{"content":message.content})
+
+def testedit(request):
+    return render(request,"edittest.html")
+def  upload_img(request):
+    files = request.FILES.get("imgFile", None)
+    print(files.name)
+    filename=files.name
+    t = time.time()
+    last=filename.split('.')[1]
+    picname=str(int(round(t * 1000)))+"."+last
+    filepath="article/static/image/" + picname
+    loadfile = open(filepath, mode="wb")
+    for fi in files.chunks():
+        loadfile.write(fi)
+    loadfile.close()
+    result = {"error": 0, "url": "/static/image/"+picname}
+    return  HttpResponse(json.dumps(result), content_type="application/json")

@@ -346,8 +346,11 @@
 
                 <div class="row">
                     <div class="col-md-8" style="margin-top:30px">
-                     <textarea cols="100" rows="100" class="article_content"></textarea>
-                    </div>
+                     <textarea  class="article_content"   id="editor_id"  name="content"style="width:700px;height:450px;">
+
+                    </textarea>
+
+                </div>
                 </div>
 
                 <div class="row">
@@ -375,6 +378,9 @@
     <!-- Morris Chart Js -->
     <script src="{% static "assets/js/morris/raphael-2.1.0.min.js" %}"></script>
     <script src="{% static "assets/js/morris/morris.js" %}"></script>
+        <script charset="utf-8" src="/static/kindeditor-4.1.10/kindeditor-all.js">
+        </script>
+     <script charset="utf-8" src="/static/kindeditor-4.1.10/lang/zh_CN.js"></script>
 
 
 
@@ -382,6 +388,19 @@
 
     <!-- Custom Js -->
     <script src="{% static "assets/js/custom-scripts.js" %}"></script>
+
+     <script>
+
+ KindEditor.create('#editor_id',{
+            uploadJson:'/upload_img/',
+         afterBlur: function(){  //利用该方法处理当富文本编辑框失焦之后，立即同步数据
+          KindEditor.sync("#editor_id") ;
+    }
+        });
+
+
+</script>
+
     <script>
         $('.sent_button').click(function () {
              $.ajax({
