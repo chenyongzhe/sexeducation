@@ -367,6 +367,7 @@
                         <div class="col-md-3 col-md-offset-6 text-center">
                             <button name="reply" type="button" class="btn btn-primary" data-toggle="modal"
 
+
                                     {% if co.from_id == user.id %}
                                     userId="{{ co.to_id }}" who="{{ co.to_nickname }}"
                                     {% elif co.to_id == user.id %}

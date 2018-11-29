@@ -157,6 +157,15 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
+class Follow(models.Model):
+    follower = models.IntegerField(blank=True, null=True)
+    followee = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'follow'
+
+
 class Manager(models.Model):
     username = models.CharField(max_length=30, blank=True, null=True)
     password = models.CharField(max_length=30, blank=True, null=True)
@@ -189,7 +198,7 @@ class Support(models.Model):
     article_id = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed =True
+        managed = True
         db_table = 'support'
 
 

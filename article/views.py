@@ -449,7 +449,24 @@ def insert_comment(request):
 def showuser(request):
     user_id=request.GET.get('user_id', None)
     user = models.ArticleUserinfor.objects.filter(id=user_id).first()
-
+    name = request.COOKIES.get('username')
+    me=None
+    followlist=[]
+    #followerlist = []
+    if name:
+        me = models.ArticleUserinfor.objects.filter(username=name).first()
+        follows = models.Follow.objects.filter(follower=user_id)
+        followlist=[]
+        followees=[]
+        for ff in follows:
+            followee=models.ArticleUserinfor.objects.filter(id=ff.followee).first()
+            followees.append(followee)
+            followlist.append(ff.followee)
+        followers = models.Follow.objects.filter(followee=me.id)
+        followerlist=[]
+        for ff in followers:
+            follower = models.ArticleUserinfor.objects.filter(id=ff.follower).first()
+            followerlist.append(follower)
     myarticle = models.Article.objects.filter(user_id=user_id)
     sex = ""
     csssex = ""
@@ -459,7 +476,8 @@ def showuser(request):
     else:
         sex = 'fa fa-venus'
         csssex = "color:pink"
-    return render(request, 'user.html', {'user': user, 'myarticle': myarticle,'imgurl':user.imgurl,"sex":sex,"csssex":csssex})
+
+    return render(request, 'user.html', {'user': user,"followeelist":followees,"followerlist":followerlist,"followId_list":followlist,"me":me, 'myarticle': myarticle,'imgurl':user.imgurl,"sex":sex,"csssex":csssex})
 
 def zhan(request):
     name = request.COOKIES.get('username')
@@ -765,3 +783,16 @@ def  upload_img(request):
     loadfile.close()
     result = {"error": 0, "url": "/static/image/"+picname}
     return  HttpResponse(json.dumps(result), content_type="application/json")
+
+
+def follow(request):
+    follower_id=request.POST.get("follower_id",None)
+    followee_id = request.POST.get("followee_id",None)
+    follow_tip=request.POST.get("follow_tip",None)
+
+    if  follow_tip=="ok":
+         models.Follow.objects.create(follower=follower_id,followee=followee_id)
+         return HttpResponse("focused")
+    if   follow_tip=="cancel":
+        models.Follow.objects.filter(follower=follower_id,followee=followee_id).first().delete()
+        return HttpResponse("canceled")

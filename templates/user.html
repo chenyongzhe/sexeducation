@@ -31,6 +31,10 @@
             background-color: #5bc0de;
 
         }
+
+         .hide{
+             display: none;
+         }
     </style>
 
 
@@ -329,6 +333,19 @@
                     <p class="navbar-text">{{ user.nickname }}</p>
                         <a href="/sendto?id={{ user.id }}">留言</a>
                     </div>
+
+                                 {% if user.id in followId_list %}
+                                    <button name="focus" id="cancel" type="button" class="btn btn-primary"
+                                            value="{{ user.id }}">
+                                        取消关注
+                                    </button> {% else %}
+                                    <button name="focus" id="ok" type="button" class="btn btn-primary"
+                                            value="{{ user.id }}">
+                                        关注
+                                    </button> {% endif %}
+
+
+
                 </div>
 
                <div class="row">
@@ -340,15 +357,45 @@
 				      {{ user.nickname }}&nbsp;&nbsp;
                       <span style="{{ csssex }}"><i class="{{ sex }}"></i></span> <br>
                        <span>简介：{{ user.desc }}</span>
-                       <br>发表所有的文章
+                       <br><div class="row">
+                              <div class="col-xs-4">
+                                  <button class="btn btn-primary articlebtn">发表所有的文章</button>
+                              </div>
+                              <div class="col-xs-4">
+                                  <button class="btn btn-primary followingbtn">他的关注</button>
+                              </div>
+                          <div class="col-xs-4">
+                                  <button class="btn btn-primary followeebtn" >被关注</button>
+                              </div>
+                          </div>
 				    </div>
 
 							<div class="panel-body">
+                               <div class="myarticle ">
 								{% for item in myarticle %}
 								<div class="alert alert-info">
 									<strong></strong> <a href="/article/?id={{ item.article_id }}">{{ item.title}}</a>
 								</div>
                                 {% endfor %}
+                                </div>
+                               <div class="myfollower hide">
+                                  {%  for u in followeelist  %}
+                                     <div class="alert alert-info">
+									<strong></strong> <a href="/user/?user_id={{ u.id }}">{{ u.nickname }}</a>
+								</div>
+                                   {% endfor %}
+                               </div>
+
+                               <div class="myfollowee hide">
+                                  {%  for u in followerlist  %}
+                                     <div class="alert alert-info">
+									<strong></strong> <a href="/user/?user_id={{ u.id }}">{{ u.nickname }}</a>
+								</div>
+                                   {% endfor %}
+                               </div>
+
+
+
 
 							</div>
                  </div>
@@ -384,6 +431,93 @@
 
     <!-- Custom Js -->
     <script src="{% static "assets/js/custom-scripts.js" %}"></script>
+
+
+
+<script>
+        $(document).ready(function () {
+            $('button[name="focus"]').click(function () {
+                var focusObject = $(this);
+                $.ajax({
+                    url: '/follow/',
+                    type: 'POST',
+                    dataType: 'text',
+                    data: {
+                        'follower_id':{{ me.id }},
+                        'followee_id': focusObject.val(),
+                        'follow_tip': focusObject.attr('id')
+                    },
+                    success: function (data) {
+                        if (data == 'canceled') {
+                            focusObject.html('关注');
+                            focusObject.attr('id', 'ok')
+                        }
+                        else if (data == 'focused') {
+                            focusObject.html("取消关注");
+                            focusObject.attr('id', 'cancel')
+                        }
+                    },
+                    error: function () {
+                        alert('出现错误!');
+                    }
+                });
+            });
+        });
+
+</script>
+
+<script>
+    var myfollowing=0;
+    var myarticle=1;
+    var myfollowee=0;
+    $(".followingbtn").click( function () {
+        if(myfollowing==0){
+            $(".myfollower").removeClass("hide")
+             myfollowing=1
+            $(".myarticle").addClass("hide")
+            myarticle=0
+             $(".myfollowee").addClass("hide")
+            myfollowee=0
+        }
+
+
+    })
+
+    $(".articlebtn").click( function () {
+        if(myarticle==0){
+            $(".myfollower").addClass("hide")
+             myfollowing=0
+            $(".myarticle").removeClass("hide")
+            myarticle=1
+            $(".myfollowee").addClass("hide")
+            myfollowee=0
+        }
+
+
+    })
+
+     $(".followeebtn").click( function () {
+        if(myfollowee==0){
+            $(".myfollowee").removeClass("hide")
+             myfollowee=1
+            $(".myarticle").addClass("hide")
+            myarticle=0
+             $(".myfollower").addClass("hide")
+             myfollowing=0
+        }
+
+
+    })
+
+
+
+</script>
+
+
+
+
+
+
 
 
 </body>

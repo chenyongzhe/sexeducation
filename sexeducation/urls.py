@@ -55,6 +55,7 @@ path('managerlogin/',views.managerlogin),
     path('usermessage/',views.usermessage),
     path('testedit/',views.testedit),
     path("upload_img/",views.upload_img),
+    path("follow/",views.follow),
 
     #url(r'^favicon.ico$',RedirectView.as_view(url=r'/static/favicon.ico')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
