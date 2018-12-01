@@ -328,43 +328,48 @@
 
                <div class="row">
 
-			  <div class="col-md-12">
+			  <div class="col-xs-12">
 			     <div class="panel panel-default">
-                  <div class="col-md-8 col-md-offset-1 " id="inboxBody">
+                  <div class="col-xs-12  " id="inboxBody">
                  <div class="panel-body">
                      {% for co in mymessage %}
 
-                         <div class="row alert alert-info">
-                <div class="col-md-2 alert">
+                         <div class="row alert alert-info" style="padding: 0px 14px 0px 14px;" >
+                         <div class="row" style="border: 1px solid #ACEAF3; margin-top: 0px">
+                <div class="col-xs-4 ">
 
                     <img width="80px"  style=" border-radius:100%;"  height="80px" class="img-responsive img-thumbnail" src="{{ co.from_img }}" />
 
                 </div>
-                <div class="col-md-10">
-                             <div class="row">
+                <div class="col-xs-8">
+
                        {% if co.from_id == user.id %}
-                            <h4>
+                            <h4 style="margin-top: 25px">
                                 你&nbsp;&nbsp;&nbsp;回复:&nbsp;&nbsp;&nbsp;{{ co.to_nickname }}
                             </h4>
                            {% elif co.to_id == user.id %}
-                            <h4>
+                            <h4 style="margin-top: 25px">
                                 {{ co.from_nickname }}&nbsp;&nbsp;&nbsp;回复:&nbsp;&nbsp;&nbsp;你
                             </h4>
                         {% endif %}
-                    </div>
+
+                </div>
+                         </div>
                     <div class="row">
-                        <p style="font-size: medium">
+                        <div class="col-xs-12" align="center" valign="center" style="margin-bottom: 10px">
+                        <span  style="font-size: medium;">
                             {{ co.content }}
-                        </p>
+                        </span>
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-xs-8">
                             <p style="color: gray">
 
                                 {{ co.time }}
                             </p>
                         </div>
-                        <div class="col-md-3 col-md-offset-6 text-center">
+                        <div class="col-xs-3 col-xs-offset-1 text-center">
                             <button name="reply" type="button" class="btn btn-primary" data-toggle="modal"
 
 
@@ -379,7 +384,7 @@
                             </button>
                         </div>
                     </div>
-                         </div>
+
                          </div>
 
 

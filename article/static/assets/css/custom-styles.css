@@ -19,7 +19,7 @@ body {
 }
 
 #page-wrapper {
-    padding: 15px 15px;
+    padding: 20px 0px;
     min-height: 600px;
     background: #f3f3f3;
    
@@ -28,7 +28,7 @@ body {
     width:100%;
     margin:10px 20px 10px 0px;
     background-color:transparent;
-    padding:10px;
+    padding:3px;
     min-height:1200px;
 }
 
@@ -379,7 +379,7 @@ margin:0px;
 color: #fff;
 width: 260px;
 text-align: left;
-height: 60px;
+height: 50px;
 font-size: 24px;
 font-weight: 700;
 text-transform: uppercase;
@@ -398,7 +398,7 @@ padding: 0px;
 .top-navbar .nav > li > a {
 position: relative;
 display: block;
-padding: 20px;
+padding: 10px 20px 10px 20px;
 color: #FFFFFF;
 margin: 0px;
 }
@@ -520,6 +520,7 @@ border:0px solid black;
 }
 .navbar-header {
     background: transparent;
+    height: 50px;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
 background-color: #283643;
@@ -547,7 +548,7 @@ background-color: #FFF;
     right: -23px;
     z-index: 9;
     background-color: #CFCECE;
-    padding: 8px 9px;
+    padding: 0px 9px;
     top: -15px;
     color: #283643;
 	cursor:pointer;
@@ -594,6 +595,38 @@ line-height: 1.428571429;
 }
    
 }
+
+@media(min-width:768px){
+
+    .top-navbar .nav > li > a {
+padding: 20px;
+
+}
+
+.navbar-header {
+
+    height: 60px;
+}
+
+    .top-navbar .navbar-brand {
+
+height: 60px;
+
+}
+
+
+    #sideNav {
+
+    padding: 8px 9px;
+
+}
+
+
+}
+
+
+
+
  @media(max-width:480px) {
 .page-header small {
 display: block;

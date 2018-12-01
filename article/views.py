@@ -452,18 +452,21 @@ def showuser(request):
     name = request.COOKIES.get('username')
     me=None
     followlist=[]
+    followerlist = []
     #followerlist = []
-    if name:
-        me = models.ArticleUserinfor.objects.filter(username=name).first()
+    followees = []
+    if True:
+        if name:
+           me = models.ArticleUserinfor.objects.filter(username=name).first()
         follows = models.Follow.objects.filter(follower=user_id)
         followlist=[]
-        followees=[]
+
         for ff in follows:
             followee=models.ArticleUserinfor.objects.filter(id=ff.followee).first()
             followees.append(followee)
             followlist.append(ff.followee)
-        followers = models.Follow.objects.filter(followee=me.id)
-        followerlist=[]
+        followers = models.Follow.objects.filter(followee=user_id)
+
         for ff in followers:
             follower = models.ArticleUserinfor.objects.filter(id=ff.follower).first()
             followerlist.append(follower)
@@ -477,7 +480,7 @@ def showuser(request):
         sex = 'fa fa-venus'
         csssex = "color:pink"
 
-    return render(request, 'user.html', {'user': user,"followeelist":followees,"followerlist":followerlist,"followId_list":followlist,"me":me, 'myarticle': myarticle,'imgurl':user.imgurl,"sex":sex,"csssex":csssex})
+    return render(request, 'user.html', {'user': user,"me":me,"followeelist":followees,"followerlist":followerlist,"followId_list":followlist,"me":me, 'myarticle': myarticle,'imgurl':user.imgurl,"sex":sex,"csssex":csssex})
 
 def zhan(request):
     name = request.COOKIES.get('username')
@@ -721,12 +724,16 @@ def sendto(request):
                 return  render(request,"sendto.html",{"from_id":from_id,"to_id":to_userid,"tonickname":user2.nickname})
          else:
                 return  redirect("/login")
+    from_name = request.COOKIES.get('username')
     if request.method=="POST":
-
-        response = {'state': True}
+      response = {'state': True}
+      if from_name:
+        #response = {'state': True}
+        response['islogin']=True
         try:
+            user = models.ArticleUserinfor.objects.filter(username=from_name).first()
             content = request.POST.get("content", None)
-            from_id = request.POST.get("from_id", None)
+            from_id = user.id
             to_id = request.POST.get("to_id", None)
             nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 现在
             models.Usermessage.objects.create(content=content,from_id=from_id,to_id=to_id,time=nowTime)
@@ -735,6 +742,10 @@ def sendto(request):
         except:
             response['state'] = False
         return HttpResponse(json.dumps(response))
+      else :
+          response['islogin'] = False
+          return HttpResponse(json.dumps(response))
+
 
 def mymessage(request):
     name = request.COOKIES.get('username')
