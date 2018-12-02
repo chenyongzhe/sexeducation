@@ -325,7 +325,29 @@ def userinfor(request):
     else:
         sex = 'fa fa-venus'
         csssex = "color:pink"
-    return render(request,'userinfor.html',{'user':user,'myarticle':myarticle,"imgurl":user.imgurl,"sex":sex,"csssex":csssex,"score":user.score})
+    me = None
+    followlist = []
+    followerlist = []
+    # followerlist = []
+    followees = []
+    if True:
+
+        me = models.ArticleUserinfor.objects.filter(username=name).first()
+        follows = models.Follow.objects.filter(follower=me.id)
+        followlist = []
+
+        for ff in follows:
+            followee = models.ArticleUserinfor.objects.filter(id=ff.followee).first()
+            followees.append(followee)
+            followlist.append(ff.followee)
+        followers = models.Follow.objects.filter(followee=me.id)
+
+        for ff in followers:
+            follower = models.ArticleUserinfor.objects.filter(id=ff.follower).first()
+            followerlist.append(follower)
+
+
+    return render(request,'userinfor.html',{'user':user,'myarticle':myarticle,"imgurl":user.imgurl,"sex":sex,"csssex":csssex,"score":user.score,"me":me,"followeelist":followees,"followerlist":followerlist})
 
 def sent_aritcle(request):
     name = request.COOKIES.get('username')
@@ -342,7 +364,7 @@ def insert_article(request):
        title = request.POST.get('title', None)
        content = request.POST.get('content', None)
        user=user = models.ArticleUserinfor.objects.filter(username=name).first()
-       models.Article.objects.create(title=title, content=content,type_id='9',user_id=user.id)
+       models.Article.objects.create(title=title, content=content,type_id='9',user_id=user.id,supportcount=0)
        print(title)
     except :
         response['state'] = False
@@ -382,7 +404,7 @@ def register(request):
                 return render(request, 'register.html', {'error': error})
            if not phonenumber:
                phonenumber=None
-           models.ArticleUserinfor.objects.create(username=username,password=password1,phone_number=phonenumber,email=email,nickname=nickname)
+           models.ArticleUserinfor.objects.create(username=username,password=password1,phone_number=phonenumber,email=email,nickname=nickname,gender=0,desc="你还没介绍你下自己",score=0,imgurl='/static/assets/img/default.jpg')
            return  redirect('/login/?username='+username+'&p='+password1)
         except :
             error = "出现异常"
