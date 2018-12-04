@@ -477,16 +477,21 @@ def showuser(request):
     followerlist = []
     #followerlist = []
     followees = []
+    followlist = []
     if True:
         if name:
-           me = models.ArticleUserinfor.objects.filter(username=name).first()
-        follows = models.Follow.objects.filter(follower=user_id)
-        followlist=[]
+            me = models.ArticleUserinfor.objects.filter(username=name).first()
+            follows = models.Follow.objects.filter(follower=me.id)
 
-        for ff in follows:
-            followee=models.ArticleUserinfor.objects.filter(id=ff.followee).first()
+
+            for ff in follows:
+               followee=models.ArticleUserinfor.objects.filter(id=ff.followee).first()
+               ##followees.append(followee)
+               followlist.append(ff.followee)
+        userfollowees = models.Follow.objects.filter(follower=user_id)
+        for   ff in userfollowees:
+            followee = models.ArticleUserinfor.objects.filter(id=ff.followee).first()
             followees.append(followee)
-            followlist.append(ff.followee)
         followers = models.Follow.objects.filter(followee=user_id)
 
         for ff in followers:
