@@ -6,7 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-
+#一次改变
 
 class Article(models.Model):
     article_id = models.AutoField(primary_key=True)
