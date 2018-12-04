@@ -642,7 +642,7 @@ def modify(request):
               if  f:
 
                  filename = f.name
-                 last = filename.split('.')[1]
+                 last = filename.split('.')[-1]
                  filepath = os.path.join("article/static/headimg", str(user.id)+ "."+last)
                  loadfile = open(filepath, mode="wb")
                  for fi in f.chunks():
