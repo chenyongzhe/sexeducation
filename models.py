@@ -6,7 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-#一次改变
+
 
 class Article(models.Model):
     article_id = models.AutoField(primary_key=True)
@@ -15,9 +15,10 @@ class Article(models.Model):
     type = models.ForeignKey('Type', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey('ArticleUserinfor', models.DO_NOTHING, blank=True, null=True)
     supportcount = models.IntegerField(blank=True, null=True)
+    origin = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'article'
 
 
@@ -33,7 +34,7 @@ class ArticleUserinfor(models.Model):
     score = models.BigIntegerField(blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'article_userinfor'
 
 
@@ -109,7 +110,7 @@ class Comment(models.Model):
     user = models.ForeignKey(ArticleUserinfor, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'comment'
 
 
@@ -162,7 +163,7 @@ class Follow(models.Model):
     followee = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'follow'
 
 
@@ -172,7 +173,7 @@ class Manager(models.Model):
     nickname = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'manager'
 
 
@@ -181,7 +182,7 @@ class Message(models.Model):
     userid = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'message'
 
 
@@ -189,7 +190,7 @@ class Sample(models.Model):
     text = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'sample'
 
 
@@ -198,7 +199,7 @@ class Support(models.Model):
     article_id = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'support'
 
 
@@ -207,7 +208,7 @@ class Type(models.Model):
     type_name = models.CharField(max_length=60, blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'type'
 
 
@@ -218,7 +219,7 @@ class Usermessage(models.Model):
     time = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'usermessage'
 
 
@@ -227,5 +228,5 @@ class Video(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'video'

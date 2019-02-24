@@ -15,6 +15,7 @@ class Article(models.Model):
     type = models.ForeignKey('Type', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey('ArticleUserinfor', models.DO_NOTHING, blank=True, null=True)
     supportcount = models.IntegerField(blank=True, null=True)
+    origin = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = True

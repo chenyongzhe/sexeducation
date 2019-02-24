@@ -1,0 +1,149 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html >
+
+<head>
+    {% load staticfiles %}
+    <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>{{ user.username }}的主页</title>
+    <!-- Bootstrap Styles-->
+     {% load staticfiles %}
+
+    <link href="{% static "assets/css/bootstrap.css"  %}" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+
+    <link href="{% static "assets/css/font-awesome.css"  %}"  rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="{% static "assets/js/morris/morris-0.4.3.min.css" %}" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="{% static "assets/css/custom-styles.css"  %}"rel="stylesheet" />
+    <!-- Google Fonts-->
+     <style>
+        .page{
+            display: inline-block;
+            padding: 5px;
+            background-color: #4cae4c;
+            margin: 5px;
+
+        }
+        .isactive{
+            background-color: #5bc0de;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+      <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><i class="fa fa-mars"></i> <i class="fa fa-venus"></i><strong>性教育 </strong></a>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <a href="/mymessage">
+                                <div>
+                                    <strong>我的信息</strong>
+                                    <span class="pull-right text-muted" >
+                                        <em>Today</em>
+                                    </span>
+                                </div>
+                                <div>点击查看我的消息</div>
+                            </a>
+                        </li>
+                       </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-tasks">
+
+                    </ul>
+                    <!-- /.dropdown-tasks -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                         <li><a href="/login/"><i class="fa fa-user fa-fw"></i>登录</a>
+                        </li>
+                        <li><a href="/userinfor/"><i class="fa fa-user fa-fw"></i> 用户主页</a>
+                        </li>
+                         <li><a href="/register/"><i class="fa fa-user fa-fw"></i>注册</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="/exit"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+        </nav>
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+		<div id="sideNav" href="" ><i class="fa fa-caret-right"></i></div>
+            <div class="sidebar-collapse" >
+                <ul class="nav" id="main-menu" >
+
+                    <li>
+                        <a class="" href="/"><i class="fa fa-search"></i> 搜索</a>
+                    </li>
+                    <li>
+                        <a href="/videoeducation"><i class="fa fa-youtube-play"></i> 视频教育</a>
+                    </li>
+					<li>
+                        <a href="/sent_article/"><i class="fa fa-pencil"></i>发表文章</a>
+                    </li>
+                    <li>
+                        <a    href="/twjx/"><i class="fa fa-picture-o"></i>图文教育</a>
+
+                    </li>
+
+                    <li>
+                        <a href="/sendmessage/"><i class="fa fa-table"></i>给管理员留言</a>
+                    </li>
+                   
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+{# {% block main_content %}{% endblock %}#}
+
+    </div>
+</body>
+
+</html>

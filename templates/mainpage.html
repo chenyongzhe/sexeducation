@@ -1,39 +1,13 @@
-{% load staticfiles %}
 <!DOCTYPE html>
-<html >
-
+<html lang="zh">
 <head>
-    {% load staticfiles %}
-    <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>基于web2.0性教育</title>
-    <!-- Bootstrap Styles-->
      {% load staticfiles %}
-
-    <link href="{% static "assets/css/bootstrap.css"  %}" rel="stylesheet" />
-    <!-- FontAwesome Styles-->
-
-    <link href="{% static "assets/css/font-awesome.css"  %}"  rel="stylesheet" />
-    <!-- Morris Chart Styles-->
-
-    <!-- Google Fonts-->
-     <style>
-        .page{
-            display: inline-block;
-            padding: 5px;
-            background-color: #4cae4c;
-            margin: 5px;
-
-        }
-        .isactive{
-            background-color: #5bc0de;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>weixin.sogou.com_mainpage</title>
 
      <link href="{% static "mainpage/weixin.sogou.com_mainpage.css"  %}" rel="stylesheet" />
      <link href="{% static "assets/css/bootstrap.css"  %}" rel="stylesheet" />
-
+     <link href="{% static "assets/css/font-awesome.css"  %}"  rel="stylesheet" />
     <script src="{% static "assets/js/jquery-1.11.3.min.js" %}"></script>
 
     <script type="text/javascript">
@@ -199,7 +173,7 @@
 <body>
     <div class="top_toolbars">
         <ul >
-                <li>
+               <li>
                     <a href="/">首页</a>
                 </li>
                 <li>
@@ -218,7 +192,7 @@
                     <a href="/sendmessage/">给管理员留言</a>
                 </li>
 
-            </ul>
+        </ul>
         </div>
     <div id="login_con" style="margin-right: 40px">
         <a href="/mymessage">我的消息</a>
@@ -228,13 +202,13 @@
     </div>
     <div class="middle_bar">
         <div class="middle_bar_content">
-            <div class="logo">
-                <img class="logo_img"   src="{% static "mainpage/search.gif" %}"    style="height: 36px;width: 140px"/>
+            <div class="logo" >
+               <img class="logo_img"   src="{% static "mainpage/search.gif" %}"    style="height: 36px;width: 140px"/>
             </div>
             <form action="/s/" action="GET">
                 <div id="input_con">
                     <input type="text"  name="keyword" id="search_text" placeholder="输入关键词" autocomplete="off"    />
-                    <input type="submit" id="search_bt" value="搜文章" />
+                    <input type="submit" id="search_bt" style="background-color: #FF4E85" value="搜文章" />
                     <input type="button" id="search_officialaccount" value="搜公众号" />
                 </div>
 
@@ -249,11 +223,10 @@
     </div>
 
 
-
-          <div class="wrapper">
+    <div class="wrapper" style="z-index: 1">
         <div class="main_left">
             <div class="banners">
-                <img   src="{% static "mainpage/banners.jpg" %}"   style="width: 640px; height: 340px"/>
+                <img   src="{% static "mainpage/dm2.jpg" %}"   style="width: 640px; height: 340px"/>
             </div>
             <div class="tap_box">
                 <div class="tap">
@@ -268,7 +241,7 @@
             <div class="news_box">
                 <ul class="news_list">
 
-
+                    {% for item in article %}
 
 
                     <li>
@@ -276,8 +249,8 @@
                             <img   src="{% static "mainpage/dm1.jpg" %}"    style="width: 120px;height: 120px" />
                         </div>
                         <div class="txt_box">
-
-
+                            <h3><a href="/article/?id={{ item.article_id }}">{{ item.title}}</a></h3>
+                            <p class="txt_info">{{ item.content}}</p>
                         </div>
                         <div class="txt_info_more">
                             <a href="#">性教育</a>
@@ -285,12 +258,12 @@
                             <a href="#">32分钟前</a>
                         </div>
                     </li>
-
+                      {% endfor %}
                 </ul>
-                    <div class="row" style="width: 100%;z-index: 999">
-
-                            {% block main_content %}{% endblock %}
-                          </div>
+                          <!-- 分页  -->
+                    <div class="pp">
+                       {{ page_str | safe }}
+                   </div>
 
             </div>
         </div>
@@ -377,7 +350,7 @@
                 <ul class="news_list_right">
                     <li>
                         <div class="img_box_right">
-                            <img src="{% static "mainpage/dm1.jpg" %}" style="width: 90px;height: 90px" />
+                            <img src="{% static "mainpage/8.jpg" %}" style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
                             <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
@@ -386,7 +359,7 @@
                     </li>
                     <li>
                         <div class="img_box_right">
-                            <img src="{% static "mainpage/dm4.jpg" %}" style="width: 90px;height: 90px" />
+                            <img src="{% static "mainpage/8.jpg" %}" style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
                             <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
@@ -395,7 +368,7 @@
                     </li>
                     <li>
                         <div class="img_box_right">
-                            <img src="{% static "mainpage/dm2.jpg" %}" style="width: 90px;height: 90px" />
+                            <img src="{% static "mainpage/8.jpg" %}" style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
                             <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
@@ -404,7 +377,7 @@
                     </li>
                     <li>
                         <div class="img_box_right">
-                            <img src="{% static "mainpage/dm3.jpg" %}" style="width: 90px;height: 90px" />
+                            <img src="{% static "mainpage/5.jpg" %}" style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
                             <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
@@ -419,7 +392,7 @@
                 <ul class="news_list_right">
                     <li>
                         <div class="img_box_right">
-                            <img src="{% static "mainpage/dm2.jpg" %}" style="width: 90px;height: 90px" />
+                            <img src="{% static "mainpage/5.jpg" %}" style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
                             <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
@@ -428,7 +401,7 @@
                     </li>
                     <li>
                         <div class="img_box_right">
-                            <img src="{% static "mainpage/dm1.jpg" %}" style="width: 90px;height: 90px" />
+                            <img src="3.jpg" style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
                             <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
@@ -437,7 +410,7 @@
                     </li>
                     <li>
                         <div class="img_box_right">
-                            <img src="{% static "mainpage/dm4.jpg" %}" style="width: 90px;height: 90px" />
+                            <img src="{% static "mainpage/4.jpg" %}" style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
                             <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
@@ -446,7 +419,7 @@
                     </li>
                     <li>
                         <div class="img_box_right">
-                            <img  src="{% static "mainpage/dm1.jpg" %}"  style="width: 90px;height: 90px" />
+                            <img  src="{% static "mainpage/4.jpg" %}"  style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
                             <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
@@ -456,16 +429,11 @@
                 </ul>
             </div>
         </div>
-
+{#        <div id="ft">#}
+{#            <a class="ft_1" href="#">企业推广-关于搜狗-免责声明-意见反馈及投诉-隐私政策</a>#}
+{#            <p class="ft_2" >@2017 SOGOU-京ICP证050897号-京公网安备11000002000025</p>#}
+{#        </div>#}
     </div>
-
-
-
-{#   <div style="margin-top: 50px;">#}
-{#  {% block main_content %}{% endblock %}#}
-{#  </div>#}
-
-
 </body>
-
+    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
 </html>

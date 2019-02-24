@@ -1,4 +1,4 @@
-{% extends 'headerbar.html' %}
+{% extends 'headerbar2.html' %}
 {% load staticfiles %} {% block main_content %}
         <!-- /. NAV SIDE  -->
     <style>
@@ -140,6 +140,7 @@
 
 							<div class="panel-body" style="background-color: #bce8f1">
 								{{ article.content |safe }}
+                                <p>{{ origin }}</p>
 
 							</div>
                  </div>

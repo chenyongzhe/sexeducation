@@ -13,6 +13,7 @@ from django.conf import settings
 import datetime
 import time
 from django.db.models import Q
+import re
 
 def addscore(myrequest,num):
     name = myrequest.COOKIES.get('username')
@@ -41,8 +42,8 @@ def index(request):
     current_page = request.GET.get("p", 1)
     print(current_page)
     current_page = int(current_page)
-    start = (current_page - 1) * 10
-    end = current_page * 10
+    start = (current_page - 1) * 8
+    end = current_page * 8
     print(result[1].title)
     result.reverse()
     print(result[1].title)
@@ -51,7 +52,7 @@ def index(request):
     data.reverse()
     print(data[1].title)
     all_count = count
-    total_count, y = divmod(all_count, 10)
+    total_count, y = divmod(all_count, 8)
     if y:
         total_count += 1
     page_list = []
@@ -117,7 +118,11 @@ def index(request):
     nav2 = '</ul> </nav>'
     page_list.append(nav2)
     page_str = "".join(page_list)
-    return render(request, 'index.html', {'article': data, 'num': num, 'page_str': page_str})
+    for i in range(len(data)):
+        data[i].content = re.sub("[A-Za-z0-9\!\%\[\]\,\。<>/\"=-_.-: ;]", "", data[i].content)
+        data[i].content=data[i].content[0:90]
+
+    return render(request, 'mainpage.html', {'article': data, 'num': num, 'page_str': page_str})
 
 
 
@@ -141,11 +146,11 @@ def search(request):
     current_page = request.GET.get("p", 1)
     print(current_page)
     current_page = int(current_page)
-    start = (current_page - 1) * 10
-    end = current_page * 10
+    start = (current_page - 1) * 8
+    end = current_page * 8
     data = result[start:end]
     all_count = count
-    total_count, y = divmod(all_count, 10)
+    total_count, y = divmod(all_count, 8)
     if y:
         total_count += 1
     page_list = []
@@ -210,10 +215,13 @@ def search(request):
         afterpage = afterpage + keyword + afterpage2
         #afterpage = '<a class="page" href="/s/?keyword='+keyword+'&p=%s">下一页</a>' % (current_page + 1)
         page_list.append(afterpage)
+    for i in range(len(data)):
+        data[i].content = re.sub("[A-Za-z0-9\!\%\[\]\,\。<>/\"=-_.-: ;]", "", data[i].content)
+        data[i].content = data[i].content[0:90]
     nav2='</ul> </nav>'
     page_list.append(nav2)
     page_str = "".join(page_list)
-    return   render(request, 'index.html',{'article':data,'num':num,'page_str':page_str})
+    return   render(request, 'mainpage.html',{'article':data,'num':num,'page_str':page_str})
 def article(request):
     addscore(request, 2)
     myid=request.GET.get("id",None)
@@ -245,7 +253,10 @@ def article(request):
       sp=models.Support.objects.filter(user_id=user.id, article_id=myid).first()
       if sp:
           myclass="fa fa-thumbs-up"
-    myrender=render(request,'article.html',{'article':myarticle,'comment':comment,'comment_cookie':comment_cookie,'supportcount':myarticle.supportcount,'myclass':myclass})
+    origin="";
+    if myarticle.origin:
+        origin="内容爬取于: "+myarticle.origin
+    myrender=render(request,'article1.html',{'article':myarticle,'comment':comment,'comment_cookie':comment_cookie,'supportcount':myarticle.supportcount,'myclass':myclass,'origin':origin})
     myrender.set_cookie('comment_cookie',"N")
     return myrender
 
