@@ -16,7 +16,11 @@
 
     <link href="{% static "assets/css/font-awesome.css"  %}"  rel="stylesheet" />
     <!-- Morris Chart Styles-->
-
+    <style>
+        .top_toolbars a{
+            color: #6A89C0;
+        }
+    </style>
     <!-- Google Fonts-->
      <style>
         .page{
@@ -197,19 +201,24 @@
 
 </head>
 <body>
+   <style>
+        .top_toolbars a{
+            color: #6A89C0;
+        }
+        </style>
     <div class="top_toolbars">
         <ul >
                 <li>
                     <a href="/">首页</a>
                 </li>
                 <li>
-                    <a href="/">文章</a>
+                    <a href="/">家长</a>
                 </li>
                 <li>
-                    <a href="/videoeducation">性教育视频</a>
+                    <a href="/videoeducation">小盆友</a>
                 </li>
                 <li>
-                    <a href="/twjx">性教育科普</a>
+                    <a href="/twjx">青少年</a>
                 </li>
                 <li>
                     <a href="/sent_article">我要说话</a>
@@ -220,6 +229,13 @@
 
             </ul>
         </div>
+   <div id="login_con" style="margin-right: 200px">
+        <a href="/exit">退出登录</a>
+    </div>
+   <div id="login_con" style="margin-right: 120px">
+        <a href="/userinfor/">用户主页</a>
+    </div>
+
     <div id="login_con" style="margin-right: 40px">
         <a href="/mymessage">我的消息</a>
     </div>
@@ -234,9 +250,8 @@
             <form action="/s/" action="GET">
                 <div id="input_con">
                     <input type="text"  name="keyword" id="search_text" placeholder="输入关键词" autocomplete="off"    />
-                    <input type="submit" id="search_bt" value="搜文章" />
-                    <input type="button" id="search_officialaccount" value="搜公众号" />
-                </div>
+                   <input type="submit" id="search_bt" style="background-color: #FF4E85" value="搜文章" />
+               </div>
 
             </form>
                 <div style="margin-left: 20%;z-index: 99">
@@ -253,13 +268,13 @@
           <div class="wrapper">
         <div class="main_left">
             <div class="banners">
-                <img   src="{% static "mainpage/banners.jpg" %}"   style="width: 640px; height: 340px"/>
+                <img   src="{% static "mainpage/dm2.jpg" %}"   style="width: 640px; height: 340px"/>
             </div>
             <div class="tap_box">
                 <div class="tap">
                    <a href="/">首页</a>
                     <a href="/">文章</a>
-                    <a href="/videoeducation">视频教育</a>
+                    <a href="/videoeducation">性教育视频</a>
                     <a href="/twjx">性教育科普</a>
                     <a href="/sent_article">发表文章</a>
                     <a href="/sendmessage/">给管理员留言</a>
@@ -300,115 +315,115 @@
                     <span class="heat">热度</span>
                 </p>
                 <ol class="hot_news">
-                    <li>
+                   <li>
                         <i class="hot_one">1</i>
-                        <a href="#">广工钟武杰高调离婚</a>
+                        <a href="/article/?id=12134">如何看待「早恋成风」的现象</a>
                         <span class="hot_line">
                             <span style="width: 100%"></span>
                         </span>
                     </li>
                     <li>
                         <i class="hot_two">2</i>
-                        <a href="#">B4八楼王者荣耀大赛</a>
+                        <a href="/article/?id=2">青春期少女应该知道的生理知识</a>
                         <span class="hot_line">
                             <span style="width: 93%"></span>
                         </span>
                     </li>
                     <li>
                         <i class="hot_three">3</i>
-                        <a href="#">广工内饭全体罢工</a>
+                        <a href="/article/?id=49">中国父母对孩子性启蒙的爆笑雷点</a>
                         <span class="hot_line">
                             <span style="width: 86%"></span>
                         </span>
                     </li>
                     <li>
                         <i class="hot_normal">4</i>
-                        <a href="#">广大饭堂全体罢工</a>
+                        <a href="/article/?id=63">性启蒙最合适的方式是什么样的？</a>
                         <span class="hot_line">
                             <span style="width: 79%"></span>
                         </span>
                     </li>
                     <li>
                         <i class="hot_normal">5</i>
-                        <a href="#">中大饭堂全体罢工</a>
+                        <a href="/article/?id=77">什么时候和孩子谈性时机最好</a>
                         <span class="hot_line">
                             <span style="width: 75%"></span>
                         </span>
                     </li>
                     <li>
                         <i class="hot_normal">6</i>
-                        <a href="#">华工饭堂全体罢工</a>
+                        <a href="/article/?id=126">身体发育，你了解多少</a>
                         <span class="hot_line">
                             <span style="width: 71%"></span>
                         </span>
                     </li>
                     <li>
                         <i class="hot_normal">7</i>
-                        <a href="#">广外饭堂全体罢工</a>
+                        <a href="/article/?id=157">男孩性别意识早培养</a>
                         <span class="hot_line">
                             <span style="width: 65%"></span>
                         </span>
                     </li>
                     <li>
                         <i class="hot_normal">8</i>
-                        <a href="#">华师饭堂全体罢工</a>
+                        <a href="/article/?id=183">青春期有哪些性征</a>
                         <span class="hot_line">
                             <span style="width: 55%"></span>
                         </span>
                     </li>
                     <li>
                         <i class="hot_normal">9</i>
-                        <a href="#">广美饭堂全体罢工</a>
+                        <a href="/article/?id=241">遗精的基本常识</a>
                         <span class="hot_line">
                             <span style="width: 45%"></span>
                         </span>
                     </li>
                     <li>
-                        <i class="hot_normal">4</i>
-                        <a href="#">星海饭堂全体罢工</a>
+                        <i class="hot_normal">10</i>
+                        <a href="/article/?id=268">少女有哪些性权利？</a>
                         <span class="hot_line">
                             <span style="width: 30%"></span>
                         </span>
                     </li>
                 </ol>
             </div>
-            <div class="aside">
+           <div class="aside">
                 <p class="tit">编辑精选</p>
                 <ul class="news_list_right">
                     <li>
                         <div class="img_box_right">
-                            <img src="{% static "mainpage/dm1.jpg" %}" style="width: 90px;height: 90px" />
+                            <img src="{% static "mainpage/dm9.jpg" %}" style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
-                            <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
-                            <p class="txt_info_right_more">时尚芭莎&nbsp;&nbsp;&nbsp;10月5号</p>
+                            <a href="/article/?id=373">  <p>男孩青春期性反应你知道吗？</p></a>
+                            <p class="txt_info_right_more">性教育&nbsp;&nbsp;&nbsp;10月5号</p>
                         </div>
                     </li>
                     <li>
                         <div class="img_box_right">
-                            <img src="{% static "mainpage/dm4.jpg" %}" style="width: 90px;height: 90px" />
+                            <img src="{% static "mainpage/dm11.jpg" %}" style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
-                            <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
-                            <p class="txt_info_right_more">时尚芭莎&nbsp;&nbsp;&nbsp;10月5号</p>
+                           <a href="/article/?id=160"><p>错误的教育法让孩子恐惧性爱</p></a>
+                            <p class="txt_info_right_more">性教育&nbsp;&nbsp;&nbsp;7月4号</p>
                         </div>
                     </li>
                     <li>
                         <div class="img_box_right">
-                            <img src="{% static "mainpage/dm2.jpg" %}" style="width: 90px;height: 90px" />
+                            <img src="{% static "mainpage/dm17.jpg" %}" style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
-                            <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
-                            <p class="txt_info_right_more">时尚芭莎&nbsp;&nbsp;&nbsp;10月5号</p>
+                           <a href="/article/?id=393"> <p>如何判断一个人是否心理成熟？</p></a>
+                            <p class="txt_info_right_more">性教育&nbsp;&nbsp;&nbsp;2月7号</p>
                         </div>
                     </li>
                     <li>
                         <div class="img_box_right">
-                            <img src="{% static "mainpage/dm3.jpg" %}" style="width: 90px;height: 90px" />
+                            <img src="{% static "mainpage/dm16.jpg" %}" style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
-                            <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
-                            <p class="txt_info_right_more">时尚芭莎&nbsp;&nbsp;&nbsp;10月5号</p>
+                           <a href="/article/?id=414"> <p>青春期女生性心理特点</p></a>
+                            <p class="txt_info_right_more">女生&nbsp;&nbsp;&nbsp;3月2号</p>
                         </div>
                     </li>
                 </ul>
@@ -419,38 +434,38 @@
                 <ul class="news_list_right">
                     <li>
                         <div class="img_box_right">
-                            <img src="{% static "mainpage/dm2.jpg" %}" style="width: 90px;height: 90px" />
+                            <img src="{% static "mainpage/dm11.jpg" %}" style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
-                            <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
-                            <p class="txt_info_right_more">时尚芭莎&nbsp;&nbsp;&nbsp;10月5号</p>
+                            <a href="/article/?id=464"> <p>青少年如何正确处理性冲动</p></a>
+                            <p class="txt_info_right_more">青少年&nbsp;&nbsp;&nbsp;11月10号</p>
                         </div>
                     </li>
                     <li>
                         <div class="img_box_right">
-                            <img src="{% static "mainpage/dm1.jpg" %}" style="width: 90px;height: 90px" />
+                            <img src="{% static "mainpage/dm12.png" %}" style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
-                            <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
-                            <p class="txt_info_right_more">时尚芭莎&nbsp;&nbsp;&nbsp;10月5号</p>
+                            <a href="/article/?id=547"> <p>女生青春期长高方法都有什么？</p></a>
+                            <p class="txt_info_right_more">青春期&nbsp;&nbsp;&nbsp;3月5号</p>
                         </div>
                     </li>
                     <li>
                         <div class="img_box_right">
-                            <img src="{% static "mainpage/dm4.jpg" %}" style="width: 90px;height: 90px" />
+                            <img src="{% static "mainpage/dm13.jpg" %}" style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
-                            <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
-                            <p class="txt_info_right_more">时尚芭莎&nbsp;&nbsp;&nbsp;10月5号</p>
+                            <a href="/article/?id=31">   <p>探究青春期男性生殖器变化</p></a>
+                            <p class="txt_info_right_more">青春期&nbsp;&nbsp;&nbsp;10月14号</p>
                         </div>
                     </li>
                     <li>
                         <div class="img_box_right">
-                            <img  src="{% static "mainpage/dm1.jpg" %}"  style="width: 90px;height: 90px" />
+                            <img  src="{% static "mainpage/dm15.jpg" %}"  style="width: 90px;height: 90px" />
                         </div>
                         <div class="txt_box_right">
-                            <p>维密模特身材完美的秘诀？这样的神奇操作你是否见过</p>
-                            <p class="txt_info_right_more">时尚芭莎&nbsp;&nbsp;&nbsp;10月5号</p>
+                            <a href="/article/?id=67">     <p>青春期切忌发生性行为</p></a>
+                            <p class="txt_info_right_more">青春期&nbsp;&nbsp;&nbsp;12月8号</p>
                         </div>
                     </li>
                 </ul>
