@@ -15,6 +15,16 @@ import time
 from django.db.models import Q
 import re
 
+def islogin(myrequest):
+    name = myrequest.COOKIES.get('username')
+    logistr=""
+    if name:
+        user = models.ArticleUserinfor.objects.filter(username=name).first()
+        logistr="""<a href="/userinfor"><img src="%s" style="width:50px;height:50px;%s"></a>""" %(user.imgurl,"border-radius:100%;")
+    else:
+        logistr="""<script> $("#login_img").css("top","-5px");</script><button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">登录</button>"""
+    return logistr
+
 def addscore(myrequest,num):
     name = myrequest.COOKIES.get('username')
     if name:
@@ -32,6 +42,7 @@ def  index1(request):
 
 
 def index(request):
+    loginstr=islogin(request)
     addscore(request,2)
     #cache.set("name","陈永喆")
     #myname=cache.get("name")
@@ -84,7 +95,7 @@ def index(request):
 
         # pre = '<a class="page" href="#">上一页</a>'
     else:
-        pre = '<li>  <a href = "/'
+        pre = '<li>  <a href = "/readarticle/'
         pre2 = """?p=%s" aria-label="Previous" >
                    <span aria-hidden="true" > &laquo; </span></a>
                   </li>""" % (current_page - 1)
@@ -94,11 +105,11 @@ def index(request):
 
     for i in range(int(start_index), int(end_index)):
         if i == current_page:
-            temp = '<li class ="active" > <a href="/?&p=%s">%s</a></li>' % (i, i)
+            temp = '<li class ="active" > <a href="/readarticle?&p=%s">%s</a></li>' % (i, i)
             # temp = '<a class="page isactive" href="/s/?keyword='+keyword+'&p=%s">%s</a>' % (i, i)
         else:
             # temp = '<a class="page" href="/s/?keyword='+keyword+'&p=%s">%s</a>' % (i, i)
-            temp = '<li> <a href="/?p=%s">%s</a></li>' % (i, i)
+            temp = '<li> <a href="/readarticle?p=%s">%s</a></li>' % (i, i)
         page_list.append(temp)
     afterpage = ""
     if current_page == total_count:
@@ -108,7 +119,7 @@ def index(request):
                     <span aria-hidden="true">&raquo;</span></a>
                    </li>"""
     else:
-        afterpage = '<li>  <a href = "/?'
+        afterpage = '<li>  <a href = "/readarticle?'
         afterpage2 = """p=%s" aria-label="Next" >
                            <span aria-hidden ="true">&raquo;</span></a>
                           </li>""" % (current_page + 1)
@@ -122,11 +133,12 @@ def index(request):
         data[i].content = re.sub("[A-Za-z0-9\!\%\[\]\,\。<>/\"=-_.-: ;]", "", data[i].content)
         data[i].content=data[i].content[0:90]
 
-    return render(request, 'mainpage.html', {'article': data, 'num': num, 'page_str': page_str})
+    return render(request, 'mainpage.html', {'article': data, 'num': num, 'page_str': page_str,'loginstr':loginstr})
 
 
 
 def search(request):
+    loginstr = islogin(request)
     addscore(request, 2)
     keyword=request.GET.get("keyword",None)
     result=None
@@ -221,8 +233,9 @@ def search(request):
     nav2='</ul> </nav>'
     page_list.append(nav2)
     page_str = "".join(page_list)
-    return   render(request, 'mainpage.html',{'article':data,'num':num,'page_str':page_str})
+    return   render(request, 'mainpage.html',{'article':data,'num':num,'page_str':page_str,"loginstr":loginstr})
 def article(request):
+    loginstr = islogin(request)
     addscore(request, 2)
     myid=request.GET.get("id",None)
     myarticle=models.Article.objects.filter(article_id=myid ).first()
@@ -256,7 +269,7 @@ def article(request):
     origin="";
     if myarticle.origin:
         origin="内容爬取于: "+myarticle.origin
-    myrender=render(request,'article1.html',{'article':myarticle,'comment':comment,'comment_cookie':comment_cookie,'supportcount':myarticle.supportcount,'myclass':myclass,'origin':origin})
+    myrender=render(request,'article1.html',{'article':myarticle,'comment':comment,'comment_cookie':comment_cookie,'supportcount':myarticle.supportcount,'myclass':myclass,'origin':origin,"loginstr":loginstr})
     myrender.set_cookie('comment_cookie',"N")
     return myrender
 
@@ -274,6 +287,9 @@ def videoeducation(request):
     return render(request,'videoeducation.html',{'video_list':video_list})
 
 def login(request):
+    response = {}
+    response['message'] = "登录成功"
+
     msg={}
     error = ""
     msg['username']=""
@@ -286,7 +302,7 @@ def login(request):
 
         if username ==None and password==None:
             print("没问题")
-            return render(request, 'login.html',{'error': error,'msg':msg})
+            return json.dumps(response)
         else:
             msg['username'] = username
             msg['password'] = password
@@ -295,37 +311,43 @@ def login(request):
     if(request.method=='POST'):
         username=request.POST.get('username',None)
         password=request.POST.get('password',None)
+        print(username)
+        print(password)
         if username == "" or password == "":
             error = "账号密码不能为空"
-            return render(request, "login.html", {'error': error,'msg':msg})
+            response['message'] = error
+            return json.dumps(response)
         else:
           user= models.ArticleUserinfor.objects.filter(username=username).first()
           if not user :
               error="该用户不存在"
-              return render(request, "login.html", {'error': error,'msg':msg})
+              response['message'] = error
+              return HttpResponse(json.dumps(response,ensure_ascii=False))
 
           if user.password==password :
-              res = redirect('/userinfor/')
+              res = HttpResponse(json.dumps(response,ensure_ascii=False))
               res.set_cookie('username', username)
               aid = request.COOKIES.get('aid')
               print(aid)
               if aid !=None and (aid !='N'):
-                  res1 = redirect('/article?id='+aid)
+                  res1 = HttpResponse(json.dumps(response,ensure_ascii=False))
                   res1.set_cookie('aid', "N")
                   res1.set_cookie('username', username)
                   return res1
               return res
           error = "密码错误"
-          return  render(request, "login.html", {'error': error,'msg':msg})
+          response['message'] = error
+          return  HttpResponse(json.dumps(response,ensure_ascii=False))
 
     else:
 
-      return render(request,'login.html',{'error': error,'msg':msg})
+      return HttpResponse(json.dumps(response,ensure_ascii=False))
 
 def userinfor(request):
+    loginstr = islogin(request)
     name = request.COOKIES.get('username')
     if not name:
-        return redirect('/login/')
+        return render(request,"pleaselogin.html",{"loginstr":loginstr})
     user=models.ArticleUserinfor.objects.filter(username=name).first()
     myarticle= models.Article.objects.filter(user_id=user.id)
     sex=""
@@ -358,14 +380,16 @@ def userinfor(request):
             followerlist.append(follower)
 
 
-    return render(request,'userinfor.html',{'user':user,'myarticle':myarticle,"imgurl":user.imgurl,"sex":sex,"csssex":csssex,"score":user.score,"me":me,"followeelist":followees,"followerlist":followerlist})
+    return render(request,'userinfor.html',{'user':user,'myarticle':myarticle,"imgurl":user.imgurl,"sex":sex,"csssex":csssex,"score":user.score,"me":me,"followeelist":followees,"followerlist":followerlist,"loginstr":loginstr})
 
 def sent_aritcle(request):
+    loginstr = islogin(request)
     name = request.COOKIES.get('username')
+
     if not name:
-        return redirect('/login/')
+        return render(request,"pleaselogin.html",{"loginstr":loginstr})
     user = models.ArticleUserinfor.objects.filter(username=name).first()
-    return render(request,'sent_article.html',{'user':user})
+    return render(request,'sent_article.html',{'user':user,"loginstr":loginstr})
 
 def insert_article(request):
     addscore(request, 20)
@@ -382,6 +406,7 @@ def insert_article(request):
     return HttpResponse(json.dumps(response))
 
 def register(request):
+     loginstr = islogin(request)
      error=""
 
      if request.method=='POST':
@@ -394,38 +419,42 @@ def register(request):
            nickname = request.POST.get('nickname', None)
            if username=="":
                error=error+"账号不能为空"
-               return render(request, 'register.html', {'error': error})
+               return render(request, 'register.html', {'error': error,"loginstr":loginstr})
            if not ( (username.isalpha() or username.isdigit()) and username.isalnum()):
                error = error + " 账号只能是字母和数字"
-               return render(request, 'register.html', {'error': error})
+               return render(request, 'register.html', {'error': error,"loginstr":loginstr})
            if nickname=="":
                error = error + " 昵称不能为空"
-               return render(request, 'register.html', {'error': error})
+               return render(request, 'register.html', {'error': error,"loginstr":loginstr})
 
            user =  models.ArticleUserinfor.objects.filter(username=username).first()
            if user:
                print("该用户已存在")
                error="该账号已存在"
-               return render(request,'register.html',{'error':error})
+               return render(request,'register.html',{'error':error,"loginstr":loginstr})
            if password1=="" or password2=="" :
                 error="密码或确认密码不能为空"
-                return render(request, 'register.html', {'error': error})
+                return render(request, 'register.html', {'error': error,"loginstr":loginstr})
            if password2 !=password1 :
                 error="确认密码与密码不一致"
-                return render(request, 'register.html', {'error': error})
+                return render(request, 'register.html', {'error': error,"loginstr":loginstr})
            if not phonenumber:
                phonenumber=None
            models.ArticleUserinfor.objects.create(username=username,password=password1,phone_number=phonenumber,email=email,nickname=nickname,gender=0,desc="你还没介绍你下自己",score=0,imgurl='/static/assets/img/default.jpg')
-           return  redirect('/login/?username='+username+'&p='+password1)
+           re=redirect('/')
+           re.set_cookie("username",username)
+           return  re
         except :
             error = "出现异常"
-            return render(request, 'register.html', {'error': error})
-     return  render(request,'register.html')
+            return render(request, 'register.html', {'error': error,"loginstr":loginstr})
+     return  render(request,'register.html',{"loginstr":loginstr})
 
 def showhtml(request,id):
+     loginstr = islogin(request)
      addscore(request, 2)
-     return render(request,id+'.html')
+     return render(request,id+'.html',{"loginstr":loginstr})
 def picedu(request):
+    loginstr = islogin(request)
     # result = models.Article.objects.all()
     # article=[]
     # for myre in result:
@@ -443,13 +472,15 @@ def picedu(request):
 
     #cache.set('article',json.dumps(article))
     addscore(request, 2)
-    return  render(request,'picedu.html')
+    return  render(request,'picedu.html',{"loginstr":loginstr})
 def manbody(request):
+    loginstr = islogin(request)
     addscore(request, 2)
-    return render(request,'manbody.html')
+    return render(request,'manbody.html',{"loginstr":loginstr})
 def womanbody(request):
+    loginstr = islogin(request)
     addscore(request, 2)
-    return render(request,'womenbody.html')
+    return render(request,'womenbody.html',{"loginstr":loginstr})
 def insert_comment(request):
     addscore(request, 10)
     name = request.COOKIES.get('username')
@@ -480,6 +511,7 @@ def insert_comment(request):
     return HttpResponse(json.dumps(response))
 
 def showuser(request):
+    loginstr = islogin(request)
     user_id=request.GET.get('user_id', None)
     user = models.ArticleUserinfor.objects.filter(id=user_id).first()
     name = request.COOKIES.get('username')
@@ -518,7 +550,7 @@ def showuser(request):
         sex = 'fa fa-venus'
         csssex = "color:pink"
 
-    return render(request, 'user.html', {'user': user,"me":me,"followeelist":followees,"followerlist":followerlist,"followId_list":followlist,"me":me, 'myarticle': myarticle,'imgurl':user.imgurl,"sex":sex,"csssex":csssex})
+    return render(request, 'user.html', {'user': user,"me":me,"followeelist":followees,"followerlist":followerlist,"followId_list":followlist,"me":me, 'myarticle': myarticle,'imgurl':user.imgurl,"sex":sex,"csssex":csssex,"loginstr":loginstr})
 
 def zhan(request):
     name = request.COOKIES.get('username')
@@ -620,12 +652,12 @@ def gettip(request):
     return HttpResponse(json.dumps(response))
 
 def modify(request):
-
+    loginstr = islogin(request)
     mesg=""
     if request.method=="POST":
         name = request.COOKIES.get('username')
         if not name:
-            return redirect('/login/')
+            return render(request,"pleaselogin.html",{"loginstr":loginstr})
         try:
               user = models.ArticleUserinfor.objects.filter(username=name).first()
               nickname= request.POST.get("nickname")
@@ -654,7 +686,7 @@ def modify(request):
 
                  filename = f.name
                  last = filename.split('.')[-1]
-                 filepath = os.path.join("article/static/headimg", str(user.id)+ "."+last)
+                 filepath = os.path.join("/project/sexeducation/collect_static/headimg/", str(user.id)+ "."+last)
                  loadfile = open(filepath, mode="wb")
                  for fi in f.chunks():
                     loadfile.write(fi)
@@ -664,20 +696,21 @@ def modify(request):
         except:
               mesg = "修改失败"
         addscore(request, 15)
-        return  render(request,"modify.html",{"isupload":mesg})
-    return render(request,"modify.html",{"isupload":mesg})
+        return  redirect("/userinfor")
+    return render(request,"modify.html",{"isupload":mesg,"loginstr":loginstr})
 
 
 def exit_login(request):
     name = request.COOKIES.get('username')
     if not name:
-        return redirect('/login/')
+        return redirect('/')
     else:
-        res1 = redirect('/login')
+        res1 = redirect('/')
         res1.set_cookie('username', "")
         return res1
 def sendmessage(request):
-       return render(request, "sendtomanager.html")
+       loginstr = islogin(request)
+       return render(request, "sendtomanager.html",{"loginstr":loginstr})
 
 def insert_message(request):
     name = request.COOKIES.get('username')
@@ -786,9 +819,10 @@ def sendto(request):
 
 
 def mymessage(request):
+    loginstr = islogin(request)
     name = request.COOKIES.get('username')
     if not name:
-        return redirect('/login/')
+        return render(request,"pleaselogin.html",{"loginstr":loginstr})
     user=models.ArticleUserinfor.objects.filter(username=name).first()
     message = models.Usermessage.objects.filter(Q(to_id=user.id )|Q(from_id=user.id)).order_by('-time')
     mymessage = []
@@ -809,12 +843,13 @@ def mymessage(request):
         comment_tamp["time"] = cc.time
         comment_tamp["from_img"] = user3.imgurl
         mymessage.append(comment_tamp)
-    return render(request, "mymessage.html", {"mymessage": mymessage,"mynickname":user.nickname,"myimg":user.imgurl,"user":user})
+    return render(request, "mymessage.html", {"mymessage": mymessage,"mynickname":user.nickname,"myimg":user.imgurl,"user":user,"loginstr":loginstr})
 
 def usermessage(request):
+    loginstr = islogin(request)
     id=request.GET.get("id",None)
     message = models.Usermessage.objects.filter(id=id).first()
-    return  render(request,"showusermessage.html",{"content":message.content})
+    return  render(request,"showusermessage.html",{"content":message.content,"loginstr":loginstr})
 
 def testedit(request):
     return render(request,"edittest.html")
@@ -825,7 +860,7 @@ def  upload_img(request):
     t = time.time()
     last=filename.split('.')[1]
     picname=str(int(round(t * 1000)))+"."+last
-    filepath="article/static/image/" + picname
+    filepath="/project/sexeducation/collect_static/image/" + picname
     loadfile = open(filepath, mode="wb")
     for fi in files.chunks():
         loadfile.write(fi)
@@ -845,3 +880,175 @@ def follow(request):
     if   follow_tip=="cancel":
         models.Follow.objects.filter(follower=follower_id,followee=followee_id).first().delete()
         return HttpResponse("canceled")
+def video_play(request):
+    loginstate="1"
+    name = request.COOKIES.get('username')
+    if not name:
+        loginstate="0"
+    loginstr = islogin(request)
+    vid = request.GET.get("id", None)
+    video = models.Videolist.objects.filter(id=vid).first()
+    seenum=int(video.seenum)
+    seenum=seenum+1
+    models.Videolist.objects.filter(id=vid).update(seenum=seenum)
+    comment = []
+    mycommtent = models.Vcomment.objects.filter(vid=vid)
+    for cc in mycommtent:
+        user=models.ArticleUserinfor.objects.filter(id=cc.userid).first()
+        comment_tamp={}
+        comment_tamp["username"]=user.username
+        comment_tamp["user_id"]=user.id
+        comment_tamp["comment_content"]=cc.mycomment
+        comment_tamp["nickname"]=user.nickname
+        comment_tamp["ctime"] = cc.ctime
+        comment.append(comment_tamp)
+    dmlist=models.Danmu.objects.filter(vid=vid)
+    mydm=[]
+    for dm in dmlist:
+        dmtamp={}
+        dmtamp["text"]=dm.content
+        dmtamp["size"]=int(dm.dsize)
+        dmtamp["color"]=dm.color
+        dmtamp["time"]=int(dm.dtime)
+        dmtamp["position"]=int(dm.position)
+        mydm.append(dmtamp)
+    dmresult=json.dumps(mydm, ensure_ascii=False)
+    print(dmresult)
+    return render(request,'playvideo.html',{"video":video,"loginstr":loginstr,"comment":comment,"vid":vid,"loginstate":loginstate,"dmresult":str(dmresult)})
+
+def video_list(request):
+    loginstr = islogin(request)
+    typevid= request.GET.get("tp", 0)
+    # result = models.Videolist.objects.all()
+    addscore(request, 2)
+    # cache.set("name","陈永喆")
+    # myname=cache.get("name")
+    # print(myname)
+    result=None
+    if typevid==0 or typevid=="0":
+        result = models.Videolist.objects.all()
+    else:
+       result= models.Videolist.objects.filter(videotp=typevid)
+    count = len(result)
+    num = "总共" + str(count) + "个视频"
+    current_page = request.GET.get("p", 1)
+    print(current_page)
+    current_page = int(current_page)
+    start = (current_page - 1) * 8
+    end = current_page * 8
+    ##print(result[1].title)
+    #result.reverse()
+    ##print(result[1].title)
+    #data1 = result[count - end-1:count - start-1]
+    result1=list(result)
+    result1.reverse()
+    data=result1[start:end]
+    #print(data)
+    #data = list(data)
+    #data.reverse()
+    #print(data)
+    ##print(data[1].title)
+    all_count = count
+    total_count, y = divmod(all_count, 8)
+    if y:
+        total_count += 1
+    page_list = []
+    nav = """<nav aria-label= "Page navigation" >
+            <ul class ="pagination" >"""
+    page_list.append(nav)
+    page_num = 7
+    start_index = 1
+    end_index = 0
+    if total_count < page_num:
+        start_index = 1
+        end_index = total_count + 1
+    else:
+        if current_page <= ((page_num + 1) / 2):
+            start_index = 1
+            end_index = page_num + 1
+        else:
+            start_index = current_page - (page_num - 1) / 2
+            end_index = current_page + (page_num + 1) / 2
+            if (current_page + (page_num - 1) / 2) > total_count:
+                end_index = total_count + 1
+                start_index = total_count - page_num + 1
+    pre = ""
+    if current_page == 1:
+        pre = """<li>
+                <a href="#" aria-label = "Previous" >
+                <span aria-hidden = "true" > &laquo; </span></a>
+               </li>"""
+
+        # pre = '<a class="page" href="#">上一页</a>'
+    else:
+        pre = '<li>  <a href = "/videolist'
+        pre2 = """?p=%s" aria-label="Previous" >
+                       <span aria-hidden="true" > &laquo; </span></a>
+                      </li>""" % (current_page - 1)
+        pre = pre + pre2
+        #        print(pre)
+    page_list.append(pre)
+
+    for i in range(int(start_index), int(end_index)):
+        if i == current_page:
+            temp = '<li class ="active" > <a href="/videolist?&p=%s&tp=%s">%s</a></li>' % (i,typevid, i)
+            # temp = '<a class="page isactive" href="/s/?keyword='+keyword+'&p=%s">%s</a>' % (i, i)
+        else:
+            # temp = '<a class="page" href="/s/?keyword='+keyword+'&p=%s">%s</a>' % (i, i)
+            temp = '<li> <a href="/videolist?p=%s&tp=%s">%s</a></li>' % (i,typevid, i)
+        page_list.append(temp)
+    afterpage = ""
+    if current_page == total_count:
+        # afterpage = '<a class="page" href="#">下一页</a>'
+        afterpage = """<li>
+                        <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span></a>
+                       </li>"""
+    else:
+        afterpage = '<li>  <a href = "/videolist?'
+        afterpage2 = """p=%s" aria-label="Next" >
+                               <span aria-hidden ="true">&raquo;</span></a>
+                              </li>""" % (current_page + 1)
+        afterpage = afterpage + afterpage2
+        # afterpage = '<a class="page" href="/s/?keyword='+keyword+'&p=%s">下一页</a>' % (current_page + 1)
+        page_list.append(afterpage)
+    nav2 = '</ul> </nav>'
+    page_list.append(nav2)
+    page_str = "".join(page_list)
+    # for i in range(len(data)):
+    #     data[i].content = re.sub("[A-Za-z0-9\!\%\[\]\,\。<>/\"=-_.-: ;]", "", data[i].content)
+    #     data[i].content = data[i].content[0:90]
+
+    return render(request, 'videolist.html', {'videolist': data, 'num': num, 'page_str': page_str,"loginstr":loginstr})
+
+
+def insert_vcomment(request):
+    addscore(request, 10)
+    name = request.COOKIES.get('username')
+    response={}
+    response['islogin']='True'
+    if not name:
+        loginstr = islogin(request)
+        return render(request,"pleaselogin.html",{"loginstr":loginstr})
+    response['state']=True
+    try:
+        ##title = request.POST.get('myconment', None)
+        mycomment = request.POST.get('mycomment', None)
+        vid=request.POST.get('vid',None)
+        #print(mycomment)
+        ctime=str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))
+        user = models.ArticleUserinfor.objects.filter(username=name).first()
+        models.Vcomment.objects.create(mycomment=mycomment, vid=vid, userid=user.id,ctime=ctime)
+
+    except:
+        response['state'] = False
+    return HttpResponse(json.dumps(response))
+
+def insert_dm(request):
+    vid=request.POST.get('vid', None)
+    dsize = request.POST.get('dsize', None)
+    content= request.POST.get('content', None)
+    color = request.POST.get('color', None)
+    position=request.POST.get('position', None)
+    mytime=request.POST.get('mytime', None)
+    models.Danmu.objects.create(content=content, vid=vid, position=position, dtime=mytime,color=color,dsize=dsize)

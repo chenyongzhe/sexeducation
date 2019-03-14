@@ -3,7 +3,7 @@
 <head>
      {% load staticfiles %}
     <meta charset="UTF-8">
-    <title>weixin.sogou.com_mainpage</title>
+    <title>基于web2.0性教育系统</title>
 
      <link href="{% static "mainpage/weixin.sogou.com_mainpage.css"  %}" rel="stylesheet" />
      <link href="{% static "assets/css/bootstrap.css"  %}" rel="stylesheet" />
@@ -288,19 +288,125 @@
 
 </head>
 <body>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+                <div class="row">
+                      <div class="col-xs-8  col-xs-offset-1" ><p style="font-size:30px; ">用户登录</p></div>
+                  </div>
+            </div>
+
+           <div id="">
+
+               <div >
+                   <div class="modal-body">
+
+
+                  <div class="row">
+                      <div class="col-xs-8  col-xs-offset-1" style="margin-top: 30px">
+                      账号<input  class="form-control" type="text" id="username" placeholder="请输入账号" >
+                      </div>
+                  </div>
+                   <div class="row">
+                      <div class="col-xs-8 col-xs-offset-1" style="margin-top: 30px">
+                      密码<input  class="form-control" type="password" id="password" placeholder="请输入密码" >
+                      </div>
+                  </div>
+                   </div>
+                   <div class="modal-footer">
+                   <div class="row">
+                      <div class="col-xs-6 col-xs-offset-2" style="margin-top: 30px">
+                      <input class="btn btn-primary subt"  value="登录" ><span class="errorspan"></span>
+                      </div>
+
+                  </div>
+                     <div class="row">
+                      <div class="col-xs-4 col-xs-offset-3" style="margin-top: 5px">
+                      <a href="/register/" style="color: red;">没有账户账号我要注册</a>
+                      </div>
+                  </div>
+                   </div>
+                  </div>
+
+
+
+
+                </div>
+
+
+
+                </div>
+
+         </div>
+               <script>
+                   $('.subt').click(function () {
+                             $.ajax({
+             url:'/login/',
+             type:'POST',
+             data:{'username':$('#username').val(),'password':$("#password").val()},
+             success:function (data) {
+                 //alert(data);
+                 var obj=JSON.parse(data);
+                 if(obj.message=="登录成功"){
+                      $('.errorspan').html(obj.message)
+
+                    //alert("登录成功");
+                    location.reload();
+                 }
+                 else {
+                    $('.errorspan').html(obj.message)
+
+                 }
+
+
+
+
+                 }
+
+
+         })
+
+                   })
+               </script>
+
+
+           </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="top_toolbars">
         <ul >
-               <li>
+                  <li>
                     <a href="/">首页</a>
                 </li>
                 <li>
-                    <a href="/">文章</a>
+                    <a href="/">家长</a>
                 </li>
                 <li>
-                    <a href="/videoeducation">性教育视频</a>
+                    <a href="/videolist">小盆友</a>
                 </li>
                 <li>
-                    <a href="/twjx">性教育科普</a>
+                    <a href="/twjx">青少年</a>
                 </li>
                 <li>
                     <a href="/sent_article">我要说话</a>
@@ -310,18 +416,18 @@
                 </li>
             </ul>
         </div>
- <div id="login_con" style="margin-right: 200px">
+ <div id="login_con" style="margin-right: 240px">
         <a href="/exit">退出登录</a>
     </div>
-   <div id="login_con" style="margin-right: 120px">
+   <div id="login_con" style="margin-right: 160px">
         <a href="/userinfor/">用户主页</a>
     </div>
 
-    <div id="login_con" style="margin-right: 40px">
+    <div id="login_con" style="margin-right: 70px">
         <a href="/mymessage">我的消息</a>
     </div>
-    <div id="login_con">
-        <a href="/login">登录</a>
+    <div id="login_img" style="position: absolute;right:10px;top: -10px">
+        {{ loginstr |safe}}
     </div>
     <div class="middle_bar">
         <div class="middle_bar_content">
@@ -353,8 +459,8 @@
             <div class="tap_box">
                 <div class="tap">
                     <a href="/">首页</a>
-                    <a href="/">文章</a>
-                    <a href="/videoeducation">视频教育</a>
+                    <a href="/readarticle">文章</a>
+                    <a href="/videolist">视频教育</a>
                     <a href="/twjx">性教育科普</a>
                     <a href="/sent_article">发表文章</a>
                     <a href="/sendmessage/">给管理员留言</a>
@@ -685,7 +791,7 @@
 
                  }else{
                      alert('您还没登录，点击OK即将登录');
-                     window.location.href="/login";
+                     $('#myModal').modal();
                  }
 
 

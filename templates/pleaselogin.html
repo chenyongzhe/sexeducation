@@ -1,0 +1,13 @@
+{% extends 'headerbar.html' %}
+{% load staticfiles %} {% block main_content %}
+
+
+
+
+<a style="color: #ba2121" data-toggle="modal" data-target="#myModal">你还没登录呢</a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+					请先登录
+				</button>
+
+ <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
+{% endblock %}

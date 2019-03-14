@@ -114,6 +114,19 @@ class Comment(models.Model):
         db_table = 'comment'
 
 
+class Danmu(models.Model):
+    vid = models.IntegerField(blank=True, null=True)
+    content = models.CharField(max_length=255, blank=True, null=True)
+    dsize = models.IntegerField(blank=True, null=True)
+    color = models.CharField(max_length=255, blank=True, null=True)
+    dtime = models.IntegerField(blank=True, null=True)
+    position = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'danmu'
+
+
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
     object_id = models.TextField(blank=True, null=True)
@@ -223,6 +236,17 @@ class Usermessage(models.Model):
         db_table = 'usermessage'
 
 
+class Vcomment(models.Model):
+    userid = models.IntegerField(blank=True, null=True)
+    vid = models.IntegerField(blank=True, null=True)
+    ctime = models.CharField(max_length=255, blank=True, null=True)
+    mycomment = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'vcomment'
+
+
 class Video(models.Model):
     video_id = models.CharField(primary_key=True, max_length=50)
     title = models.CharField(max_length=100, blank=True, null=True)
@@ -230,3 +254,28 @@ class Video(models.Model):
     class Meta:
         managed = False
         db_table = 'video'
+
+
+class Videolist(models.Model):
+    vname = models.CharField(max_length=255)
+    vurl = models.CharField(max_length=255)
+    descp = models.CharField(max_length=255, blank=True, null=True)
+    seenum = models.BigIntegerField()
+    zhan = models.BigIntegerField(blank=True, null=True)
+    imgurl = models.CharField(max_length=255)
+    vsource = models.CharField(max_length=255)
+    publictime = models.CharField(max_length=255, blank=True, null=True)
+    videotp = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'videolist'
+
+
+class Videotype(models.Model):
+    id = models.IntegerField(primary_key=True)
+    typename = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'videotype'

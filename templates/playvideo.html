@@ -1,0 +1,862 @@
+{% extends 'headerbar.html' %}
+{% load staticfiles %} {% block main_content %}
+<script src="/static/assets/js/jquery.danmu.js"></script>
+  <style>
+      .login{
+          display: none;
+      }
+        .page{
+            display: inline-block;
+            padding: 5px;
+            background-color: #4cae4c;
+            margin: 5px;
+
+        }
+        .isactive{
+            background-color: #5bc0de;
+        }
+        #page-wrapper{
+    overflow-x: hidden;
+    }
+
+
+         *{ margin:0; padding:0; list-style:none;outline-style: none;}
+
+    .w500{
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+        overflow: hidden;}
+    .list{}
+    .list li{
+        padding:10px 0;
+        border-bottom:1px solid #ccc;
+        overflow: hidden;
+        line-height: 180%;
+    }
+    .send{padding:10px 0;}
+    .send textarea{
+        width: 100%;
+        border-radius:5px;
+        padding: 5px}
+    .send a.btn{
+        padding:5px 20px;
+        display: block;
+        color: #fff;
+        background: #ff4c51;
+        border-radius: 3px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+        float: right;
+        margin-top: 5px;
+
+    }
+    .send a.btn:hover{
+        background: #c53d41;
+        -webkit-transition:all 0.2s linear;
+        -moz-transition:all 0.2s linear;
+        -ms-transition:all 0.2s linear;
+        -o-transition:all 0.2s linear;
+        transition:all 0.2s linear;
+    }
+    .send .faces{
+        width: 25px;
+        height:25px;
+        display: block;
+        float: left;
+        background-image: url(/static/image/faces.png) ;
+        background-position: 0 0;
+        margin-right:5px;
+        margin-top:5px;
+    }
+    .send .on{
+        background-position: left bottom;
+    }
+    .showit{
+        display: none;
+    }
+    .face{
+        overflow: hidden;
+        width: 97%;
+        }
+    .face li{
+        width: 23px;
+        height: 23px;
+        margin:4px;
+        float: left;
+    }
+    #content {
+        width: 98%;
+        height: 150px;
+        float: left;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 3px 10px;
+        overflow:scroll;
+    }
+
+
+     .plq{border: 2px solid #dddddd; }
+
+
+
+
+    </style>
+
+
+
+
+ <style>
+
+    pre {
+      line-height: 2em;
+      font-family: "Microsoft YaHei" ! important;
+    }
+    h4 {
+      line-height: 2em;
+    }
+    #danmuarea {
+      position: relative;
+
+      width:800px;
+      height: 445px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .center {
+      text-align: center;
+    }
+    .ctr {
+      font-size: 1em;
+      line-height: 2em;
+    }
+  </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div   id="danmuarea" style="width: 100%;height:140px;margin-top: 100px ;z-index:999">
+   <div   class="videoplay" style="z-index: 12">
+    <video  x5-playsinline="" playsinline="" webkit-playsinline=""  x5-video-orientation="portraint" id="myvideo"  onplay="resumer()"  onpause="pauser()" style="width: 100%" class="video"  controls="controls" controlslist="nodownload" >
+            <source src="{{ video.vurl }}" type="video/mp4">
+        </video>
+
+
+   <div id="danmu" style="z-index: 999">
+     </div>
+    </div>
+ </div>
+
+
+
+
+
+
+    <div class="fdm" style="margin-top:250px">
+    <div class="row">
+        <div class="col-xs-1" style="width:8%;padding:1px;margin-top: 5px;margin-right: 2px">
+          发弹幕:
+        </div>
+         <div class="col-xs-2" style="width:12%;padding:1px;margin-left: 2px;margin-right: 2px">
+  <select class="form-control" name="color" id="color" >
+    <option value="white">白色</option>
+    <option value="red">红色</option>
+    <option value="green">绿色</option>
+    <option value="blue">蓝色</option>
+    <option value="yellow">黄色</option>
+  </select>
+            </div>
+         <div class="col-xs-2" style="padding:1px;margin-left: 2px;margin-right: 2px">
+  <select class="form-control" name="size" id="text_size" >
+    <option value="1">大文字</option>
+    <option value="0">小文字</option>
+  </select>
+         </div>
+         <div class="col-xs-2" style="width:12%;padding:1px;margin-left: 2px;margin-right: 2px">
+  <select class="form-control" name="position" id="position"   >
+    <option value="0">滚动</option>
+    <option value="1">顶端</option>
+    <option value="2">底端</option>
+  </select>
+         </div>
+         <div class="col-xs-4" style="width:37%;padding:1px;margin-left: 2px;margin-right: 2px">
+  <input class="form-control" type="textarea" id="text" max=300 />
+         </div>
+         <div class="col-xs-2" style="width:8%;padding:1px;margin-left: 2px;margin-right: 2px">
+  <button    class="btn btn-primary subt" type="button"  onclick="send()">发送</button>
+         </div>
+  </div>
+</div>
+
+
+
+
+<script>
+ var system ={};
+var p = navigator.platform;
+ system.win = p.indexOf("Win") == 0;
+system.mac = p.indexOf("Mac") == 0;
+ system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+ if(system.win||system.mac||system.xll){//如果是电脑跳转到
+ 
+        }else{  //如果是手机,跳转到
+              $('#danmuarea').css('margin-top','0px');
+              $('.fdm').css('margin-top','300px');
+        } 
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="margin-top: 10px">
+<div class="desc">
+ <h4 style="margin-left: 10px;font-weight:bold;">{{ video.vname}}</h4>
+<span style="margin-top:20px ">{{ video.seenum }}次观看</span>
+<div class="infor"style="margin-top:20px ">{{ video.descp }}</div>
+</div>
+<div id="islogin" class="login" style="margin-top: 30px;border: 1px solid lightblue; padding:10px 30px 30px 30px;"> <span style=" padding:10px 30px 50px 30px;">登录后即可评论</span>   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">马上登录</button></div>
+    <div style="margin-top: 30px;margin-bottom: 10px"></div>
+   <hr />
+
+             <div class="row">
+                 <div class="col-xs-6">
+                    <i class="fa fa-comment-o" aria-hidden="true"  style="float: right;cursor: pointer;"></i>
+
+                 </div>
+                 <div class="col-xs-6">
+{#             <i class="{{ myclass }}" id="zhan" aria-hidden="true" style="float: right;cursor: pointer;">{{ supportcount }}</i>#}
+
+                 </div>
+             </div>
+</div>
+
+
+
+
+       <div class="showit plq" >
+               <p>发表评论</p>
+              <div class="row" >
+                  <div class="col-md-9">
+                <div class="send">
+                      <div id="content"   cols="30" rows="2"  class="idcommment" contenteditable="true"  myid="{{ vid }}"></div> <!-- style="display: none;" -->
+                            <a href="javascript:;" class="btn">发布</a>
+                            <a style="border-radius: 15px" href="javascript:;" class='faces on'></a>
+
+                </div>
+                  </div>
+              </div>
+                 <div class="face w500 showit"></div>
+               </div>
+
+
+
+                <div class="commentss">
+                <br>
+                <br>
+                <h4>评论</h4>
+                <hr>
+                <br>
+                <br>
+                    {% for co in comment %}
+                        <div class="row">
+                          <div class="col-md-12" style="border: 2px solid #dddddd;">
+                        <a href="/user/?user_id={{ co.user_id }}">{{ co.nickname }}</a> <span>&nbsp&nbsp&nbsp&nbsp{{ co.ctime }}</span>
+                        <br>
+                        <div> {{ co.comment_content| safe }}</div>
+                        <br>
+                          </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+<div class="pl"></div>
+
+
+
+
+<div align="center">--END--</div>
+
+     {% load staticfiles %}
+
+
+    <!-- Metis Menu Js -->
+    <script src="{% static "assets/js/jquery.metisMenu.js" %}"></script>
+    <!-- Morris Chart Js -->
+    <script src="{% static "assets/js/emoji-list-with-image.js" %}"></script>
+    <script src="{% static "assets/js/emoji.js" %}"></script>
+    <script src="{% static "assets/js/punycode.min.js" %}"></script>
+
+
+    <!-- Custom Js -->
+    <script src="{% static "assets/js/custom-scripts.js" %}"></script>
+
+
+
+<script>
+if({{ loginstate }}=="0"){
+    $("#islogin").removeClass('login')
+}
+</script>
+
+
+    <script>
+     var isopen=0
+     $('.fa-comment-o').click(function () {
+         if(isopen==0){
+          $('.plq').removeClass('showit');
+          isopen=1;
+          }else {
+             $('.plq').addClass('showit');
+             isopen=0;
+         }
+     });
+
+
+
+
+
+
+
+  $('#zhan').click(function () {
+         var z=$("#zhan").attr("class");
+        //alert(z);
+        if(z.indexOf("fa-thumbs-o-up") >= 0){
+        //包含；
+            $.ajax({
+             url:'/zhan/',
+             type:'POST',
+             data:{'add':"1",'article_id':$(".idcommment").attr("myid")},
+             success:function (data) {
+                 var obj=JSON.parse(data);
+                 if(obj.islogin=='True'){
+                     if(obj.state){
+                          $('#zhan').removeClass('fa-thumbs-o-up');
+                          $('#zhan').addClass('fa-thumbs-up');
+                          $('#zhan').text(obj.count)
+                    //alert("点赞成功");
+                    //location.reload();
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+
+                 }else{
+                     alert('您还没登录，点击OK即将登录');
+                     window.location.href="/login";
+                 }
+
+
+                 }
+
+
+         });
+
+       }else{
+
+            $.ajax({
+             url:'/zhan/',
+             type:'POST',
+             data:{'add':"0",'article_id':$(".idcommment").attr("myid")},
+             success:function (data) {
+                 var obj=JSON.parse(data);
+                 if(obj.islogin=='True'){
+                     if(obj.state){
+                           $('#zhan').removeClass('fa-thumbs-up');
+                           $('#zhan').addClass('fa-thumbs-o-up');
+                           $('#zhan').text(obj.count)
+                    //alert("点赞成功");
+                    //location.reload();
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+
+                 }else{
+                     alert('您还没登录，点击OK即将登录');
+                     window.location.href="/login";
+                 }
+
+
+                 }
+
+
+         });
+
+
+
+
+
+
+
+
+        }
+
+
+
+  });
+
+
+ </script>
+
+
+<script>
+        $('.sent_button').click(function () {
+             if($('.mycomment').val()==""){
+                alert("不能发表空评论");
+             }else{
+                $.ajax({
+             url:'/insert_vcomment/',
+             type:'POST',
+             data:{'mycomment':$('.mycomment').val(),'vid':$(".mycomment").attr("myid")},
+             success:function (data) {
+                 var obj=JSON.parse(data);
+                 if(obj.islogin=='True'){
+                     if(obj.state){
+                    alert("评论成功");
+                    location.reload();
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+
+                 }else{
+                     alert('您还没登录，点击OK即将登录');
+                     window.location.href="/login";
+                 }
+
+
+                 }
+
+
+         })
+
+             }
+
+
+         });
+    </script>
+
+<script>
+
+
+
+
+
+
+
+
+
+
+       $('.send .faces').click( function () {
+
+           if (lanren.cur == 0) {
+               $('.faces').removeClass('on');
+               lanren.cur = 1;
+               $('.face').removeClass('showit');
+
+
+
+
+
+
+
+
+
+
+
+
+
+           } else if (lanren.cur == 1) {
+               $('.faces').addClass('on');
+               $('.face').addClass('showit');
+               lanren.cur = 0;
+           }
+       });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+<script>
+
+
+
+   $('.send a.btn').on('click',function(){
+
+      if($('#content').html()==""){
+                alert("不能发表空评论");
+             }else{
+                $.ajax({
+             url:'/insert_vcomment/',
+             type:'POST',
+             data:{'mycomment':$('#content').html(),'vid':$("#content").attr("myid")},
+             success:function (data) {
+                 var obj=JSON.parse(data);
+                 if(obj.islogin=='True'){
+                     if(obj.state){
+                    //alert("评论成功");
+                   location.reload();
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+
+                 }else{
+                     alert('您还没登录，点击OK即将登录');
+
+                 }
+
+
+                 }
+
+
+         })
+
+             }
+
+
+
+
+
+
+
+   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  function renderEmoji()
+{
+var emos = getEmojiList()[0];//此处按需是否生成所有emoji
+            var html = '<div >常用表情</div><ul>';
+            for (var j = 0; j < emos.length; j++) {
+                var emo = emos[j];
+                var data = 'data:image/png;base64,' + emo[2];
+                if (j % 20 == 0) {
+                    html += '<li class="">';
+                } else {
+                    html += '<li>';
+
+                }
+                html += '<img style="width: 20px;height: 20px;" src="' + data + '"  unicode16="' + emo[1] + '" /></li>';
+
+            }
+
+   $('.face').html(html);
+
+
+//.......
+}
+renderEmoji();
+  var lanren = {
+           face: function (_this) {
+               var target = $(_this).html();
+               if (target.length < 5) {
+                   $(_this).html("<img src='/static/image/face/" + target + ".gif' />")
+               }
+           },
+           faceimg: '',
+           imgs: function (min, max) {
+               for (i = min; i < max; i++) {  //通过循环创建60个表情，可扩展
+                   lanren.faceimg += '<li><a href="javascript:void(0)"><img  src="/static/image/face/' + (i + 1) + '.gif" face="<emt>' + (i + 1) + '</emt>"/></a></li>';
+               }
+               ;
+           },
+           cur: 0
+       }
+
+
+       lanren.imgs(0, 60);
+
+       $('.face').append(lanren.faceimg);
+
+       $('.list li emt').each(function () {
+           lanren.face(this);
+       });
+
+   $('.face li img').click( function () {
+
+           var target = $(this).prop("outerHTML");
+           var pre = $('#content').html();//可以作为显示用
+           var showimg = target;
+           //alert(showimg);
+           $('#content').html(pre + showimg);//target对应showimg
+           //$(this).parents('.face').hide(0);
+          // $('.send .faces').removeClass('on');
+           $('.faces').addClass('on');
+           $('.face').addClass('showit');
+
+             lanren.cur = 0;
+           // lanren.face(this);
+       });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
+
+
+
+
+<script>
+  //初始化
+  $("#danmu").danmu({
+    left:0,
+    top:0,
+    height:"100%",
+    width:"100%",
+    speed:20000,
+    opacity:1,
+    font_size_small:16,
+    font_size_big:24,
+    top_botton_danmu_time:6000
+  });
+  //query();//  从后端获取弹幕并添加
+
+  //再添加三个弹幕
+
+    //一个定时器，监视弹幕时间并更新到页面上
+
+
+var counttime=0
+function startvideo(){
+    $('#danmu').danmu('danmuStart');
+
+
+    }
+/*
+  function pauser(){
+    $('#danmu').danmu('danmuPause');
+  }
+  */
+  function resumer(){
+    $('#danmu').danmu('danmuResume');
+      if(counttime==0){
+    var nn={{  dmresult |safe }};
+    $("#danmu").danmu("addDanmu",nn);
+    counttime=counttime+1;
+    }
+  }
+
+   function pauser(){
+    $('#danmu').danmu('danmuPause');
+  }
+  function stoper(){
+    $('#danmu').danmu('danmuStop');
+  }
+  function getime(){
+    alert($('#danmu').data("nowTime"));
+  }
+  function getpaused(){
+    $('#danmu').data("paused");
+  }
+  //添加弹幕测试  这个函数没有调用
+  function add() {
+    var newd =
+    {"text": "你好", "color": "green", "size": "1", "position": "0", "time": 6};
+    $('#danmu').danmu("addDanmu", newd);
+  }
+add();
+  {#//向后端添加弹幕测试  这个函数没有调用#}
+  {#function insert(){#}
+  {#  var newd= { "text":"new2" , "color":"green" ,"size":"1","position":"0","time":50};#}
+  {#  str_newd=JSON.stringify(newd);#}
+  {#  $.post("stone.php",{danmu:str_newd},function(data,status){alert(data)});#}
+
+  {#//从后端获取到弹幕并添加#}
+  {#function query() {#}
+  {#  $.get("query.php",function(data,status){#}
+  {#    var danmu_from_sql=eval(data);#}
+  {#    for (var i=0;i<danmu_from_sql.length;i++){#}
+  {#      var danmu_ls=eval('('+danmu_from_sql[i]+')');#}
+  {#      $('#danmu').danmu("addDanmu",danmu_ls);#}
+  {#    }#}
+  {#  });#}
+
+  //发送弹幕，使用了文档README.md第7节中推荐的方法
+  function send(){
+    var text = document.getElementById('text').value;
+      //var text="1111"
+
+    var color = document.getElementById('color').value;
+    var position = document.getElementById('position').value;
+    var time = $('#danmu').data("nowTime")+1;
+   var size =document.getElementById('text_size').value;
+
+   //var text_obj='{ "text":"'+text+'","color":"'+color+'","size":"'++'","position":"'+position+'","time":'+time+'}';
+   // $.post("stone.php",{danmu:text_obj});
+   var text_obj='{ "text":"'+text+'","color":"'+color+'","size":"'+size+'","position":"'+position+'","time":'+time+'}';
+    var new_obj=eval('['+text_obj+']');
+    $('#danmu').danmu("addDanmu",new_obj);
+
+ var video = document.getElementById('myvideo');
+ var tt=video.currentTime;
+ var mytime=parseInt(tt*10)
+       $.ajax({
+             url:'/insert_dm/',
+             type:'POST',
+             data:{'vid':$("#content").attr("myid"),'content':text,"dsize":size,"color":color,"position":position,"mytime":time},
+
+
+
+
+
+         })
+
+
+
+   document.getElementById('text').value='';
+  }
+
+  /*
+  //调整透明度函数
+  function op(){
+    var op=document.getElementById('op').value;
+    $('#danmu').danmu("setOpacity",op/100);
+  }
+
+  //调隐藏 显示
+  function changehide() {
+    var op = document.getElementById('op').value;
+    op = op / 100;
+    if (document.getElementById("ishide").checked) {
+      $("#danmu").danmu("setOpacity",1)
+    } else {
+      $("#danmu").danmu("setOpacity",0)
+
+    }
+  }
+
+  //设置弹幕时间
+  function settime(){
+    var t=document.getElementById("set_time").value;
+    t=parseInt(t)
+    $('#danmu').danmu("setTime",t);
+  }
+
+  */
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
