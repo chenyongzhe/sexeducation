@@ -317,6 +317,17 @@
                       密码<input  class="form-control" type="password" id="password" placeholder="请输入密码" >
                       </div>
                   </div>
+
+                      <div class="row">
+                      <div class="col-xs-8 col-xs-offset-1" style="margin-top: 30px">
+                     <div class="input">
+   <input id="t1" type="text" name="u" placeholder="验证码" onblur="but()" />
+   <span id="discode"></span>
+   <input type="button" value="换一换" class="c" style="height:20px;"onClick="createCode()">
+   </div>
+                      </div>
+                  </div>
+
                    </div>
                    <div class="modal-footer">
                    <div class="row">
@@ -343,8 +354,83 @@
                 </div>
 
          </div>
+             <script language="javascript">
+var couldlogin=0;
+var code; //在全局 定义验证码
+function createCode()
+{ //创建验证码函数
+ code = "";
+ var codeLength =4;//验证码的长度
+ var selectChar = new Array(0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f','g','h','i','j','k',
+  'l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');//所有候选组成验证码的字符，当然也可以用中文的
+ for(var i=0;i<codeLength;i++)
+ {
+ var charIndex =Math.floor(Math.random()*36);
+ code +=selectChar[charIndex];
+ }
+// 设置验证码的显示样式，并显示
+ document.getElementById("discode").style.fontFamily="Fixedsys"; //设置字体
+ document.getElementById("discode").style.letterSpacing="5px"; //字体间距
+ document.getElementById("discode").style.color="#0ab000"; //字体颜色
+ document.getElementById("discode").innerHTML=code; // 显示
+}
+function but()
+{//验证验证码输入是否正确
+ var val1=document.getElementById("t1").value;
+ var val2=code;
+ if(val1!=val2){
+
+  couldlogin=0;
+ document.getElementById('t1').value="";
+  }else{
+  	couldlogin=1;
+
+  }
+ }
+
+
+ createCode()
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                <script>
                    $('.subt').click(function () {
+                       if(couldlogin==0){
+                           alert("验证码错误");
+                       }else {
+
                              $.ajax({
              url:'/login/',
              type:'POST',
@@ -370,8 +456,10 @@
 
 
          })
+                  }
+                   });
 
-                   })
+
                </script>
 
 

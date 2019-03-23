@@ -1,29 +1,9 @@
-{% extends 'headerbar.html' %}
-{% load staticfiles %} {% block main_content %}
-    <link href="{% static "assets/css/base.css"  %}" rel="stylesheet" />
-
-   <link href="{% static "assets/css/DPlayer.min.css"  %}" rel="stylesheet" />
-   <script src="http://cdn.jsdelivr.net/bluebird/3.5.0/bluebird.min.js"></script>
-
-<script type="text/javascript">
-        function isIE() {
-   			 if (!!window.ActiveXObject || "ActiveXObject" in window) {
-      			  return true;
-    		} else {
-        		return false;
-    	}
-	}
-if (isIE()) {
-    var script = document.createElement('script');
-    script.type = 'text/javaScript';
-     script.src = 'js/bluebird.min.js';  // bluebird 文件地址
-    document.getElementsByTagName('head')[0].appendChild(script);
-}
-
-</script>
-
+{% extends 'mheaderbar.html' %}
+{% load staticfiles %} {% block m_content %}
+<link href="{% static "assets/css/DPlayer.min.css"  %}" rel="stylesheet" />
 <script src="/static/assets/js/DPlayer.min.js"></script>
-  <style>
+
+     <style>
       .login{
           display: none;
       }
@@ -163,12 +143,12 @@ if (isIE()) {
 
 
 
+<div style="margin-top: 30px">
 
 
+        <div id="player1" style="margin-top:0 ;border:0;padding:0;width: 97%;"></div>
 
-        <div id="player1" style="margin-top:0 ;border:0;padding:0;width: 654px;height: 382px"></div>
-
-
+</div>
 
 
 
@@ -282,7 +262,7 @@ if (isIE()) {
 
 
 
-<div style="margin-top: 0px">
+
 <div class="desc">
  <h4 style="margin-left: 10px;font-weight:bold;">{{ video.vname}}</h4>
 <span style="margin-top:20px ">{{ video.seenum }}次观看</span>
@@ -302,7 +282,7 @@ if (isIE()) {
 
                  </div>
              </div>
-</div>
+
 
 
 
@@ -753,7 +733,10 @@ renderEmoji();
 
 
 
-    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
+
+
+
+
 
 
 

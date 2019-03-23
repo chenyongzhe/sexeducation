@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" >
 <head>
      {% load staticfiles %}
     <meta charset="UTF-8">
     <title>基于web2.0性教育系统</title>
- <meta name="viewport" content="width=device-width, initial-scale=1">
-     <link href="{% static "mainpage/weixin.sogou.com_mainpage.css"  %}" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+{#     <link href="{% static "mainpage/weixin.sogou.com_mainpage.css"  %}" rel="stylesheet" />#}
      <link href="{% static "assets/css/bootstrap.css"  %}" rel="stylesheet" />
      <link href="{% static "assets/css/font-awesome.css"  %}"  rel="stylesheet" />
     <script src="{% static "assets/js/jquery-3.1.1.min.js" %}"></script>
@@ -13,6 +13,17 @@
         .top_toolbars a{
             color: #6A89C0;
         }
+
+          .navbar-inverse {
+    background-color: #009ac5;
+    border-color: #3c7ab6;
+}
+       .navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+    background-color: #009ac5;
+}
+
+
+
     </style>
 
     <script type="text/javascript">
@@ -176,7 +187,6 @@
 
 </head>
 <body>
-
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -196,7 +206,7 @@
 
 
                   <div class="row">
-                      <div class="col-xs-8  col-xs-offset-1" style="margin-top: 30px">
+                      <div class="col-xs-8  col-xs-offset-1" style="margin-top: 0px">
                       账号<input  class="form-control" type="text" id="username" placeholder="请输入账号" >
                       </div>
                   </div>
@@ -362,151 +372,179 @@ function but()
 
 
 
+<style>
+.navbar-inverse .navbar-nav>li>a{
+    color: #FFFFFF;
+}
+</style>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="top_toolbars">
-        <ul >
-               <li>
-                    <a href="/">首页</a>
-                </li>
-                <li>
-                    <a href="/readarticle">家长</a>
-                </li>
-                <li>
-                    <a href="/videolist">小盆友</a>
-                </li>
-                <li>
-                    <a href="/twjx">青少年</a>
-                </li>
-                <li>
-                    <a href="/sent_article">我要说话</a>
-                </li>
-                <li>
-                    <a href="/sendmessage/">给管理员留言</a>
-                </li>
-
-
-        </ul>
+   <nav class="navbar navbar-inverse navbar-fixed-top" >
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" style="color: #FFFFFF" href="#">性教育</a>
         </div>
-  <div id="login_con" style="margin-right: 240px">
-        <a href="/exit">退出登录</a>
-    </div>
-   <div id="login_con" style="margin-right: 160px">
-        <a href="/userinfor/">用户主页</a>
-    </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li ><a href="/">首页</a></li>
+            <li><a href="/readarticle">家长</a></li>
+            <li><a href="/videolist">小朋友</a></li>
+              <li><a href="/twjx">青少年</a></li>
+               <li><a href="/sent_article">我要发言</a></li>
+               <li><a href="/sendmessage/">给管理员留言</a></li>
+               <li><a href="/exit">退出登录</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
-    <div id="login_con" style="margin-right: 70px">
-        <a href="/mymessage">我的消息</a>
-    </div>
-    <div id="login_img" style="position: absolute;right:10px;top: -10px">
-        {{ loginstr |safe}}
-    </div>
-    <div class="middle_bar">
-        <div class="middle_bar_content">
+
+
+
+
+
+
+
+
+
+
+{##}
+{##}
+{#    <div class="top_toolbars">#}
+{#        <ul >#}
+{#               <li>#}
+{#                    <a href="/">首页</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="/readarticle">家长</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="/videolist">小盆友</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="/twjx">青少年</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="/sent_article">我要说话</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="/sendmessage/">给管理员留言</a>#}
+{#                </li>#}
+{##}
+{##}
+{#        </ul>#}
+{#        </div>#}
+{#  <div id="login_con" style="margin-right: 240px">#}
+{#        <a href="/exit">退出登录</a>#}
+{#    </div>#}
+{#   <div id="login_con" style="margin-right: 160px">#}
+{#        <a href="/userinfor/">用户主页</a>#}
+{#    </div>#}
+{##}
+{#    <div id="login_con" style="margin-right: 70px">#}
+{#        <a href="/mymessage">我的消息</a>#}
+{#    </div>#}
+{#    <div id="login_img" style="position: absolute;right:10px;top: -10px">#}
+{#        {{ loginstr |safe}}#}
+{#    </div>#}
+<div class="row" style="margin-top:58px;width: 100%">
+
+
+         <div class="col-xs-4" style="    padding-right: 1px;padding-left: 25px">
             <div class="logo" >
-               <img class="logo_img"   src="{% static "mainpage/search.gif" %}"    style="height: 36px;width: 140px"/>
+               <img class="logo_img"   src="{% static "mainpage/search.gif" %}"    style="height: 30px;width: 100%"/>
             </div>
-            <form action="/s/" action="GET">
+           </div>
+       <form action="/s/" action="GET">
+        <div class="col-xs-6" style="    padding-right: 1px;padding-left: 1px">
+
                 <div id="input_con">
-                    <input type="text"  name="keyword" id="search_text" placeholder="输入关键词" autocomplete="off"    />
-                    <input type="submit" id="search_bt" style="background-color: #FF4E85" value="搜文章" />
+                    <input class="form-control" style="height: 130%;width: 100%" type="text"  name="keyword" id="search_text" placeholder="输入关键词" autocomplete="off"    />
 
                 </div>
-
-            </form>
-                <div style="margin-left: 20%;z-index: 99">
-     <div id="auto_div" style="z-index: 99;position: absolute;align:left;width:451px;border: 2px solid #FFFFFF;">
-                                </div>
-     </div>
         </div>
+           <div class="col-xs-2" style="padding-left: 1px">
+
+          <input class="btn btn-primary" type="submit" id="search_bt" style="background-color: #FF4E85;" value="搜文章" />
+       </div>
+
+
+             </form>
+{#                <div style="margin-left: 20%;z-index: 99">#}
+{#     <div id="auto_div" style="z-index: 99;position: absolute;align:left;width:451px;border: 2px solid #FFFFFF;">#}
+{#                                </div>#}
+{#     </div>#}
+
 
 
     </div>
+ <div id="auto_div" style="border: 2px solid #FFFFFF;">
+                                </div>
 
 
-    <div class="wrapper" style="z-index: 1">
-        <div class="main_left">
-            <div class="banners">
-                <img   src="{% static "mainpage/dm2.jpg" %}"   style="width: 640px; height: 340px"/>
+    <div style="z-index: 1;margin-top: 30px" >
+
+            <div class="banners" style="margin-left: 8px">
+                <img   src="{% static "mainpage/dm2.jpg" %}"   style="width: 97%; height: 200px"/>
             </div>
-            <div class="tap_box">
-                <div class="tap">
-                   <a href="/">首页</a>
-                    <a href="/readarticle">文章</a>
-                    <a style="color: #0f0f0f" href="/videolist">视频教育</a>
-                    <a href="/twjx">性教育科普</a>
-                    <a href="/sent_article">发表文章</a>
-                    <a href="/sendmessage/">给管理员留言</a>
-                </div>
 
-            </div>
-             <br>
-             <div >
-                  <spa>视频分类:</spa>
-                   <a style="margin-right: 15px;margin-left: 3px" href="/videolist?tp=7&p=1">一分钟性教育</a>
-                    <a style="margin-right: 15px"  href="/videolist?tp=3&p=1">青春期</a>
-                    <a  style="margin-right: 20px" href="/videolist?tp=2&p=1">健康的关系</a>
-                    <a style="margin-right: 20px"  href="/videolist?tp=4&p=1">人身安全</a>
-                    <a style="margin-right: 20px"  href="/videolist?tp=5&p=1">性病与艾滋病</a>
-                     <a href="/videolist?tp=6&p=1">性取向</a>
-                   <a style="margin-left: 12px" href="/videolist?tp=1&p=1">怀孕和生育</a>
-                </div>
-                <div>
+                    <ol class="breadcrumb" style="    margin-bottom: 0px;">
+  <li class="active">首页</li>
+  <li><a href="/readarticle">文章</a></li>
+  <li><a href="/videolist">视频教育</a></li>
+  <li><a href="/twjx">性教育科普</a></li>
+                        <li><a href="/sent_article">发表文章</a></li>
+  <li><a href="/sendmessage/">给管理员留言</a></li>
+</ol>
+
+
 
 
                 </div>
+
+    <div>
+        <ol class="breadcrumb" style="    margin-bottom: 0px;">
+        <li  class="active">视频分类:</li>
+  <li><a href="/videolist?tp=7&p=1">一分钟性教育</a></li>
+    <li><a href="/videolist?tp=3&p=1">青春期</a></li>
+  <li><a href="/videolist?tp=2&p=1">健康的关系</a></li>
+  <li><a href="/videolist?tp=4&p=1">人身安全</a></li>
+  <li><a href="/videolist?tp=5&p=1">性病与艾滋病</a></li>
+  <li><a href="/videolist?tp=6&p=1">性取向</a></li>
+   <li><a href="/videolist?tp=1&p=1">怀孕和生育</a></li>
+        </ol>
+
+
+    </div>
 
 
             <div class="news_box">
-                <ul class="news_list">
-                          <li>
-                        <div class="img_box" style="width: 90px;height: 90px">
-                            <img   src="{% static "mainpage/dm1.jpg" %}"    style="width: 90px;height: 90px" />
-                        </div>
-                        <div class="txt_box">
 
 
-                        </div>
-                        <div class="txt_info_more">
-                            <a href="#">性教育</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a href="#">32分钟前</a>
-                        </div>
-                    </li>
+                        <div class="img_box" style="width: 50px;height: 50px;margin-left: 200px">
 
-                </ul>
-                     <div class="row" style="width: 150%;z-index: 999;margin-top: 45px">
+                            <img   src="{% static "mainpage/dm1.jpg" %}"    style="width: 90px;height: 90px;" />
+                        </div>
+
+
+                     <div class="row" style="margin-right: 0px;margin-left: 0px;width: 100%;z-index: 999;margin-top: 5px">
 
                       <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/semantic-ui/2.4.1/semantic.min.css">
 
     <div class="ui hidden divider"></div>
-<div class="ui grid">
+<div class="ui grid"style="margin-left: 10px;margin-left: 5px" >
+<div class="row" style="margin-right: 0px;margin-left: 0px">
    {% for video in videolist %}
+
+      <div  style="width: 45%;margin-top: 20px;" >
    <div class="four wide column">
-        <div class="ui card">
+        <div class="ui card" >
             <a class="image" href="/videoplay?id={{ video.id}}">
 {#                {% thumbnail item.cover "300x200" crop="center" as im %}#}
                 <img  style="width: 100%;height: 130px"  class="ui image" src="{{ video.imgurl }}">
@@ -533,8 +571,12 @@ function but()
             </div>
         </div>
     </div>
-   {% endfor %}
 
+      </div>
+    <div style="width: 5%;margin-top: 20px"></div>
+
+   {% endfor %}
+</div>
 
 
 
@@ -560,85 +602,85 @@ function but()
                    </div>
 
             </div>
-        </div>
-        <div class="main_right">
-            <div class="aside">
-                <p class="hot_words">搜索热词
-                    <span class="heat">热度</span>
-                </p>
-                <ol class="hot_news">
-                    <li>
-                        <i class="hot_one">1</i>
-                        <a href="/article/?id=12134">如何看待「早恋成风」的现象</a>
-                        <span class="hot_line">
-                            <span style="width: 100%"></span>
-                        </span>
-                    </li>
-                    <li>
-                        <i class="hot_two">2</i>
-                        <a href="/article/?id=2">青春期少女应该知道的生理知识</a>
-                        <span class="hot_line">
-                            <span style="width: 93%"></span>
-                        </span>
-                    </li>
-                    <li>
-                        <i class="hot_three">3</i>
-                        <a href="/article/?id=49">中国父母对孩子性启蒙的爆笑雷点</a>
-                        <span class="hot_line">
-                            <span style="width: 86%"></span>
-                        </span>
-                    </li>
-                    <li>
-                        <i class="hot_normal">4</i>
-                        <a href="/article/?id=63">性启蒙最合适的方式是什么样的？</a>
-                        <span class="hot_line">
-                            <span style="width: 79%"></span>
-                        </span>
-                    </li>
-                    <li>
-                        <i class="hot_normal">5</i>
-                        <a href="/article/?id=77">什么时候和孩子谈性时机最好</a>
-                        <span class="hot_line">
-                            <span style="width: 75%"></span>
-                        </span>
-                    </li>
-                    <li>
-                        <i class="hot_normal">6</i>
-                        <a href="/article/?id=126">身体发育，你了解多少</a>
-                        <span class="hot_line">
-                            <span style="width: 71%"></span>
-                        </span>
-                    </li>
-                    <li>
-                        <i class="hot_normal">7</i>
-                        <a href="/article/?id=157">男孩性别意识早培养</a>
-                        <span class="hot_line">
-                            <span style="width: 65%"></span>
-                        </span>
-                    </li>
-                    <li>
-                        <i class="hot_normal">8</i>
-                        <a href="/article/?id=183">青春期有哪些性征</a>
-                        <span class="hot_line">
-                            <span style="width: 55%"></span>
-                        </span>
-                    </li>
-                    <li>
-                        <i class="hot_normal">9</i>
-                        <a href="/article/?id=241">遗精的基本常识</a>
-                        <span class="hot_line">
-                            <span style="width: 45%"></span>
-                        </span>
-                    </li>
-                    <li>
-                        <i class="hot_normal">10</i>
-                        <a href="/article/?id=268">少女有哪些性权利？</a>
-                        <span class="hot_line">
-                            <span style="width: 30%"></span>
-                        </span>
-                    </li>
-                </ol>
-            </div>
+
+{#        <div class="main_right">#}
+{#            <div class="aside">#}
+{#                <p class="hot_words">搜索热词#}
+{#                    <span class="heat">热度</span>#}
+{#                </p>#}
+{#                <ol class="hot_news">#}
+{#                    <li>#}
+{#                        <i class="hot_one">1</i>#}
+{#                        <a href="/article/?id=12134">如何看待「早恋成风」的现象</a>#}
+{#                        <span class="hot_line">#}
+{#                            <span style="width: 100%"></span>#}
+{#                        </span>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <i class="hot_two">2</i>#}
+{#                        <a href="/article/?id=2">青春期少女应该知道的生理知识</a>#}
+{#                        <span class="hot_line">#}
+{#                            <span style="width: 93%"></span>#}
+{#                        </span>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <i class="hot_three">3</i>#}
+{#                        <a href="/article/?id=49">中国父母对孩子性启蒙的爆笑雷点</a>#}
+{#                        <span class="hot_line">#}
+{#                            <span style="width: 86%"></span>#}
+{#                        </span>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <i class="hot_normal">4</i>#}
+{#                        <a href="/article/?id=63">性启蒙最合适的方式是什么样的？</a>#}
+{#                        <span class="hot_line">#}
+{#                            <span style="width: 79%"></span>#}
+{#                        </span>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <i class="hot_normal">5</i>#}
+{#                        <a href="/article/?id=77">什么时候和孩子谈性时机最好</a>#}
+{#                        <span class="hot_line">#}
+{#                            <span style="width: 75%"></span>#}
+{#                        </span>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <i class="hot_normal">6</i>#}
+{#                        <a href="/article/?id=126">身体发育，你了解多少</a>#}
+{#                        <span class="hot_line">#}
+{#                            <span style="width: 71%"></span>#}
+{#                        </span>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <i class="hot_normal">7</i>#}
+{#                        <a href="/article/?id=157">男孩性别意识早培养</a>#}
+{#                        <span class="hot_line">#}
+{#                            <span style="width: 65%"></span>#}
+{#                        </span>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <i class="hot_normal">8</i>#}
+{#                        <a href="/article/?id=183">青春期有哪些性征</a>#}
+{#                        <span class="hot_line">#}
+{#                            <span style="width: 55%"></span>#}
+{#                        </span>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <i class="hot_normal">9</i>#}
+{#                        <a href="/article/?id=241">遗精的基本常识</a>#}
+{#                        <span class="hot_line">#}
+{#                            <span style="width: 45%"></span>#}
+{#                        </span>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <i class="hot_normal">10</i>#}
+{#                        <a href="/article/?id=268">少女有哪些性权利？</a>#}
+{#                        <span class="hot_line">#}
+{#                            <span style="width: 30%"></span>#}
+{#                        </span>#}
+{#                    </li>#}
+{#                </ol>#}
+{#            </div>#}
 {#              <div class="aside"  style="margin-left: 100px">#}
 {#                <p class="tit">编辑精选</p>#}
 {#                <ul class="news_list_right">#}
@@ -727,8 +769,32 @@ function but()
 {#            <a class="ft_1" href="#">企业推广-关于搜狗-免责声明-意见反馈及投诉-隐私政策</a>#}
 {#            <p class="ft_2" >@2017 SOGOU-京ICP证050897号-京公网安备11000002000025</p>#}
 {#        </div>#}
+{#    </div>#}
     </div>
-    </div>
+
+<div style="margin-top: 100px;width: 100%;height: 50px" ></div>
+
+<div class="main_nav_bottom">
+                <nav class="navbar navbar-default navbar-fixed-bottom">
+                    <div class="container" align="center">
+                        <style>
+                            .nav-tabs
+                            {
+                                text-align: center;
+                                height: 40px;
+                                line-height: 40px;
+                            }
+                        </style>
+                        <ul class="nav nav-tabs nav-tabs-justified">
+                            <div class="row" align="center">
+                                <div class="col-md-4 col-sm-4 col-xs-4" align="center"><li><a href="/userinfor/">主页</a></li></div>
+                                <div class="col-md-4 col-sm-4 col-xs-4" align="center"><li><a href="/mymessage">消息</a></li></div>
+                                <div class="col-md-4 col-sm-4 col-xs-4" align="center"><li>{{ loginstr |safe}}</li></div>
+                            </div>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
 </body>
     <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
 </html>

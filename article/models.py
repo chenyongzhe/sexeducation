@@ -120,7 +120,7 @@ class Danmu(models.Model):
     dsize = models.IntegerField(blank=True, null=True)
     color = models.CharField(max_length=255, blank=True, null=True)
     dtime = models.IntegerField(blank=True, null=True)
-    position = models.IntegerField(blank=True, null=True)
+    position = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = True
@@ -176,7 +176,7 @@ class Follow(models.Model):
     followee = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'follow'
 
 
@@ -203,7 +203,7 @@ class Sample(models.Model):
     text = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed =True
         db_table = 'sample'
 
 
@@ -221,7 +221,7 @@ class Type(models.Model):
     type_name = models.CharField(max_length=60, blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed =True
         db_table = 'type'
 
 
@@ -232,7 +232,7 @@ class Usermessage(models.Model):
     time = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed =True
         db_table = 'usermessage'
 
 

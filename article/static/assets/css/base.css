@@ -1,0 +1,176 @@
+/*
+
+                              _.._        ,------------------------.
+                           ,'      `.    ( hello Do you want to do )
+                          /  __) __` \    `-,-------------------- -'
+                         (  (`-`(-')  ) _.-'
+                         /)  \  = /  (
+                        /'    |--' .  \
+                       (  ,---|  `-.)__`
+                        )(  `-.,--'   _`-.
+                       '/,'          (  Uu",
+                        (_       ,    `/,-' )
+                        `.__,  : `-'/  /`--'
+                          |     `--'  |
+                          `   `-._   /
+                           \        (
+                           /\ .      \.
+                          / |` \     ,-\
+                         /  \| .)   /   \
+                        ( ,'|\    ,'     :
+                        | \,`.`--"/      }
+                        `,'    \  |,'    /
+                       / "-._   `-/      |
+                       "-.   "-.,'|     ;
+                      /        _/["---'""]
+                     :        /  |"-     '
+                     '           |      /
+                                 `      |
+
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    font-weight: normal;
+}
+::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+input[type="button"],input[type="submit"],input[type="reset"] {
+    -webkit-appearance: none
+}
+
+input,form {
+    -webkit-tap-highlight-color: rgba(255,255,255,0)
+}
+
+textarea {
+    -webkit-appearance: none
+}
+
+ul,ol,dl {
+    list-style: none
+}
+
+a {
+    color: inherit;
+    text-decoration: none
+}
+
+img {
+    vertical-align: top;
+    border: 0
+}
+
+input {
+    outline: 0
+}
+
+textarea {
+    outline: 0;
+    resize: none;
+    -webkit-appearance: none;
+}
+
+.clearfix:after {
+    display: block;
+    content: "";
+    clear: both
+}
+
+.fl {
+    float: left
+}
+
+.fr {
+    float: right
+}
+
+.dis_line {
+    display: inline
+}
+
+.dis_block {
+    display: block
+}
+
+body,html {
+    font: 16px 'Microsoft YaHei', 寰蒋闆呴粦, Arial, Lucida Grande, Tahoma, sans-serif;
+}
+
+.animation_opactiy {
+    animation: backOpacity 0.6s ease-in-out ;
+}
+
+@keyframes backOpacity {
+    0% {
+        opacity: 0.6
+    }
+
+    50% {
+        opacity: .8
+    }
+
+
+    100% {
+        opacity: 1
+    }
+}
+.ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.ell_two_line{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+}
+
+.hide{
+    display: none!important;
+}
+
+.show{
+    display: block;
+}
+.back_img{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.margin{
+    margin: 0 auto;
+}
+.alert_back{
+    display: none;
+    padding: 6px 26px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #fff;
+    background: rgba(0,0,0,.8);
+    white-space: nowrap;
+    border-radius: 4px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%,-50%,0);
+    transform: translate3d(-50%,-50%,0);
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+/*select*/
+
+::-webkit-selection{ background:#888888; color:#fff; text-shadow:none; }
+::-moz-selection{ background:#888888; color:#fff; text-shadow:none; }
+::selection{ background:#69d1f7; color:#fff; text-shadow:none;  font: 16px 'Microsoft YaHei', Arial, Lucida Grande, Tahoma, sans-serif;}
+.copyrightzh,.copyrighten{
+    font-size: 12px!important;
+}

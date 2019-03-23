@@ -60,6 +60,9 @@ path("videolist/",views.video_list),
 path("videoplay/",views.video_play),
 path("insert_vcomment/",views.insert_vcomment),
 path("insert_dm/",views.insert_dm),
+path("insert_dm1/",views.insert_dm1),
+path("get_dm/v3/",views.get_dm),
+path("get_dm/",views.get_dm),
     #url(r'^favicon.ico$',RedirectView.as_view(url=r'/static/favicon.ico')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

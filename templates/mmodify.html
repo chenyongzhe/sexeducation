@@ -1,0 +1,75 @@
+{% extends 'mheaderbar.html' %}
+{% load staticfiles %} {% block m_content %}
+
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+
+                <div class="row">
+                    <div class="col-md-4">
+                    <p class="navbar-text">欢迎{{ user.nickname }}</p>
+                    </div>
+                </div>
+
+               <div class="row">
+
+			  <div class="col-md-6">
+			     <div class="panel panel-default">
+                 <form  method="post" enctype="multipart/form-data" attion="/modify/">
+    <!----用一个label标签将上传文件输入框跟图片绑定一起，
+          点击图片的时候就相当于点击了上传文件的按钮---->
+    <label><img id="avatar-img" src="/static/assets/img/default.jpg" style=" border-radius:100%;" width="80px" height="80px">
+        <div>头像<input id="avatar-input" hidden type="file" name="head"></div>
+    </label>
+     <div>用户名:<input type="text" name="nickname"></div>
+     <div>性别:&nbsp;&nbsp;&nbsp;男<input type="radio" name="gender" value="0" checked>&nbsp;&nbsp;女<input type="radio" name="gender" value="1"></div>
+     <div>个人简介<br>
+         <textarea name="desc" cols="30" rows="4"></textarea>  </div>
+
+    <input id="submit-btn" type="submit" value="提交"><span>{{  isupload}}</span>
+</form>
+
+
+                 </div>
+			  </div>
+
+
+            </div>
+
+
+
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    {% load staticfiles %}
+
+
+
+
+
+
+       <script>
+
+    // 上传文件按钮（label里的图片）点击事件
+    $('#avatar-input').on('change',function () {
+        // 获取用户最后一次选择的图片
+        var choose_file=$(this)[0].files[0];
+        // 创建一个新的FileReader对象，用来读取文件信息
+        var reader=new FileReader();
+        // 读取用户上传的图片的路径
+        reader.readAsDataURL(choose_file);
+        // 读取完毕之后，将图片的src属性修改成用户上传的图片的本地路径
+        reader.onload=function () {
+             $("#avatar-img").attr("src",reader.result)
+        }
+    });
+</script>
+
+
+
+{% endblock %}

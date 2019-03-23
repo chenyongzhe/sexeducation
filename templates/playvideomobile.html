@@ -1,28 +1,6 @@
-{% extends 'headerbar.html' %}
-{% load staticfiles %} {% block main_content %}
-    <link href="{% static "assets/css/base.css"  %}" rel="stylesheet" />
-
-   <link href="{% static "assets/css/DPlayer.min.css"  %}" rel="stylesheet" />
-   <script src="http://cdn.jsdelivr.net/bluebird/3.5.0/bluebird.min.js"></script>
-
-<script type="text/javascript">
-        function isIE() {
-   			 if (!!window.ActiveXObject || "ActiveXObject" in window) {
-      			  return true;
-    		} else {
-        		return false;
-    	}
-	}
-if (isIE()) {
-    var script = document.createElement('script');
-    script.type = 'text/javaScript';
-     script.src = 'js/bluebird.min.js';  // bluebird 文件地址
-    document.getElementsByTagName('head')[0].appendChild(script);
-}
-
-</script>
-
-<script src="/static/assets/js/DPlayer.min.js"></script>
+{% extends 'mheaderbar.html' %}
+{% load staticfiles %} {% block m_content %}
+<script src="/static/assets/js/jquery.danmu.js"></script>
   <style>
       .login{
           display: none;
@@ -154,10 +132,6 @@ if (isIE()) {
       font-size: 1em;
       line-height: 2em;
     }
-    .dplayer-danmaku-item.dplayer-danmaku-right.dplayer-danmaku-move {
-    font-weight: bold;
-    font-size: larger;
-}
   </style>
 
 
@@ -166,109 +140,90 @@ if (isIE()) {
 
 
 
-        <div id="player1" style="margin-top:0 ;border:0;padding:0;width: 654px;height: 382px"></div>
+
+
+
+<style>
+    #danmu{
+
+
+    }
+</style>
+
+
+
+<div   id="danmuarea" style="width: 100%;height:50px;margin-top: 0px ;z-index:999">
+   <div   class="videoplay" style="z-index: 12;margin-top: 0px ;">
+    <video  x5-playsinline="" playsinline="" webkit-playsinline=""  x5-video-orientation="portraint" id="myvideo"  onplay="resumer()"  onpause="pauser()" style="width: 100%" class="video"  controls="controls" controlslist="nodownload" >
+            <source src="http://47.107.139.203/static/video/%E7%AE%80%E5%8D%95%E8%B0%88%E8%B0%88%E6%80%A7%E5%8F%96%E5%90%91.mp4" type="video/mp4">
+        </video>
+
+
+   <div id="danmu" style="z-index: 999; ">
+     </div>
+ 发弹幕:
+       <div class="row">
+        <div class="col-xs-2" style="width:8%;padding:1px;margin-top: 5px;margin-right: 2px">
+
+        </div>
+         <div class="col-xs-2" style="width:12%;padding:1px;margin-left: 2px;margin-right: 2px">
+  <select class="form-control" name="color" id="color" >
+    <option value="white">白色</option>
+    <option value="red">红色</option>
+    <option value="green">绿色</option>
+    <option value="blue">蓝色</option>
+    <option value="yellow">黄色</option>
+  </select>
+            </div>
+         <div  class="col-xs-4" style="display:none;padding:1px;margin-left: 2px;margin-right: 2px">
+  <select class="form-control" name="size" id="text_size" >
+    <option value="1">大文字</option>
+    <option value="0">小文字</option>
+  </select>
+         </div>
+         <div class="col-xs-4" style="width:12%;padding:1px;margin-left: 2px;margin-right: 2px">
+  <select class="form-control" name="position" id="position"   >
+    <option value="0">滚动</option>
+    <option value="1">顶端</option>
+    <option value="2">底端</option>
+  </select>
+         </div>
+         <div class="col-xs-4" style="width:37%;padding:1px;margin-left: 2px;margin-right: 2px">
+  <input class="form-control" type="textarea" id="text" max=300 />
+         </div>
+         <div class="col-xs-2" style="width:8%;padding:1px;margin-left: 2px;margin-right: 2px">
+  <button    class="btn btn-primary subt" type="button"  onclick="send()">发送</button>
+         </div>
+  </div>
+    </div>
+ </div>
 
 
 
 
 
-<div class="alert_back">加载中</div>
+
+    <div class="fdm" style="top:-10px">
+      发弹幕:
+
+</div>
+
+
+
 
 <script>
-    console.log(" %c 该项目基于Dplayer.js",'color:red')
-    var dp = new DPlayer({
-        element: document.getElementById('player1'),
-        video: {
-
-            url: 'http://47.107.139.203/static/video/%E7%AE%80%E5%8D%95%E8%B0%88%E8%B0%88%E6%80%A7%E5%8F%96%E5%90%91.mp4',
-            pic: '{{ video.imgurl }}',
-
-        },
-        danmaku: {
-            id: '{{ vid }}',
-
-            api:"/get_dm/",
-
-           /* api: 'http://127.0.0.1:8000/get_dm',*/
-            addition: ['/get_dm/v3/']
-        }
-    });
-
-    dp.danmaku.opacity(1);
-    </script>
-
-
-{##}
-{##}
-{#<div   id="danmuarea" style="width: 100%;height:140px;margin-top: 100px ;z-index:999">#}
-{#   <div   class="videoplay" style="z-index: 12">#}
-{#    <video  x5-playsinline="" playsinline="" webkit-playsinline=""  x5-video-orientation="portraint" id="myvideo"  onplay="resumer()"  onpause="pauser()" style="width: 100%" class="video"  controls="controls" controlslist="nodownload" >#}
-{#            <source src="{{ video.vurl }}" type="video/mp4">#}
-{#        </video>#}
-{##}
-{##}
-{#   <div id="danmu" style="z-index: 999">#}
-{#     </div>#}
-{#    </div>#}
-{# </div>#}
-
-
-
-
-
-{##}
-{#    <div class="fdm" style="margin-top:250px">#}
-{#    <div class="row">#}
-{#        <div class="col-xs-1" style="width:8%;padding:1px;margin-top: 5px;margin-right: 2px">#}
-{#          发弹幕:#}
-{#        </div>#}
-{#         <div class="col-xs-2" style="width:12%;padding:1px;margin-left: 2px;margin-right: 2px">#}
-{#  <select class="form-control" name="color" id="color" >#}
-{#    <option value="white">白色</option>#}
-{#    <option value="red">红色</option>#}
-{#    <option value="green">绿色</option>#}
-{#    <option value="blue">蓝色</option>#}
-{#    <option value="yellow">黄色</option>#}
-{#  </select>#}
-{#            </div>#}
-{#         <div class="col-xs-2" style="padding:1px;margin-left: 2px;margin-right: 2px">#}
-{#  <select class="form-control" name="size" id="text_size" >#}
-{#    <option value="1">大文字</option>#}
-{#    <option value="0">小文字</option>#}
-{#  </select>#}
-{#         </div>#}
-{#         <div class="col-xs-2" style="width:12%;padding:1px;margin-left: 2px;margin-right: 2px">#}
-{#  <select class="form-control" name="position" id="position"   >#}
-{#    <option value="0">滚动</option>#}
-{#    <option value="1">顶端</option>#}
-{#    <option value="2">底端</option>#}
-{#  </select>#}
-{#         </div>#}
-{#         <div class="col-xs-4" style="width:37%;padding:1px;margin-left: 2px;margin-right: 2px">#}
-{#  <input class="form-control" type="textarea" id="text" max=300 />#}
-{#         </div>#}
-{#         <div class="col-xs-2" style="width:8%;padding:1px;margin-left: 2px;margin-right: 2px">#}
-{#  <button    class="btn btn-primary subt" type="button"  onclick="send()">发送</button>#}
-{#         </div>#}
-{#  </div>#}
-{#</div>#}
-
-
-{##}
-{##}
-{#<script>#}
-{# var system ={};#}
-{#var p = navigator.platform;#}
-{# system.win = p.indexOf("Win") == 0;#}
-{#system.mac = p.indexOf("Mac") == 0;#}
-{# system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);#}
-{# if(system.win||system.mac||system.xll){//如果是电脑跳转到#}
-{# #}
-{#        }else{  //如果是手机,跳转到#}
-{#              $('#danmuarea').css('margin-top','0px');#}
-{#              $('.fdm').css('margin-top','300px');#}
-{#        } #}
-{#</script>#}
+ var system ={};
+var p = navigator.platform;
+ system.win = p.indexOf("Win") == 0;
+system.mac = p.indexOf("Mac") == 0;
+ system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+ if(system.win||system.mac||system.xll){//如果是电脑跳转到
+ 
+        }else{  //如果是手机,跳转到
+              $('#danmuarea').css('margin-top','0px');
+              $('.fdm').css('margin-top','300px');
+        } 
+</script>
 
 
 
@@ -282,7 +237,7 @@ if (isIE()) {
 
 
 
-<div style="margin-top: 0px">
+<div style="margin-top: 10px">
 <div class="desc">
  <h4 style="margin-left: 10px;font-weight:bold;">{{ video.vname}}</h4>
 <span style="margin-top:20px ">{{ video.seenum }}次观看</span>
@@ -353,16 +308,7 @@ if (isIE()) {
      {% load staticfiles %}
 
 
-    <!-- Metis Menu Js -->
-    <script src="{% static "assets/js/jquery.metisMenu.js" %}"></script>
-    <!-- Morris Chart Js -->
-    <script src="{% static "assets/js/emoji-list-with-image.js" %}"></script>
-    <script src="{% static "assets/js/emoji.js" %}"></script>
-    <script src="{% static "assets/js/punycode.min.js" %}"></script>
 
-
-    <!-- Custom Js -->
-    <script src="{% static "assets/js/custom-scripts.js" %}"></script>
 
 
 
@@ -371,6 +317,12 @@ if({{ loginstate }}=="0"){
     $("#islogin").removeClass('login')
 }
 </script>
+
+   <script src="{% static "assets/js/emoji-list-with-image.js" %}"></script>
+    <script src="{% static "assets/js/emoji.js" %}"></script>
+    <script src="{% static "assets/js/punycode.min.js" %}"></script>
+
+
 
 
     <script>
@@ -753,14 +705,153 @@ renderEmoji();
 
 
 
-    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
 
 
 
 
 
+<script>
+  //初始化
+  $("#danmu").danmu({
+    left:0,
+    top:0,
+    height:"100%",
+    width:"100%",
+    speed:20000,
+    opacity:1,
+    font_size_small:16,
+    font_size_big:24,
+    top_botton_danmu_time:6000
+  });
+  //query();//  从后端获取弹幕并添加
+
+  //再添加三个弹幕
+
+    //一个定时器，监视弹幕时间并更新到页面上
 
 
+var counttime=0
+function startvideo(){
+    $('#danmu').danmu('danmuStart');
+
+
+    }
+/*
+  function pauser(){
+    $('#danmu').danmu('danmuPause');
+  }
+  */
+  function resumer(){
+    $('#danmu').danmu('danmuResume');
+      if(counttime==0){
+    var nn={{  dmresult |safe }};
+    $("#danmu").danmu("addDanmu",nn);
+    counttime=counttime+1;
+    }
+  }
+
+   function pauser(){
+    $('#danmu').danmu('danmuPause');
+  }
+  function stoper(){
+    $('#danmu').danmu('danmuStop');
+  }
+  function getime(){
+    alert($('#danmu').data("nowTime"));
+  }
+  function getpaused(){
+    $('#danmu').data("paused");
+  }
+  //添加弹幕测试  这个函数没有调用
+  function add() {
+    var newd =
+    {"text": "你好", "color": "green", "size": "1", "position": "0", "time": 6};
+    $('#danmu').danmu("addDanmu", newd);
+  }
+add();
+  {#//向后端添加弹幕测试  这个函数没有调用#}
+  {#function insert(){#}
+  {#  var newd= { "text":"new2" , "color":"green" ,"size":"1","position":"0","time":50};#}
+  {#  str_newd=JSON.stringify(newd);#}
+  {#  $.post("stone.php",{danmu:str_newd},function(data,status){alert(data)});#}
+
+  {#//从后端获取到弹幕并添加#}
+  {#function query() {#}
+  {#  $.get("query.php",function(data,status){#}
+  {#    var danmu_from_sql=eval(data);#}
+  {#    for (var i=0;i<danmu_from_sql.length;i++){#}
+  {#      var danmu_ls=eval('('+danmu_from_sql[i]+')');#}
+  {#      $('#danmu').danmu("addDanmu",danmu_ls);#}
+  {#    }#}
+  {#  });#}
+
+  //发送弹幕，使用了文档README.md第7节中推荐的方法
+  function send(){
+    var text = document.getElementById('text').value;
+      //var text="1111"
+
+    var color = document.getElementById('color').value;
+    var position = document.getElementById('position').value;
+    var time = $('#danmu').data("nowTime")+1;
+   var size =document.getElementById('text_size').value;
+
+   //var text_obj='{ "text":"'+text+'","color":"'+color+'","size":"'++'","position":"'+position+'","time":'+time+'}';
+   // $.post("stone.php",{danmu:text_obj});
+   var text_obj='{ "text":"'+text+'","color":"'+color+'","size":"'+size+'","position":"'+position+'","time":'+time+'}';
+    var new_obj=eval('['+text_obj+']');
+    $('#danmu').danmu("addDanmu",new_obj);
+
+ var video = document.getElementById('myvideo');
+ var tt=video.currentTime;
+ var mytime=parseInt(tt*10)
+       $.ajax({
+             url:'/insert_dm/',
+             type:'POST',
+             data:{'vid':$("#content").attr("myid"),'content':text,"dsize":size,"color":color,"position":position,"mytime":time},
+
+
+
+
+
+         })
+
+
+
+   document.getElementById('text').value='';
+  }
+
+  /*
+  //调整透明度函数
+  function op(){
+    var op=document.getElementById('op').value;
+    $('#danmu').danmu("setOpacity",op/100);
+  }
+
+  //调隐藏 显示
+  function changehide() {
+    var op = document.getElementById('op').value;
+    op = op / 100;
+    if (document.getElementById("ishide").checked) {
+      $("#danmu").danmu("setOpacity",1)
+    } else {
+      $("#danmu").danmu("setOpacity",0)
+
+    }
+  }
+
+  //设置弹幕时间
+  function settime(){
+    var t=document.getElementById("set_time").value;
+    t=parseInt(t)
+    $('#danmu').danmu("setTime",t);
+  }
+
+  */
+</script>
+
+
+
+<script>$('#danmu').css("top",'-60px');</script>
 
 
 

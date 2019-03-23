@@ -120,7 +120,7 @@ class Danmu(models.Model):
     dsize = models.IntegerField(blank=True, null=True)
     color = models.CharField(max_length=255, blank=True, null=True)
     dtime = models.IntegerField(blank=True, null=True)
-    position = models.IntegerField(blank=True, null=True)
+    position = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False

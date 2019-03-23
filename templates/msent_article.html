@@ -1,0 +1,106 @@
+{% extends 'mheaderbar.html' %}
+{% load staticfiles %} {% block m_content %}
+   <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+                <div class="row">
+
+                    <div class="col-md-4">
+                    <p class="navbar-text">欢迎{{ user.username }}</p>
+                    <p class="navbar-text">文章发表</p>
+                    </div>
+
+
+                </div>
+
+                <div class="row" style="margin-left: unset">
+
+                    <div class="col-md-4">
+                    <p class="navbar-text ">文章标题</p>
+                    <input class="form-control article_title" type="text" placeholder="请填写文章标题">
+                    </div>
+
+                </div>
+
+                <div class="row" style="width: 100%; margin-left: unset">
+                    <div class="col-md-12" style="margin-top:30px">
+                     <textarea  class="article_content"   id="editor_id"  name="content"style="height:450px;">
+
+                    </textarea>
+
+                </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2" style="margin-top:30px">
+                        <button class="btn btn-primary sent_button">发表</button>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    {% load staticfiles %}
+
+        <script charset="utf-8" src="/static/kindeditor-4.1.10/kindeditor-all.js">
+        </script>
+     <script charset="utf-8" src="/static/kindeditor-4.1.10/lang/zh_CN.js"></script>
+
+
+
+
+
+
+
+     <script>
+
+ KindEditor.create('#editor_id',{
+            uploadJson:'/upload_img/',
+          width:"100%",
+         afterBlur: function(){  //利用该方法处理当富文本编辑框失焦之后，立即同步数据
+          KindEditor.sync("#editor_id") ;
+    }
+        });
+
+
+</script>
+
+    <script>
+        $('.sent_button').click(function () {
+             $.ajax({
+             url:'/insert_article/',
+             type:'POST',
+             data:{'title':$('.article_title').val(),'content':$('.article_content').val()},
+             success:function (data) {
+                 var obj=JSON.parse(data);
+                 if(obj.state){
+                    alert("发表成功");
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+                /** var obj=JSON.parse(data)
+                 if(obj.state){
+                    alert("名字是"+obj.name+"密码是"+obj.password);
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+                 //alert("名字是"+$('#name').val()+"密码是"+$('#pw').val());
+                 **/
+                 }
+
+
+         })
+         });
+    </script>
+
+
+
+{% endblock %}

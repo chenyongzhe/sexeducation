@@ -1,30 +1,20 @@
-{% extends 'headerbar.html' %}
-{% load staticfiles %} {% block main_content %}
-        <!-- /. NAV SIDE  -->
-        <div id="page-wrapper">
-            <div id="page-inner">
-
-
-
-
-
-
-
-
-
-
-      <h2>图文教育</h2>
+{% extends 'mheaderbar.html' %}
+{% load staticfiles %} {% block m_content %}
+  <h4>性教育科普</h4>
                 <br>
                 <br>
 
        <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/semantic-ui/2.4.1/semantic.min.css">
 
-       <div class="ui hidden divider"></div>
-                <div class="ui grid">
+    <div class="ui hidden divider"></div>
+<div class="ui grid"style="margin-left: 10px;margin-left: 5px" >
+<div class="row" style="margin-right: 0px;margin-left: 0px">
 
+
+     <div  style="width: 45%;margin-top: 20px;margin-left: 10px" >
 
                     <div class="five wide column">
-        <div class="ui card">
+        <div class="ui card" >
             <a class="image" href="/twjx/manbody/">
 {#                {% thumbnail item.cover "300x200" crop="center" as im %}#}
                 <img  style="width: 100%;height: 130px"  class="ui image" src="{% static "assets/img/sexedu/man.jpg" %}">
@@ -54,6 +44,11 @@
 
 
 
+     </div>
+
+
+
+               <div  style="width: 45%;margin-top: 20px;margin-left: 10px" >
 
                     <div class="five wide column">
         <div class="ui card">
@@ -84,8 +79,10 @@
         </div>
     </div>
 
-                </div>
+               </div>
 
+                </div>
+</div>
 
 
 
@@ -100,31 +97,6 @@
 
      <script src="https://cdn.staticfile.org/semantic-ui/2.4.1/semantic.min.js"></script>
 
-
-            </div>
-            <!-- /. PAGE INNER  -->
-        </div>
-        <!-- /. PAGE WRAPPER  -->
-
-    <!-- /. WRAPPER  -->
-    <!-- JS Scripts-->
-    <!-- jQuery Js -->
-    {% load staticfiles %}
-    <script src="{% static "assets/js/jquery-1.10.2.js" %}"></script>
-    <!-- Bootstrap Js -->
-    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
-
-    <!-- Metis Menu Js -->
-    <script src="{% static "assets/js/jquery.metisMenu.js" %}"></script>
-    <!-- Morris Chart Js -->
-    <script src="{% static "assets/js/morris/raphael-2.1.0.min.js" %}"></script>
-    <script src="{% static "assets/js/morris/morris.js" %}"></script>
-
-
-
-
-    <!-- Custom Js -->
-    <script src="{% static "assets/js/custom-scripts.js" %}"></script>
 
 
 {% endblock %}

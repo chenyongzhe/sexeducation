@@ -1,0 +1,53 @@
+{% extends 'mheaderbar.html' %}
+{% load staticfiles %} {% block m_content %}
+
+  <div class="row">
+                      <div class="col-md-4  col-md-offset-5" ><p style="font-size:30px; ">用户注册</p></div>
+                </div>
+                 <form action="/register/" method="POST">
+                  <div class="row">
+                      <div class="col-md-4 col-md-offset-7" >
+                           <p style="color: red">{{ error }}</p>
+                       </div>
+                      <div class="col-md-4  col-md-offset-5" style="margin-top: 10px">
+                      账号<input  class="form-control" type="text" name="username" placeholder="请输入账号">
+                      </div>
+                  </div>
+
+                     <div class="row">
+                      <div class="col-md-4 col-md-offset-5" style="margin-top: 30px">
+                      昵称<input  class="form-control"  name="nickname" placeholder="请输入昵称">
+                      </div>
+                    </div>
+
+
+                   <div class="row">
+                      <div class="col-md-4 col-md-offset-5" style="margin-top: 30px">
+                      密码<input  class="form-control" type="password" name="password1" placeholder="请输入密码">
+                      </div>
+                  </div>
+                     <div class="row">
+                      <div class="col-md-4 col-md-offset-5" style="margin-top: 30px">
+                      确认密码<input  class="form-control" type="password" name="password2" placeholder="请输入确认密码">
+                      </div>
+                    </div>
+                     <div class="row">
+                      <div class="col-md-4 col-md-offset-5" style="margin-top: 30px">
+                      邮箱<input  class="form-control" type="text" name="email" placeholder="请输入邮箱">
+                      </div>
+                    </div>
+                     <div class="row">
+                      <div class="col-md-4 col-md-offset-5" style="margin-top: 30px">
+                      手机号码<input  class="form-control" type="text" name="phonenumber" placeholder="请输入手机号码">
+                      </div>
+                     </div>
+                   <div class="row">
+                      <div class="col-md-2 col-md-offset-5" style="margin-top: 30px">
+                      <input  class="form-control" type="submit" value="注册" >
+                      </div>
+
+                  </div>
+                  </form>
+
+
+{% endblock %}

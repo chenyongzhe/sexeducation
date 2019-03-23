@@ -1,0 +1,57 @@
+{% extends 'mheaderbar.html' %}
+{% load staticfiles %} {% block m_content %}
+
+
+<div style="margin-top: 30px">
+                    <script>
+                        var i=0;
+                    var imageName ="";
+                    </script>
+                    {% for item in article %}
+                        <script>
+                        i+=1;
+                         imageName = "/static/mainpage/dm"+i+".jpg";
+                        </script>
+
+                        <div style="border: 2px solid #dddddd;margin-bottom: 20px">
+                        <div class="row">
+                            <div class="col-xs-8"><h7 style="color: blue"><a href="/article/?id={{ item.article_id }}">{{ item.title}}</a></h7></div>
+                        <div class="col-xs-2 col-xs-offset-1"><img id="{{ item.article_id }}"  src=""    style="width: 50px;height: 50px" />
+
+                       </div>
+
+                        </div>
+                        <script>
+                            $("#{{ item.article_id }}").attr('src',imageName);
+                    </script>
+
+                        <div class="row" >
+                         <div class="col-xs-12">
+                             <p class="txt_info" style="color: #888;   font-size: 14.5px;">{{ item.content}}</p>
+                        </div>
+                         </div>
+
+                        </div>
+
+
+{#                        <div class="img_box">#}
+{#                            <img id="{{ item.article_id }}"  src=""    style="width: 90px;height: 90px" />#}
+{#                        </div>#}
+{#                        <script>#}
+{#                            $("#{{ item.article_id }}").attr('src',imageName);#}
+{#                        </script>#}
+{#                        <div class="txt_box">#}
+{#                            <h7><a href="/article/?id={{ item.article_id }}">{{ item.title}}</a></h7>#}
+{#                            <p class="txt_info">{{ item.content}}</p>#}
+{#                        </div>#}
+
+
+                      {% endfor %}
+</div>
+                          <!-- 分页  -->
+                    <div class="pp">
+                       {{ page_str | safe }}
+                   </div>
+
+
+{% endblock %}

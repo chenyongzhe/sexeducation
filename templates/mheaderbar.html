@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh" >
+<head>
+     {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>基于web2.0性教育系统</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+{#     <link href="{% static "mainpage/weixin.sogou.com_mainpage.css"  %}" rel="stylesheet" />#}
+     <link href="{% static "assets/css/bootstrap.css"  %}" rel="stylesheet" />
+     <link href="{% static "assets/css/font-awesome.css"  %}"  rel="stylesheet" />
+    <script src="{% static "assets/js/jquery-3.1.1.min.js" %}"></script>
+    <style>
+        .top_toolbars a{
+            color: #6A89C0;
+        }
+
+        .navbar-inverse {
+    background-color: #009ac5;
+    border-color: #3c7ab6;
+}
+
+  .navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+    background-color: #009ac5;
+}
+
+    </style>
+
+    <script type="text/javascript">
+        //测试用的数据，这里可以用AJAX获取服务器数据
+        var test_list = [""];
+        var old_value = "";
+        var highlightindex = -1;   //高亮
+        //自动完成
+        function AutoComplete(auto, search, mylist) {
+            if ($("#" + search).val() != old_value || old_value == "") {
+                var autoNode = $("#" + auto);   //缓存对象（弹出框）
+                var carlist = new Array();
+                var n = 0;
+                old_value = $("#" + search).val();
+                for (i in mylist) {
+                    if (mylist[i].indexOf(old_value) >= 0) {
+                        carlist[n++] = mylist[i];
+                    }
+                }
+                if (carlist.length == 0) {
+                    autoNode.hide();
+                    return;
+                }
+                autoNode.empty();  //清空上次的记录
+                for (i in carlist) {
+                    var wordNode = carlist[i];   //弹出框里的每一条内容
+                    var newDivNode = $("<div>").attr("id", i);    //设置每个节点的id值
+                    newDivNode.attr("style", "font:14px/25px arial;height:25px;padding:0 8px;cursor: pointer;background-color: #FFFFFF;");
+                    newDivNode.html(wordNode).appendTo(autoNode);  //追加到弹出框
+                    //鼠标移入高亮，移开不高亮
+                    newDivNode.mouseover(function () {
+                        if (highlightindex != -1) {        //原来高亮的节点要取消高亮（是-1就不需要了）
+                            autoNode.children("div").eq(highlightindex).css("background-color", "white");
+                        }
+                        //记录新的高亮节点索引
+                        highlightindex = $(this).attr("id");
+                        $(this).css("background-color", "#ebebeb");
+                    });
+                    newDivNode.mouseout(function () {
+                        $(this).css("background-color", "white");
+                    });
+                    //鼠标点击文字上屏
+                    newDivNode.click(function () {
+                        //取出高亮节点的文本内容
+                        var comText = autoNode.hide().children("div").eq(highlightindex).text();
+                        highlightindex = -1;
+                        //文本框中的内容变成高亮节点的内容
+                        $("#" + search).val(comText);
+                    })
+                    if (carlist.length > 0) {    //如果返回值有内容就显示出来
+                        autoNode.show();
+                    } else {               //服务器端无内容返回 那么隐藏弹出框
+                        autoNode.hide();
+                        //弹出框隐藏的同时，高亮节点索引值也变成-1
+                        highlightindex = -1;
+                    }
+                }
+            }
+            //点击页面隐藏自动补全提示框
+            document.onclick = function (e) {
+                var e = e ? e : window.event;
+                var tar = e.srcElement || e.target;
+                if (tar.id != search) {
+                    if ($("#" + auto).is(":visible")) {
+                        $("#" + auto).css("display", "none")
+                    }
+                }
+            }
+        }
+        $(function () {
+            old_value = $("#search_text").val();
+            $("#search_text").focus(function () {
+                if ($("#search_text").val() == "") {
+                    AutoComplete("auto_div", "search_text", test_list);
+                }
+            });
+            $("#search_text").keyup(function () {
+
+
+                $.ajax({
+             url:'/gettip/',
+             type:'POST',
+             data:{'key':$('#search_text').val()},
+             success:function (data) {
+                 var obj=JSON.parse(data);
+
+                     if(obj.state){
+                    //alert("评论成功");
+                   // location.reload();
+                         var rs=obj.result
+                         test_list=rs.split("//")
+                         //test_list[0]="aa";
+                         //test_list[1]=rl;
+                         if(test_list.length>10){
+                             var ttlist=[];
+                             for(i=0;i<10;i++){
+                                 ttlist[i]=test_list[i];
+                             }
+                             AutoComplete("auto_div", "search_text", ttlist);
+                         }else {
+                              AutoComplete("auto_div", "search_text", test_list);
+                         }
+
+
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+
+                 }
+
+
+
+
+
+         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                //AutoComplete("auto_div", "search_text", test_list);
+            });
+        });
+    </script>
+
+
+
+
+</head>
+<body>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+                <div class="row">
+                      <div class="col-xs-8  col-xs-offset-1" ><p style="font-size:30px; ">用户登录</p></div>
+                  </div>
+            </div>
+
+           <div id="">
+
+               <div >
+                   <div class="modal-body">
+
+
+                  <div class="row">
+                      <div class="col-xs-8  col-xs-offset-1" style="margin-top: 0px">
+                      账号<input  class="form-control" type="text" id="username" placeholder="请输入账号" >
+                      </div>
+                  </div>
+                   <div class="row">
+                      <div class="col-xs-8 col-xs-offset-1" style="margin-top: 30px">
+                      密码<input  class="form-control" type="password" id="password" placeholder="请输入密码" >
+                      </div>
+                  </div>
+
+                         <div class="row">
+                      <div class="col-xs-8 col-xs-offset-1" style="margin-top: 30px">
+                     <div class="input">
+   <input id="t1"  style="line-height:unset" type="text" name="u" placeholder="验证码" onblur="but()" />
+   <span id="discode"></span>
+   <input type="button" value="换一换" class="c" style="height:20px;"onClick="createCode()">
+   </div>
+                      </div>
+                  </div>
+
+
+
+                   </div>
+                   <div class="modal-footer">
+                   <div class="row">
+                      <div class="col-xs-6 col-xs-offset-2" style="margin-top: 30px">
+                      <input class="btn btn-primary subt"  value="登录" ><span class="errorspan"></span>
+                      </div>
+
+                  </div>
+                     <div class="row">
+                      <div class="col-xs-4 col-xs-offset-3" style="margin-top: 5px">
+                      <a href="/register/" style="color: red;">没有账户账号我要注册</a>
+                      </div>
+                  </div>
+
+
+                   </div>
+                  </div>
+
+
+
+
+                </div>
+
+
+
+                </div>
+
+         </div>
+
+<script language="javascript">
+var couldlogin=0;
+var code; //在全局 定义验证码
+function createCode()
+{ //创建验证码函数
+ code = "";
+ var codeLength =4;//验证码的长度
+ var selectChar = new Array(0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f','g','h','i','j','k',
+  'l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');//所有候选组成验证码的字符，当然也可以用中文的
+ for(var i=0;i<codeLength;i++)
+ {
+ var charIndex =Math.floor(Math.random()*36);
+ code +=selectChar[charIndex];
+ }
+// 设置验证码的显示样式，并显示
+ document.getElementById("discode").style.fontFamily="Fixedsys"; //设置字体
+ document.getElementById("discode").style.letterSpacing="5px"; //字体间距
+ document.getElementById("discode").style.color="#0ab000"; //字体颜色
+ document.getElementById("discode").innerHTML=code; // 显示
+}
+function but()
+{//验证验证码输入是否正确
+ var val1=document.getElementById("t1").value;
+ var val2=code;
+ if(val1!=val2){
+
+  couldlogin=0;
+ document.getElementById('t1').value="";
+  }else{
+  	couldlogin=1;
+
+  }
+ }
+
+
+ createCode()
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               <script>
+                   $('.subt').click(function () {
+                       if(couldlogin==0){
+                           alert("验证码错误");
+                       }else {
+
+                             $.ajax({
+             url:'/login/',
+             type:'POST',
+             data:{'username':$('#username').val(),'password':$("#password").val()},
+             success:function (data) {
+                 //alert(data);
+                 var obj=JSON.parse(data);
+                 if(obj.message=="登录成功"){
+                      $('.errorspan').html(obj.message)
+
+                    //alert("登录成功");
+                    location.reload();
+                 }
+                 else {
+                    $('.errorspan').html(obj.message)
+
+                 }
+
+
+
+
+                 }
+
+
+         })
+                  }
+                   });
+
+
+               </script>
+
+
+
+           </div>
+
+
+
+<style>
+.navbar-inverse .navbar-nav>li>a{
+    color: #FFFFFF;
+}
+</style>
+
+   <nav class="navbar navbar-inverse navbar-fixed-top" >
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" style="color: #FFFFFF" href="#">性教育</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li ><a href="/">首页</a></li>
+            <li><a href="/readarticle" style="color: #FFFFFF">家长</a></li>
+            <li><a href="/videolist">小朋友</a></li>
+              <li><a href="/twjx">青少年</a></li>
+               <li><a href="/sent_article">我要发言</a></li>
+               <li><a href="/sendmessage/">给管理员留言</a></li>
+               <li><a href="/exit">退出登录</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+<div class="row" style="margin-top:58px;width: 100%">
+
+
+         <div class="col-xs-4" style="    padding-right: 1px;padding-left: 25px">
+            <div class="logo" >
+               <img class="logo_img"   src="{% static "mainpage/search.gif" %}"    style="height: 30px;width: 100%"/>
+            </div>
+           </div>
+       <form action="/s/" action="GET">
+        <div class="col-xs-6" style="    padding-right: 1px;padding-left: 1px">
+
+                <div id="input_con">
+                    <input class="form-control" style="height: 130%;width: 100%" type="text"  name="keyword" id="search_text" placeholder="输入关键词" autocomplete="off"    />
+
+                </div>
+        </div>
+           <div class="col-xs-2" style="padding-left: 1px">
+
+          <input class="btn btn-primary" type="submit" id="search_bt" style="background-color: #FF4E85;" value="搜文章" />
+       </div>
+
+
+             </form>
+{#                <div style="margin-left: 20%;z-index: 99">#}
+{#     <div id="auto_div" style="z-index: 99;position: absolute;align:left;width:451px;border: 2px solid #FFFFFF;">#}
+{#                                </div>#}
+{#     </div>#}
+
+
+
+    </div>
+ <div id="auto_div" style="border: 2px solid #FFFFFF;">
+                                </div>
+
+
+    <div style="z-index: 1;margin-top: 30px" >
+
+            <div class="banners" style="margin-left: 8px">
+                <img   src="{% static "mainpage/dm2.jpg" %}"   style="width: 97%; height: 200px"/>
+            </div>
+
+                    <ol class="breadcrumb" style="    margin-bottom: 0px;">
+  <li class="active">首页</li>
+  <li><a href="/readarticle">文章</a></li>
+  <li><a href="/videolist">视频教育</a></li>
+  <li><a href="/twjx">性教育科普</a></li>
+                        <li><a href="/sent_article">发表文章</a></li>
+  <li><a href="/sendmessage/">给管理员留言</a></li>
+</ol>
+
+
+
+
+                </div>
+
+    <div>
+        <ol class="breadcrumb" style="    margin-bottom: 0px;">
+        <li  class="active">视频分类:</li>
+  <li><a href="/videolist?tp=7&p=1">一分钟性教育</a></li>
+    <li><a href="/videolist?tp=3&p=1">青春期</a></li>
+  <li><a href="/videolist?tp=2&p=1">健康的关系</a></li>
+  <li><a href="/videolist?tp=4&p=1">人身安全</a></li>
+  <li><a href="/videolist?tp=5&p=1">性病与艾滋病</a></li>
+  <li><a href="/videolist?tp=6&p=1">性取向</a></li>
+   <li><a href="/videolist?tp=1&p=1">怀孕和生育</a></li>
+        </ol>
+
+
+    </div>
+
+
+            <div class="news_box">
+
+
+                        <div class="img_box" style="width: 50px;height: 50px;margin-left: 200px">
+
+                            <img   src="{% static "mainpage/dm1.jpg" %}"    style="width: 90px;height: 90px;" />
+                        </div>
+
+
+                <div >
+                           <div style="margin-top: 0px;margin-left: 4px">
+                      {% block m_content %}{% endblock %}
+
+                           </div>
+                          </div>
+
+
+
+                </div>
+
+
+
+
+
+            </div>
+
+
+
+
+<div style="margin-top: 100px;width: 100%;height: 50px" ></div>
+
+<div class="main_nav_bottom">
+                <nav class="navbar navbar-default navbar-fixed-bottom">
+                    <div class="container" align="center">
+                        <style>
+                            .nav-tabs
+                            {
+                                text-align: center;
+                                height: 40px;
+                                line-height: 40px;
+                            }
+                        </style>
+                        <ul class="nav nav-tabs nav-tabs-justified">
+                            <div class="row" align="center">
+                                <div class="col-md-4 col-sm-4 col-xs-4" align="center"><li><a href="/userinfor/">主页</a></li></div>
+                                <div class="col-md-4 col-sm-4 col-xs-4" align="center"><li><a href="/mymessage">消息</a></li></div>
+                                <div class="col-md-4 col-sm-4 col-xs-4" align="center"><li>{{ loginstr |safe}}</li></div>
+                            </div>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+</body>
+    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
+</html>
+
+
+
+
+
+
+
+
+

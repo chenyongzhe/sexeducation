@@ -1,0 +1,129 @@
+{% extends 'mheaderbar.html' %}
+{% load staticfiles %} {% block m_content %}
+
+<div id="page-wrapper">
+            <div id="page-inner">
+
+                <div class="row">
+                    <div class="col-md-4">
+                    <p class="navbar-text">欢迎{{ user.nickname }}</p>
+                    </div>
+                </div>
+
+               <div class="row">
+
+			  <div class="col-md-6">
+			     <div class="panel panel-default">
+                 <a href="/modify/"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编辑个人资料</a>&nbsp;&nbsp;&nbsp;<a style="" href="/mymessage"><i class="fa fa-envelope-o" aria-hidden="true"></i>我的留言</a>
+				   <div class="panel-heading">
+                       <img id="avatar-img" src="{{ imgurl }}" style=" border-radius:100%;" width="80px" height="80px">
+				      {{ user.nickname }}&nbsp;&nbsp;
+                      <span style="{{ csssex }}"><i class="{{ sex }}"></i></span> <br>
+                       <span class="score" style="font-size: 14px">我的积分:&nbsp;&nbsp;&nbsp;&nbsp;{{  score }}&nbsp;<span style="color: gold;"><i class="fa fa-database" aria-hidden="true"></i></span></span><br>
+                       <span class="desc" style="font-size: 14px">简介：{{ user.desc }}</span>
+                       <br><br><div class="row">
+                              <div class="col-xs-4">
+                                  <button class="btn btn-primary articlebtn">我的文章</button>
+                              </div>
+                              <div class="col-xs-4">
+                                  <button class="btn btn-primary followingbtn">我的关注</button>
+                              </div>
+                          <div class="col-xs-4">
+                                  <button class="btn btn-primary followeebtn" >关注我的</button>
+                              </div>
+                          </div>
+                   </div>
+
+							<div class="panel-body">
+								<div class="myarticle ">
+								{% for item in myarticle %}
+								<div class="alert alert-info">
+									<strong></strong> <a href="/article/?id={{ item.article_id }}">{{ item.title}}</a>
+								</div>
+                                {% endfor %}
+                                </div>
+                               <div class="myfollower hide">
+                                  {%  for u in followeelist  %}
+                                     <div class="alert alert-info">
+									<strong></strong> <a href="/user/?user_id={{ u.id }}">{{ u.nickname }}</a>
+								</div>
+                                   {% endfor %}
+                               </div>
+
+                               <div class="myfollowee hide">
+                                  {%  for u in followerlist  %}
+                                     <div class="alert alert-info">
+									<strong></strong> <a href="/user/?user_id={{ u.id }}">{{ u.nickname }}</a>
+								</div>
+                                   {% endfor %}
+                               </div>
+
+							</div>
+                 </div>
+			  </div>
+
+
+            </div>
+
+
+
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    {% load staticfiles %}
+
+
+<script>
+    var myfollowing=0;
+    var myarticle=1;
+    var myfollowee=0;
+    $(".followingbtn").click( function () {
+        if(myfollowing==0){
+            $(".myfollower").removeClass("hide")
+             myfollowing=1
+            $(".myarticle").addClass("hide")
+            myarticle=0
+             $(".myfollowee").addClass("hide")
+            myfollowee=0
+        }
+
+
+    })
+
+    $(".articlebtn").click( function () {
+        if(myarticle==0){
+            $(".myfollower").addClass("hide")
+             myfollowing=0
+            $(".myarticle").removeClass("hide")
+            myarticle=1
+            $(".myfollowee").addClass("hide")
+            myfollowee=0
+        }
+
+
+    })
+
+     $(".followeebtn").click( function () {
+        if(myfollowee==0){
+            $(".myfollowee").removeClass("hide")
+             myfollowee=1
+            $(".myarticle").addClass("hide")
+            myarticle=0
+             $(".myfollower").addClass("hide")
+             myfollowing=0
+        }
+
+
+    })
+
+
+
+</script>
+
+
+{% endblock %}

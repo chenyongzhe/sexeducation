@@ -1,16 +1,5 @@
-{% extends 'headerbar.html' %}
-{% load staticfiles %} {% block main_content %}
-<!-- /. NAV SIDE  -->
-
- <style>
- .bj{
-     display: none;
- }
-
- </style>
-        <div id="page-wrapper " style="width: 130%;">
-            <div id="page-inner">
-
+{% extends 'mheaderbar.html' %}
+{% load staticfiles %} {% block m_content %}
 
 
       <h2>男生的身体</h2>
@@ -19,25 +8,27 @@
 
 
 
-       <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/semantic-ui/2.4.1/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/semantic-ui/2.4.1/semantic.min.css">
 
-       <div class="ui hidden divider"></div>
-                <div class="ui grid" style="width: 90%" >
+    <div class="ui hidden divider"></div>
+<div class="ui grid"style="margin-left: 10px;margin-left: 5px" >
+<div class="row" style="margin-right: 0px;margin-left: 0px">
 
 
+     <div  style="width: 45%;margin-top: 20px;margin-left: 10px" >
 
                     <div class="five wide column">
-        <div class="ui card">
-            <a class="image" href="/9.html/">
+        <div class="ui card" >
+            <a class="image" href="/1.html/">
 {#                {% thumbnail item.cover "300x200" crop="center" as im %}#}
-                <img  style="width: 100%;height: 130px"  class="ui image" src="{% static "assets/img/sexedu/manbody.png" %}">
+                <img  style="width: 100%;height: 130px"  class="ui image" src="{% static "assets/img/sexedu/womantype.png" %}">
 {#                {% empty %}#}
 {#                {% endthumbnail %}#}
 {#                <i style="    position: absolute;left: 1.0rem;bottom: 1.0rem;color: #0285c8;" class="large play icon v-play-icon"></i>#}
             </a>
             <div class="content">
                 <div>
-                    <span style="font-weight: bold">男生的身体类型</span>
+                    <span style="font-weight: bold">女生的身体类型</span>
                 </div>
 {#                <a class="header" href="{% url 'video:detail' item.pk %}">{{ item.title }}</a>#}
                 <div class="meta">
@@ -45,7 +36,7 @@
                 <div class="description">
 {#                    {{ item.view_count}}#}
 
-                 <i class="fa fa-mars" style="color: blue" ></i>
+                 <i class="fa fa-venus" style="color: deeppink" ></i>
                     <span style="float: right" class="date"><i class="fa fa-clock-o"></i>2019-02-17</span>
 
                 </div>
@@ -57,19 +48,24 @@
 
 
 
+     </div>
+
+
+
+               <div  style="width: 45%;margin-top: 20px;margin-left: 10px" >
 
                     <div class="five wide column">
         <div class="ui card">
-            <a class="image" href="/10.html/">
+            <a class="image" href="/2.html/">
 {#                {% thumbnail item.cover "300x200" crop="center" as im %}#}
-                <img  style="width: 100%;height: 130px"  class="ui image" src="{% static "assets/img/sexedu/manvisible.png" %}">
+                <img  style="width: 100%;height: 130px"  class="ui image" src="{% static "assets/img/sexedu/womanvisible.png" %}">
 {#                {% empty %}#}
 {#                {% endthumbnail %}#}
 {#                <i style="    position: absolute;left: 1.0rem;bottom: 1.0rem;color: #0285c8;" class="large play icon v-play-icon"></i>#}
             </a>
             <div class="content">
                 <div>
-                    <span style="font-weight: bold">男生的外生殖器官</span>
+                    <span style="font-weight: bold">女生的外生殖器官</span>
                 </div>
 {#                <a class="header" href="{% url 'video:detail' item.pk %}">{{ item.title }}</a>#}
                 <div class="meta">
@@ -77,7 +73,7 @@
                 <div class="description">
 {#                    {{ item.view_count}}#}
 
-                 <i class="fa fa-mars" style="color: blue"></i>
+                 <i class="fa  fa-venus" style="color: deeppink" ></i>
                     <span style="float: right" class="date"><i class="fa fa-clock-o"></i>2019-02-17</span>
 
                 </div>
@@ -87,21 +83,23 @@
         </div>
     </div>
 
+               </div>
 
 
+               <div  style="width: 45%;margin-top: 20px;margin-left: 10px" >
 
                     <div class="five wide column">
         <div class="ui card">
-            <a class="image" href="/11.html/">
+            <a class="image" href="/3.html/">
 {#                {% thumbnail item.cover "300x200" crop="center" as im %}#}
-                <img  style="width: 100%;height: 130px"  class="ui image" src="{% static "assets/img/sexedu/manvisible.png" %}">
+                <img  style="width: 100%;height: 130px"  class="ui image" src="{% static "assets/img/sexedu/womaninternal.png" %}">
 {#                {% empty %}#}
 {#                {% endthumbnail %}#}
 {#                <i style="    position: absolute;left: 1.0rem;bottom: 1.0rem;color: #0285c8;" class="large play icon v-play-icon"></i>#}
             </a>
             <div class="content">
                 <div>
-                    <span style="font-weight: bold">男生的内生殖器官</span>
+                    <span style="font-weight: bold">女生的内生殖器官</span>
                 </div>
 {#                <a class="header" href="{% url 'video:detail' item.pk %}">{{ item.title }}</a>#}
                 <div class="meta">
@@ -109,7 +107,7 @@
                 <div class="description">
 {#                    {{ item.view_count}}#}
 
-                 <i class="fa fa-mars" style="color: blue" ></i>
+                 <i class="fa  fa-venus" style="color: deeppink" ></i>
                     <span style="float: right" class="date"><i class="fa fa-clock-o"></i>2019-02-17</span>
 
                 </div>
@@ -119,21 +117,26 @@
         </div>
     </div>
 
+               </div>
 
 
+
+
+
+         <div  style="width: 45%;margin-top: 20px;margin-left: 10px" >
 
                     <div class="five wide column">
         <div class="ui card">
-            <a class="image" href="/12.html/">
+            <a class="image" href="/4.html/">
 {#                {% thumbnail item.cover "300x200" crop="center" as im %}#}
-                <img  style="width: 100%;height: 130px"  class="ui image" src="{% static "assets/img/sexedu/zj.png" %}">
+                <img  style="width: 100%;height: 130px"  class="ui image" src="{% static "assets/img/sexedu/womanbreasts.png" %}">
 {#                {% empty %}#}
 {#                {% endthumbnail %}#}
 {#                <i style="    position: absolute;left: 1.0rem;bottom: 1.0rem;color: #0285c8;" class="large play icon v-play-icon"></i>#}
             </a>
             <div class="content">
                 <div>
-                    <span style="font-weight: bold">精液的产生</span>
+                    <span style="font-weight: bold">乳房</span>
                 </div>
 {#                <a class="header" href="{% url 'video:detail' item.pk %}">{{ item.title }}</a>#}
                 <div class="meta">
@@ -141,7 +144,7 @@
                 <div class="description">
 {#                    {{ item.view_count}}#}
 
-                 <i class="fa fa-mars" style="color: blue"></i>
+                 <i class="fa fa-venus" style="color: deeppink"></i>
                     <span style="float: right" class="date"><i class="fa fa-clock-o"></i>2019-02-17</span>
 
                 </div>
@@ -151,14 +154,92 @@
         </div>
     </div>
 
+               </div>
 
 
+
+
+
+    <div  style="width: 45%;margin-top: 20px;margin-left: 10px" >
 
                     <div class="five wide column">
         <div class="ui card">
-            <a class="image" href="/13.html/">
+            <a class="image" href="/5.html/">
 {#                {% thumbnail item.cover "300x200" crop="center" as im %}#}
-                <img  style="width: 100%;height: 130px"  class="ui image" src="{% static "assets/img/sexedu/mangl.png" %}">
+                <img  style="width: 100%;height: 130px"  class="ui image" src="{% static "assets/img/sexedu/hymen.png" %}">
+{#                {% empty %}#}
+{#                {% endthumbnail %}#}
+{#                <i style="    position: absolute;left: 1.0rem;bottom: 1.0rem;color: #0285c8;" class="large play icon v-play-icon"></i>#}
+            </a>
+            <div class="content">
+                <div>
+                    <span style="font-weight: bold">处女膜</span>
+                </div>
+{#                <a class="header" href="{% url 'video:detail' item.pk %}">{{ item.title }}</a>#}
+                <div class="meta">
+                              </div>
+                <div class="description">
+{#                    {{ item.view_count}}#}
+
+                 <i class="fa  fa-venus" style="color: deeppink" ></i>
+                    <span style="float: right" class="date"><i class="fa fa-clock-o"></i>2019-02-17</span>
+
+                </div>
+{#                <div>{{ video.desc }}</div>#}
+                <div><i class="fa fa-user fa-fw"></i>爬取于：http://www.zanzu.de</div>
+            </div>
+        </div>
+    </div>
+
+               </div>
+
+
+
+
+    <div  style="width: 45%;margin-top: 20px;margin-left: 10px" >
+
+                    <div class="five wide column">
+        <div class="ui card">
+            <a class="image" href="/6.html/">
+{#                {% thumbnail item.cover "300x200" crop="center" as im %}#}
+                <img  style="width: 100%;height: 130px"  class="ui image" src="{% static "assets/img/sexedu/menstrual_period.png" %}">
+{#                {% empty %}#}
+{#                {% endthumbnail %}#}
+{#                <i style="    position: absolute;left: 1.0rem;bottom: 1.0rem;color: #0285c8;" class="large play icon v-play-icon"></i>#}
+            </a>
+            <div class="content">
+                <div>
+                    <span style="font-weight: bold">月经期</span>
+                </div>
+{#                <a class="header" href="{% url 'video:detail' item.pk %}">{{ item.title }}</a>#}
+                <div class="meta">
+                              </div>
+                <div class="description">
+{#                    {{ item.view_count}}#}
+
+                 <i class="fa  fa-venus" style="color: deeppink"></i>
+                    <span style="float: right" class="date"><i class="fa fa-clock-o"></i>2019-02-17</span>
+
+                </div>
+{#                <div>{{ video.desc }}</div>#}
+                <div><i class="fa fa-user fa-fw"></i>爬取于：http://www.zanzu.de</div>
+            </div>
+        </div>
+    </div>
+
+               </div>
+
+
+
+
+
+ <div  style="width: 45%;margin-top: 20px;margin-left: 10px" >
+
+                    <div class="five wide column">
+        <div class="ui card">
+            <a class="image" href="/7.html/">
+{#                {% thumbnail item.cover "300x200" crop="center" as im %}#}
+                <img  style="width: 100%;height: 130px"  class="ui image" src="{% static "assets/img/sexedu/womangl.png" %}">
 {#                {% empty %}#}
 {#                {% endthumbnail %}#}
 {#                <i style="    position: absolute;left: 1.0rem;bottom: 1.0rem;color: #0285c8;" class="large play icon v-play-icon"></i>#}
@@ -173,7 +254,7 @@
                 <div class="description">
 {#                    {{ item.view_count}}#}
 
-                 <i class="fa fa-mars" style="color: blue" ></i>
+                 <i class="fa  fa-venus" style="color: deeppink"></i>
                     <span style="float: right" class="date"><i class="fa fa-clock-o"></i>2019-02-17</span>
 
                 </div>
@@ -183,12 +264,15 @@
         </div>
     </div>
 
+               </div>
 
 
+
+     <div  style="width: 45%;margin-top: 20px;margin-left: 10px" >
 
                     <div class="five wide column">
         <div class="ui card">
-            <a class="image" href="/14.html/">
+            <a class="image" href="/8.html/">
 {#                {% thumbnail item.cover "300x200" crop="center" as im %}#}
                 <img  style="width: 100%;height: 130px"  class="ui image" src="{% static "assets/img/sexedu/womanbody.png" %}">
 {#                {% empty %}#}
@@ -205,7 +289,7 @@
                 <div class="description">
 {#                    {{ item.view_count}}#}
 
-                 <i class="fa fa-mars" style="color: blue"></i>
+                 <i class="fa  fa-venus" style="color: deeppink"></i>
                     <span style="float: right" class="date"><i class="fa fa-clock-o"></i>2019-02-17</span>
 
                 </div>
@@ -215,13 +299,7 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
+               </div>
 
 
 
@@ -241,6 +319,7 @@
 
 
                 </div>
+</div>
 
 
 
@@ -253,27 +332,12 @@
 
 
 
+     <script src="https://cdn.staticfile.org/semantic-ui/2.4.1/semantic.min.js"></script>
 
 
 
 
-
-
-
-
-
-            </div>
-            <!-- /. PAGE INNER  -->
-        </div>
-        <!-- /. PAGE WRAPPER  -->
-    </div>
-    <!-- /. WRAPPER  -->
-    <!-- JS Scripts-->
-    <!-- jQuery Js -->
-    {% load staticfiles %}
-
-
-
+                </div>
 
 
 

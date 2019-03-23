@@ -1,32 +1,20 @@
-{% extends 'headerbar.html' %}
-{% load staticfiles %} {% block main_content %}
-    <link href="{% static "assets/css/base.css"  %}" rel="stylesheet" />
+{% extends 'mheaderbar.html' %}
+{% load staticfiles %} {% block m_content %}
+ <style>
+        .top_toolbars a{
+            color: #6A89C0;
+        }
+    </style>
 
-   <link href="{% static "assets/css/DPlayer.min.css"  %}" rel="stylesheet" />
-   <script src="http://cdn.jsdelivr.net/bluebird/3.5.0/bluebird.min.js"></script>
 
-<script type="text/javascript">
-        function isIE() {
-   			 if (!!window.ActiveXObject || "ActiveXObject" in window) {
-      			  return true;
-    		} else {
-        		return false;
-    	}
-	}
-if (isIE()) {
-    var script = document.createElement('script');
-    script.type = 'text/javaScript';
-     script.src = 'js/bluebird.min.js';  // bluebird 文件地址
-    document.getElementsByTagName('head')[0].appendChild(script);
-}
+       <style>
+          .txt_box img{
+              width: 100%;
 
-</script>
+          }
 
-<script src="/static/assets/js/DPlayer.min.js"></script>
-  <style>
-      .login{
-          display: none;
-      }
+
+
         .page{
             display: inline-block;
             padding: 5px;
@@ -34,6 +22,9 @@ if (isIE()) {
             margin: 5px;
 
         }
+
+
+
         .isactive{
             background-color: #5bc0de;
         }
@@ -130,189 +121,43 @@ if (isIE()) {
 
 
 
- <style>
+    <div class="row" style="margin-top: 20px">
+     <div class="col-xs-12">
+     <h4> {{  article.title }}</h4>
+     </div>
+        <style>
+            .mycontent img{
+                width: 100%;
 
-    pre {
-      line-height: 2em;
-      font-family: "Microsoft YaHei" ! important;
-    }
-    h4 {
-      line-height: 2em;
-    }
-    #danmuarea {
-      position: relative;
+            }
+        </style>
+    <div class="col-xs-12">
+                             <div  class="mycontent">
+                             <p  class="txt_info" style="color: #888;  padding-top: 10px;  font-size: 14.5px;">{{ article.content |safe}}</p>
+                             </div>
+         <p>{{ origin }}</p>
+    </div>
 
-      width:800px;
-      height: 445px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .center {
-      text-align: center;
-    }
-    .ctr {
-      font-size: 1em;
-      line-height: 2em;
-    }
-    .dplayer-danmaku-item.dplayer-danmaku-right.dplayer-danmaku-move {
-    font-weight: bold;
-    font-size: larger;
-}
-  </style>
-
-
-
-
-
-
-
-        <div id="player1" style="margin-top:0 ;border:0;padding:0;width: 654px;height: 382px"></div>
-
-
-
-
-
-<div class="alert_back">加载中</div>
-
-<script>
-    console.log(" %c 该项目基于Dplayer.js",'color:red')
-    var dp = new DPlayer({
-        element: document.getElementById('player1'),
-        video: {
-
-            url: 'http://47.107.139.203/static/video/%E7%AE%80%E5%8D%95%E8%B0%88%E8%B0%88%E6%80%A7%E5%8F%96%E5%90%91.mp4',
-            pic: '{{ video.imgurl }}',
-
-        },
-        danmaku: {
-            id: '{{ vid }}',
-
-            api:"/get_dm/",
-
-           /* api: 'http://127.0.0.1:8000/get_dm',*/
-            addition: ['/get_dm/v3/']
-        }
-    });
-
-    dp.danmaku.opacity(1);
-    </script>
-
-
-{##}
-{##}
-{#<div   id="danmuarea" style="width: 100%;height:140px;margin-top: 100px ;z-index:999">#}
-{#   <div   class="videoplay" style="z-index: 12">#}
-{#    <video  x5-playsinline="" playsinline="" webkit-playsinline=""  x5-video-orientation="portraint" id="myvideo"  onplay="resumer()"  onpause="pauser()" style="width: 100%" class="video"  controls="controls" controlslist="nodownload" >#}
-{#            <source src="{{ video.vurl }}" type="video/mp4">#}
-{#        </video>#}
-{##}
-{##}
-{#   <div id="danmu" style="z-index: 999">#}
-{#     </div>#}
-{#    </div>#}
-{# </div>#}
-
-
-
-
-
-{##}
-{#    <div class="fdm" style="margin-top:250px">#}
-{#    <div class="row">#}
-{#        <div class="col-xs-1" style="width:8%;padding:1px;margin-top: 5px;margin-right: 2px">#}
-{#          发弹幕:#}
-{#        </div>#}
-{#         <div class="col-xs-2" style="width:12%;padding:1px;margin-left: 2px;margin-right: 2px">#}
-{#  <select class="form-control" name="color" id="color" >#}
-{#    <option value="white">白色</option>#}
-{#    <option value="red">红色</option>#}
-{#    <option value="green">绿色</option>#}
-{#    <option value="blue">蓝色</option>#}
-{#    <option value="yellow">黄色</option>#}
-{#  </select>#}
-{#            </div>#}
-{#         <div class="col-xs-2" style="padding:1px;margin-left: 2px;margin-right: 2px">#}
-{#  <select class="form-control" name="size" id="text_size" >#}
-{#    <option value="1">大文字</option>#}
-{#    <option value="0">小文字</option>#}
-{#  </select>#}
-{#         </div>#}
-{#         <div class="col-xs-2" style="width:12%;padding:1px;margin-left: 2px;margin-right: 2px">#}
-{#  <select class="form-control" name="position" id="position"   >#}
-{#    <option value="0">滚动</option>#}
-{#    <option value="1">顶端</option>#}
-{#    <option value="2">底端</option>#}
-{#  </select>#}
-{#         </div>#}
-{#         <div class="col-xs-4" style="width:37%;padding:1px;margin-left: 2px;margin-right: 2px">#}
-{#  <input class="form-control" type="textarea" id="text" max=300 />#}
-{#         </div>#}
-{#         <div class="col-xs-2" style="width:8%;padding:1px;margin-left: 2px;margin-right: 2px">#}
-{#  <button    class="btn btn-primary subt" type="button"  onclick="send()">发送</button>#}
-{#         </div>#}
-{#  </div>#}
-{#</div>#}
-
-
-{##}
-{##}
-{#<script>#}
-{# var system ={};#}
-{#var p = navigator.platform;#}
-{# system.win = p.indexOf("Win") == 0;#}
-{#system.mac = p.indexOf("Mac") == 0;#}
-{# system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);#}
-{# if(system.win||system.mac||system.xll){//如果是电脑跳转到#}
-{# #}
-{#        }else{  //如果是手机,跳转到#}
-{#              $('#danmuarea').css('margin-top','0px');#}
-{#              $('.fdm').css('margin-top','300px');#}
-{#        } #}
-{#</script>#}
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div style="margin-top: 0px">
-<div class="desc">
- <h4 style="margin-left: 10px;font-weight:bold;">{{ video.vname}}</h4>
-<span style="margin-top:20px ">{{ video.seenum }}次观看</span>
-<div class="infor"style="margin-top:20px ">{{ video.descp }}</div>
-</div>
-<div id="islogin" class="login" style="margin-top: 30px;border: 1px solid lightblue; padding:10px 30px 30px 30px;"> <span style=" padding:10px 30px 50px 30px;">登录后即可评论</span>   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">马上登录</button></div>
-    <div style="margin-top: 30px;margin-bottom: 10px"></div>
-   <hr />
-
-             <div class="row">
+                 <div class="row">
                  <div class="col-xs-6">
                     <i class="fa fa-comment-o" aria-hidden="true"  style="float: right;cursor: pointer;"></i>
 
                  </div>
                  <div class="col-xs-6">
-{#             <i class="{{ myclass }}" id="zhan" aria-hidden="true" style="float: right;cursor: pointer;">{{ supportcount }}</i>#}
+             <i class="{{ myclass }}" id="zhan" aria-hidden="true" style="float: right;cursor: pointer;">{{ supportcount }}</i>
 
                  </div>
              </div>
-</div>
+
+    </div>
 
 
-
-
-       <div class="showit plq" >
+      <div class="showit plq" >
                <p>发表评论</p>
               <div class="row" >
                   <div class="col-md-9">
                 <div class="send">
-                      <div id="content"   cols="30" rows="2"  class="idcommment" contenteditable="true"  myid="{{ vid }}"></div> <!-- style="display: none;" -->
+                      <div id="content"   cols="30" rows="2"  class="idcommment" contenteditable="true"  myid="{{ article.article_id }}">{{ comment_cookie | safe }}</div> <!-- style="display: none;" -->
                             <a href="javascript:;" class="btn">发布</a>
                             <a style="border-radius: 15px" href="javascript:;" class='faces on'></a>
 
@@ -324,56 +169,29 @@ if (isIE()) {
 
 
 
-                <div class="commentss">
+          <div class="commentss">
                 <br>
                 <br>
-                <h4>评论</h4>
-                <hr>
+                <span style="font-size: 30px">评论区</span>
                 <br>
                 <br>
                     {% for co in comment %}
                         <div class="row">
                           <div class="col-md-12" style="border: 2px solid #dddddd;">
-                        <a href="/user/?user_id={{ co.user_id }}">{{ co.nickname }}</a> <span>&nbsp&nbsp&nbsp&nbsp{{ co.ctime }}</span>
+                        <a href="/user/?user_id={{ co.user_id }}">{{ co.nickname }}</a>
                         <br>
-                        <div> {{ co.comment_content| safe }}</div>
+                        <div> {{ co.comment_content | safe }}</div>
                         <br>
                           </div>
                         </div>
                     {% endfor %}
                 </div>
 
-<div class="pl"></div>
-
-
-
-
-<div align="center">--END--</div>
-
-     {% load staticfiles %}
-
-
-    <!-- Metis Menu Js -->
-    <script src="{% static "assets/js/jquery.metisMenu.js" %}"></script>
-    <!-- Morris Chart Js -->
-    <script src="{% static "assets/js/emoji-list-with-image.js" %}"></script>
+ <script src="{% static "assets/js/emoji-list-with-image.js" %}"></script>
     <script src="{% static "assets/js/emoji.js" %}"></script>
     <script src="{% static "assets/js/punycode.min.js" %}"></script>
 
-
-    <!-- Custom Js -->
-    <script src="{% static "assets/js/custom-scripts.js" %}"></script>
-
-
-
-<script>
-if({{ loginstate }}=="0"){
-    $("#islogin").removeClass('login')
-}
-</script>
-
-
-    <script>
+ <script>
      var isopen=0
      $('.fa-comment-o').click(function () {
          if(isopen==0){
@@ -416,7 +234,7 @@ if({{ loginstate }}=="0"){
 
                  }else{
                      alert('您还没登录，点击OK即将登录');
-                     window.location.href="/login";
+                     $('#myModal').modal();
                  }
 
 
@@ -479,9 +297,9 @@ if({{ loginstate }}=="0"){
                 alert("不能发表空评论");
              }else{
                 $.ajax({
-             url:'/insert_vcomment/',
+             url:'/insert_comment/',
              type:'POST',
-             data:{'mycomment':$('.mycomment').val(),'vid':$(".mycomment").attr("myid")},
+             data:{'mycomment':$('.mycomment').val(),'article_id':$(".mycomment").attr("id")},
              success:function (data) {
                  var obj=JSON.parse(data);
                  if(obj.islogin=='True'){
@@ -580,15 +398,15 @@ if({{ loginstate }}=="0"){
                 alert("不能发表空评论");
              }else{
                 $.ajax({
-             url:'/insert_vcomment/',
+             url:'/insert_comment/',
              type:'POST',
-             data:{'mycomment':$('#content').html(),'vid':$("#content").attr("myid")},
+             data:{'mycomment':$('#content').html(),'article_id':$("#content").attr("myid")},
              success:function (data) {
                  var obj=JSON.parse(data);
                  if(obj.islogin=='True'){
                      if(obj.state){
-                    //alert("评论成功");
-                   location.reload();
+                    alert("评论成功");
+                    location.reload();
                  }
                  else {
                      alert("请求出错");
@@ -596,7 +414,7 @@ if({{ loginstate }}=="0"){
 
                  }else{
                      alert('您还没登录，点击OK即将登录');
-
+                     window.location.href="/login";
                  }
 
 
@@ -742,35 +560,6 @@ renderEmoji();
 </script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {% endblock %}
+
+

@@ -1,0 +1,24 @@
+{% extends 'mheaderbar.html' %}
+{% load staticfiles %} {% block m_content %}
+
+      <div class="row">
+
+                      <div class="col-md-7">
+                           给网站管理员留言<br>
+                          <div >
+                              <textarea  class="content" name="desc" cols="40" rows="10"></textarea>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-2" style="margin-top:30px">
+                        <button  type="button" class="btn btn-primary sent_button">发送</button>
+                    </div>
+                </div>
+
+
+
+
+
+{% endblock %}

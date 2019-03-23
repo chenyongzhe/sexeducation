@@ -1,0 +1,233 @@
+{% extends 'mheaderbar.html' %}
+{% load staticfiles %} {% block m_content %}
+
+   <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+
+
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                    <p class="navbar-text">{{ mynickname }}的留言箱</p>
+                    </div>
+                </div>
+
+               <div class="row">
+
+			  <div class="col-xs-12">
+			     <div class="panel panel-default">
+                  <div class="col-xs-12  " id="inboxBody">
+                 <div class="panel-body">
+                     {% for co in mymessage %}
+
+                         <div class="row alert alert-info" style="padding: 0px 14px 0px 14px;" >
+                         <div class="row" style="border: 1px solid #ACEAF3; margin-top: 0px">
+                <div class="col-xs-4 ">
+
+                    <img width="80px"  style=" border-radius:100%;"  height="80px" class="img-responsive img-thumbnail" src="{{ co.from_img }}" />
+
+                </div>
+                <div class="col-xs-8">
+
+                       {% if co.from_id == user.id %}
+                            <h4 style="margin-top: 25px">
+                                你&nbsp;&nbsp;&nbsp;回复:&nbsp;&nbsp;&nbsp;{{ co.to_nickname }}
+                            </h4>
+                           {% elif co.to_id == user.id %}
+                            <h4 style="margin-top: 25px">
+                                {{ co.from_nickname }}&nbsp;&nbsp;&nbsp;回复:&nbsp;&nbsp;&nbsp;你
+                            </h4>
+                        {% endif %}
+
+                </div>
+                         </div>
+                    <div class="row">
+                        <div class="col-xs-12" align="center" valign="center" style="margin-bottom: 10px">
+                        <span  style="font-size: medium;">
+                            {{ co.content }}
+                        </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <p style="color: gray">
+
+                                {{ co.time }}
+                            </p>
+                        </div>
+                        <div class="col-xs-3 col-xs-offset-1 text-center">
+                            <button name="reply" type="button" class="btn btn-primary" data-toggle="modal"
+
+
+                                    {% if co.from_id == user.id %}
+                                    userId="{{ co.to_id }}" who="{{ co.to_nickname }}"
+                                    {% elif co.to_id == user.id %}
+                                    userId="{{ co.from_id }}" who="{{ co.from_nickname }}"
+                                    {% endif %}
+
+                                    clientId="{{ user.id }}"
+                            >回复
+                            </button>
+                        </div>
+                    </div>
+
+                         </div>
+
+
+
+{#                         <div class="alert alert-info">#}
+{#									<strong></strong> <a href="/usermessage/?id={{ co.message_id }}">来自{{ co.from_nickname }}的留言&nbsp;&nbsp;&nbsp;{{ co.time}}</a>#}
+{#								</div>#}
+                     {% endfor %}
+
+
+                 <div class="modal fade" id="leave_message" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="messsage_to">私信</h4>
+            </div>
+            <div class="modal-body" id="privateMessageBody">
+                <form>
+                    <div class="form-group">
+                        <label  class="control-label">内容:</label>
+                        <textarea id="message_text" class="form-control" rows="3" placeholder="和TA说点什么吧！"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" id="sendTo" class="btn btn-primary">发送</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                 </div>
+
+                  </div>
+                  <!--inboxbody -->
+                 </div>
+			  </div>
+
+
+            </div>
+
+
+
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    {% load staticfiles %}
+
+
+
+
+
+
+
+
+<script>
+        $(document).ready(function () {
+            var to_user_id;
+            var from_user_id;
+            var who;
+            $('button[name="reply"]').click(function () {
+                to_user_id = $(this).attr('userId');
+                 who = $(this).attr('who');
+                from_user_id = $(this).attr('clientId');
+                $('#messsage_to').html('回复给: ' + who);
+                $('#leave_message').modal();
+            });
+            $('#sendTo').click(function () {
+                $.ajax({
+                    url: '/sendto/',
+                    type: 'POST',
+                    dataType: 'text',
+                    data: {
+                        'from_id': from_user_id,
+                        'content': $('#message_text').val(),
+                        'to_id': to_user_id
+                    },
+                    success: function (data) {
+                          var obj=JSON.parse(data);
+                        if (obj.state) {
+                              var  s=' <div class="row alert alert-danger" style="padding: 0px 14px 0px 14px;" >\n' +
+                                  '                         <div class="row" style="border: 1px solid #F3CACF; margin-top: 0px">\n' +
+                                  '                <div class="col-xs-4 ">\n' +
+                                  '\n' +
+                                  '                    <img width="80px"  style=" border-radius:100%;"  height="80px" class="img-responsive img-thumbnail" src="{{ myimg }}" />\n' +
+                                  '\n' +
+                                  '                </div>\n' +
+                                  '                <div class="col-xs-8">\n' +
+                                  '\n' +
+                                      '                            <h4 style="margin-top: 25px">\n'+
+                                      '                                我&nbsp;&nbsp;&nbsp;回复:&nbsp;&nbsp;&nbsp;'+who+'\n'+
+                                      '                            </h4>\n'+
+                                  '\n' +
+                                  '                </div>\n' +
+                                  '                         </div>\n' +
+                                  '                    <div class="row">\n' +
+                                  '                        <div class="col-xs-12" align="center" valign="center" style="margin-bottom: 10px">\n' +
+                                  '                        <span  style="font-size: medium;">\n' +
+                                  '                            '+$('#message_text').val()+'\n' +
+                                  '                        </span>\n' +
+                                  '                        </div>\n' +
+                                  '                    </div>\n' +
+                                  '                    <div class="row">\n' +
+                                  '                        <div class="col-xs-8">\n' +
+                                  '                            <p style="color: gray">\n' +
+                                  '\n' +
+                                  '                                '+"刚刚"+'\n' +
+                                  '                            </p>\n' +
+                                  '                        </div>\n' +
+                                  '                        <div class="col-xs-3 col-xs-offset-1 text-center">\n' +
+                                  '                            <button name="reply" type="button" class="btn btn-primary" data-toggle="modal"\n' +
+                                  '                            >已回复\n' +
+                                  '                            </button>\n' +
+                                  '                        </div>\n' +
+                                  '                    </div>\n' +
+                                  '\n' +
+                                  '                         </div>\n' +
+                                  '\n'
+                            var string = '<div class="row alert alert-danger"><div class="col-md-2 alert"> <img src="{{ myimg }}" width="100" class="img-responsive img-thumbnail"/></div><div class="col-md-10"><div class="row"><h4> 我 回复:  '+who+'</h4></div><div class="row"><p style="font-size: medium"> '+$('#message_text').val()+'</p></div><div class="row"> <div class="col-md-3"> <p style="color: gray">刚刚 </p></div><div class="col-md-3 col-md-offset-6 text-center">  <button name="reply" type="button" class="btn btn-primary" data-toggle="modal"  >已回复</button></div> </div> </div></div>'
+                            $('#inboxBody').prepend(s)
+                            $('#leave_message').modal('hide')
+                        }
+                    },
+                    error: function () {
+                        alert('出现错误!');
+                    }
+                });
+            });
+        });
+
+
+    </script>
+
+
+
+
+{% endblock %}
