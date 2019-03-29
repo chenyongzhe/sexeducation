@@ -152,13 +152,17 @@
 <script>
         $(document).ready(function () {
             $('button[name="focus"]').click(function () {
+                var meid=1;
+                if("{{ me.id }}"==""){
+                    //alert("id是空");
+                }else {
                 var focusObject = $(this);
                 $.ajax({
                     url: '/follow/',
                     type: 'POST',
                     dataType: 'text',
                     data: {
-                        'follower_id':{{ me.id }},
+                        'follower_id':meid,
                         'followee_id': focusObject.val(),
                         'follow_tip': focusObject.attr('id')
                     },
@@ -175,7 +179,7 @@
                     error: function () {
                         alert('出现错误!');
                     }
-                });
+                });}
             });
         });
 
@@ -255,7 +259,7 @@
                           var obj=JSON.parse(data);
                         if(!(obj.islogin)){
                             alert('你没有登录');
-                             window.location.href="/login";
+                             $('#myModal').modal();
                         }
                         if (obj.state) {
                          

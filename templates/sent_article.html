@@ -82,6 +82,13 @@
 
     <script>
         $('.sent_button').click(function () {
+
+            if($('.article_content').val()==""||$('.article_title').val()==""){
+                alert("不能发表空内容或者空标题");
+            }else {
+
+
+
              $.ajax({
              url:'/insert_article/',
              type:'POST',
@@ -107,6 +114,7 @@
 
 
          })
+                 }
          });
     </script>
 
