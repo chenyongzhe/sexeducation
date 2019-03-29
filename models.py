@@ -18,7 +18,7 @@ class Article(models.Model):
     origin = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'article'
 
 
@@ -34,7 +34,7 @@ class ArticleUserinfor(models.Model):
     score = models.BigIntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'article_userinfor'
 
 
@@ -110,7 +110,7 @@ class Comment(models.Model):
     user = models.ForeignKey(ArticleUserinfor, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'comment'
 
 
@@ -123,7 +123,7 @@ class Danmu(models.Model):
     position = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'danmu'
 
 
@@ -176,8 +176,17 @@ class Follow(models.Model):
     followee = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'follow'
+
+
+class IpTable(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    userip = models.CharField(max_length=100)
+
+    class Meta:
+        managed = True
+        db_table = 'ip_table'
 
 
 class Manager(models.Model):
@@ -186,7 +195,7 @@ class Manager(models.Model):
     nickname = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'manager'
 
 
@@ -195,7 +204,7 @@ class Message(models.Model):
     userid = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'message'
 
 
@@ -203,7 +212,7 @@ class Sample(models.Model):
     text = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'sample'
 
 
@@ -212,7 +221,7 @@ class Support(models.Model):
     article_id = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'support'
 
 
@@ -221,7 +230,7 @@ class Type(models.Model):
     type_name = models.CharField(max_length=60, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'type'
 
 
@@ -232,7 +241,7 @@ class Usermessage(models.Model):
     time = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'usermessage'
 
 
@@ -243,7 +252,7 @@ class Vcomment(models.Model):
     mycomment = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'vcomment'
 
 
@@ -252,7 +261,7 @@ class Video(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'video'
 
 
@@ -268,7 +277,7 @@ class Videolist(models.Model):
     videotp = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'videolist'
 
 
@@ -277,5 +286,5 @@ class Videotype(models.Model):
     typename = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'videotype'

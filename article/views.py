@@ -18,8 +18,14 @@ import time
 from django.db.models import Q
 import re
 
-
-
+def getuserip(request):
+    ip=""
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]  # 所以这里是真实的ip
+    else:
+        ip = request.META.get('REMOTE_ADDR')  # 这里获得代理ip
+    return ip
 def judge_qq_mobile(ua):
     """
     判断访问来源是否腾讯浏览器
@@ -40,6 +46,10 @@ def judge_pc_or_mobile(ua):
     :return:
     """
     factor = ua
+    if "iPad" in ua:
+        return False
+    if "ipad" in ua:
+        return False
     is_mobile = False
     _long_matches = r'googlebot-mobile|android|avantgo|blackberry|blazer|elaine|hiptop|ip(hone|od)|kindle|midp|mmp' \
                     r'|mobile|o2|opera mini|palm( os)?|pda|plucker|pocket|psp|smartphone|symbian|treo|up\.(browser|link)' \
@@ -1079,6 +1089,15 @@ def video_play(request):
     return render(request,'playvideo.html',{"video":video,"loginstr":loginstr,"comment":comment,"vid":vid,"loginstate":loginstate,"dmresult":str(dmresult)})
 
 def video_list(request):
+    user_ip=getuserip(request)
+
+    ipp=models.IpTable.objects.filter(userip=user_ip).first()
+    ipuser=None
+    if not ipp:
+       ipuser= models.IpTable.objects.create(userip=user_ip)
+    else:
+        ipuser=ipp
+    ##print("id是"+str(ipuser.id))
     loginstr = islogin(request)
     typevid= request.GET.get("tp", 0)
     # result = models.Videolist.objects.all()
@@ -1184,9 +1203,9 @@ def video_list(request):
     # print(userAgent)
     if (judge_pc_or_mobile(userAgent)):
         return render(request, 'mvideolist.html',
-                      {'videolist': data, 'num': num, 'page_str': page_str, "loginstr": loginstr})
+                      {'usercount':ipuser.id,'videolist': data, 'num': num, 'page_str': page_str, "loginstr": loginstr})
 
-    return render(request, 'videolist.html', {'videolist': data, 'num': num, 'page_str': page_str,"loginstr":loginstr})
+    return render(request, 'videolist.html', {'usercount':ipuser.id,'videolist': data, 'num': num, 'page_str': page_str,"loginstr":loginstr})
 
 
 def insert_vcomment(request):

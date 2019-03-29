@@ -176,8 +176,17 @@ class Follow(models.Model):
     followee = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'follow'
+
+
+class IpTable(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    userip = models.CharField(max_length=100)
+
+    class Meta:
+        managed = True
+        db_table = 'ip_table'
 
 
 class Manager(models.Model):
@@ -203,7 +212,7 @@ class Sample(models.Model):
     text = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed =True
+        managed = True
         db_table = 'sample'
 
 
@@ -221,7 +230,7 @@ class Type(models.Model):
     type_name = models.CharField(max_length=60, blank=True, null=True)
 
     class Meta:
-        managed =True
+        managed = True
         db_table = 'type'
 
 
@@ -232,7 +241,7 @@ class Usermessage(models.Model):
     time = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed =True
+        managed = True
         db_table = 'usermessage'
 
 

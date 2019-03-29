@@ -4,7 +4,7 @@
      {% load staticfiles %}
     <meta charset="UTF-8">
     <title>基于web2.0性教育系统</title>
- <meta name="viewport" content="width=device-width, initial-scale=1">
+
      <link href="{% static "mainpage/weixin.sogou.com_mainpage.css"  %}" rel="stylesheet" />
      <link href="{% static "assets/css/bootstrap.css"  %}" rel="stylesheet" />
      <link href="{% static "assets/css/font-awesome.css"  %}"  rel="stylesheet" />
@@ -491,9 +491,9 @@ function but()
 
                         </div>
                         <div class="txt_info_more">
-                            <a href="#">性教育</a>
+                            <a href="#">您是第{{ usercount }}位访问的用户</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a href="#">32分钟前</a>
+
                         </div>
                     </li>
 
@@ -729,6 +729,7 @@ function but()
 {#        </div>#}
     </div>
     </div>
+
 </body>
     <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
 </html>
