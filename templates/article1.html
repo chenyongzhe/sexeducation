@@ -470,88 +470,103 @@ function but()
 
 
 
+<div>
+<style>
 
+.navbar .navbar-nav>li>a{
+    color: #FFFFFF;
+}
 
-
-
-
-
-
-
-
-
-
-
-    <div class="top_toolbars">
-        <ul >
-                  <li>
-                    <a href="/">首页</a>
-                </li>
-                <li>
-                    <a href="/">家长</a>
-                </li>
-                <li>
-                    <a href="/videolist">小盆友</a>
-                </li>
-                <li>
-                    <a href="/twjx">青少年</a>
-                </li>
-                <li>
-                    <a href="/sent_article">我要说话</a>
-                </li>
-                <li>
-                    <a href="/sendmessage/">给管理员留言</a>
-                </li>
-            </ul>
-        </div>
- <div id="login_con" style="margin-right: 240px">
-        <a href="/exit">退出登录</a>
-    </div>
-   <div id="login_con" style="margin-right: 160px">
-        <a href="/userinfor/">用户主页</a>
+     .notshowinfor{
+            display: none;
+        }
+</style>
+    <nav class="navbar navbar-default" style="background-color:#009ac5">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a  style="color:white" class="navbar-brand " href="/">首页</a>
     </div>
 
-    <div id="login_con" style="margin-right: 70px">
-        <a href="/mymessage">我的消息</a>
-    </div>
-    <div id="login_img" style="position: absolute;right:10px;top: -10px">
-        {{ loginstr |safe}}
-    </div>
-    <div class="middle_bar">
-        <div class="middle_bar_content">
-            <div class="logo">
-                 <img class="logo_img"   src="{% static "mainpage/search.gif" %}"    style="height: 36px;width: 140px"/>
-             </div>
-            <form action="/s/" action="GET">
-                <div id="input_con">
-                    <input type="text"  name="keyword" id="search_text" placeholder="输入关键词" autocomplete="off"    />
-                     <input type="submit" id="search_bt" style="background-color: #FF4E85" value="搜文章" />
-                  </div>
 
-            </form>
-                <div style="margin-left: 20%;z-index: 99">
-     <div id="auto_div" style="z-index: 99;position: absolute;align:left;width:451px;border: 2px solid #FFFFFF;">
-                                </div>
-     </div>
-        </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div   class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li ><a style="color:white;font-size:18px;" href="/jz">家长<span class="sr-only">(current)</span></a></li>
+           <li><a style="color:white;font-size:18px;" href="/twjx">青少年</a></li>
+           <li><a style="color:white;font-size:18px;" href="/videolist">儿童</a></li>
+           <li><a style="color:white;font-size:18px;" href="/sent_article">讨论区</a></li>
+           <li><a style="color:white;font-size:18px;" href="/sendmessage">关于我们</a></li>
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+
+        <span  class="notuse">{{ loginstr |safe}}</span>
+
+        <li class="dropdown notshowinfor uu">
+          <a style="padding: 0px 0px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ loginstr |safe}}<span style="color: blue;z-index:999;width:12px;position: absolute;left: 18px; top: 52px;" class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/userinfor">我的主页</a></li>
+            <li><a href="/mymessage">我的消息</a></li>
+
+            <li role="separator" class="divider"></li>
+            <li><a href="/exit">退出登录</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<script>
+    if($('.logintip').attr('id')=="01"){
+        $('.notuse').addClass("notshowinfor");
+    }else {
+        $('.uu').css("display","none");
+        $("#00").css("margin-top","9px");
+    }
+    /*
+    if($('.logintip').attr('id')=="00"){
+        $('.notuse').addClass("notshowinfor");
+    }
+    */
+</script>
 
 
-    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <div class="wrapper" style="z-index: 1">
         <div class="main_left">
-            <div class="banners">
-                <img   src="{% static "mainpage/dm2.jpg" %}"   style="width: 640px; height: 340px"/>
-            </div>
+
             <div class="tap_box">
                 <div class="tap">
-                    <a href="/">首页</a>
+
                     <a href="/readarticle">文章</a>
                     <a href="/videolist">视频教育</a>
                     <a href="/twjx">性教育科普</a>
                     <a href="/sent_article">发表文章</a>
-                    <a href="/sendmessage/">给管理员留言</a>
+
 
                 </div>
             </div>
@@ -823,11 +838,8 @@ function but()
     {% load staticfiles %}
     <script src="{% static "assets/js/jquery-1.10.2.js" %}"></script>
     <!-- Bootstrap Js -->
-    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
 
-    <!-- Metis Menu Js -->
-    <script src="{% static "assets/js/jquery.metisMenu.js" %}"></script>
-    <!-- Morris Chart Js -->
+
     <script src="{% static "assets/js/emoji-list-with-image.js" %}"></script>
     <script src="{% static "assets/js/emoji.js" %}"></script>
     <script src="{% static "assets/js/punycode.min.js" %}"></script>

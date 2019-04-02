@@ -25,7 +25,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('readarticle/',views.index),
-    path('',views.video_list),
+    path('',views.homepage),
     path('s/',views.search),
     path('article/',views.article),
     path('video/',views.player),
@@ -63,6 +63,10 @@ path("insert_dm/",views.insert_dm),
 path("insert_dm1/",views.insert_dm1),
 path("get_dm/v3/",views.get_dm),
 path("get_dm/",views.get_dm),
+path("jz/",views.parent),
+path("articletp/",views.articletp),
+path("child/",views.child),
+path("qsn/",views.qsn),
     #url(r'^favicon.ico$',RedirectView.as_view(url=r'/static/favicon.ico')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

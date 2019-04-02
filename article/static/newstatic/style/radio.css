@@ -1,0 +1,290 @@
+@charset "utf-8";
+.container{
+	width: 1300px;
+	margin-left:auto;
+	margin-right:auto;
+}	
+.logo{
+	width:100%;
+	height:110px;
+	background-color:rgba(255,255,255,0.7);
+	margin-bottom:20px;
+}
+.wuhou{
+	width: 150px;
+	height: 75px;
+	float: left;
+	margin-left: 80px;
+	margin-top: 20px;
+}
+.nav{
+	width:70%;
+	height:50px;
+	float:left;
+	margin-left:160px;
+	margin-top:50px;
+	min-width:60%;
+}
+
+ul,li,a{
+	margin:0px;
+	padding:0px;
+}
+ul {
+	list-style-type: none;
+	text-align: center;
+}
+.container .top .logo .nav ul li a {
+	display:block;
+	line-width: 2cm;
+	line-height:1.5cm;
+	font-family: "微软雅黑";
+	font-size: 20px;
+	text-decoration: none;
+	color: #000;
+}
+.container .top .logo .nav ul li a:hover{
+	background-color:rgba(255,255,255,0.82);
+	color:#363;}
+	
+.container .top .logo .nav ul li {
+	float: left;
+	width: 3cm;
+	height:2cm;
+	margin-left: 1px;
+	margin-right: 1px;
+	min-width:8em;
+}	
+
+.radiobt{
+	color: #030;
+	border-bottom-width: medium;
+	border-bottom-style: solid;
+	border-bottom-color: #030;
+	background-color:rgba(153,153,153,0.15) ;
+	}
+.bt{
+	position: relative;
+	height: 50px;
+	width: 200px;
+	margin-left:50px;
+	margin-top:10px;
+	margin-bottom: 5px;
+	font-family: "微软雅黑";
+	font-style: normal;
+	color: #000;
+	text-decoration: none;
+	text-align: center;
+	font-size: 24px;
+}
+.nr1{	
+position:relative;
+width: 1200px;
+	height:400px;
+	margin-left:100px;
+	margin-bottom:20px;
+}
+.nr2{
+	position:relative;
+width: 1200px;
+	height:400px;
+	margin-left:100px;
+	margin-top:20px;
+	margin-bottom:10px;
+}
+.t1{
+	width: 300px;
+	height: 350px;
+	margin-left: 80px;
+	margin-right: 5px;
+	background-color:#FFF;
+	float: left;
+	border: 1px solid #000;
+	box-shadow:3px 3px 3px #999;
+}
+.t1image{
+	width:300px;
+	height:250px;
+	background-image:url(../images/radio1.jpg);
+	}
+.t1image:hover{
+	background-image:url(../images/radio1.1.jpg);
+	}
+.t1text{
+	width: 300px;
+	height: 100px;
+	font-size: 15px;
+}
+
+p h {
+	font-family: "微软雅黑";
+	color: #000;
+	font-size: 30px;
+	text-align: center;
+
+}
+p {
+	font-size: 15px;
+	font-family: Verdana, Geneva, sans-serif;
+	color: #666;
+	text-align: center;
+}
+
+.t2{
+	width: 300px;
+	height: 350px;
+	margin-left:25px;
+	margin-right: 5px;
+	background-color:#FFF;
+	float: left;
+	border: 1px solid #000;
+	box-shadow:3px 3px 3px #999;
+}
+.t2image{
+	width:300px;
+	height:250px;
+	background-image:url(../images/radio2.jpg);
+}
+.t2image:hover{
+	background-image:url(../images/radio2.1.jpg);}
+.t3{
+
+	width: 300px;
+	height: 350px;
+	margin-left: 25px;
+	margin-right: 5px;
+	background-color:#FFF;
+	float: left;
+	border: 1px solid #000;
+	box-shadow:3px 3px 3px #999;
+}
+.t3image{
+	width:300px;
+	height:250px;
+	background-image:url(../images/radio3.jpg);}
+.t3image:hover{
+	background-image:url(../images/radio3.1.jpg);}
+
+.t4{
+	width: 300px;
+	height: 350px;
+	margin-left: 80px;
+	margin-right: 5px;
+	background-color:#FFF;
+	float: left;
+	border: 1px solid #000;
+	box-shadow:3px 3px 3px #999;
+}
+.t4image{
+	width:300px;
+	height:250px;
+	background-image:url(../images/radio4.jpg);}
+.t4image:hover{
+	background-image:url(../images/radio4.1.jpg);}
+.t5{
+	
+	width: 300px;
+	height: 350px;
+	margin-left: 25px;
+	margin-right: 5px;
+	background-color:#FFF;
+	float: left;
+	border: 1px solid #000;
+	box-shadow:3px 3px 3px #999;
+}
+.t5image{
+	width:300px;
+	height:250px;
+	background-image:url(../images/radio5.jpg);}
+.t5image:hover{
+	background-image:url(../images/radio5.1.jpg);}
+.t6{
+	width: 300px;
+	height: 350px;
+	margin-left: 25px;
+	margin-right: 5px;
+	background-color:#FFF;
+	float: left;
+	border: 1px solid #000;
+	box-shadow:3px 3px 3px #999;
+}
+.t6image{
+	width:300px;
+	height:250px;
+	background-image:url(../images/radio6.jpg);}
+.t6image:hover{
+	background-image:url(../images/radio6.1.jpg);}
+.foot{
+	position: relative;
+	width: 1300px;
+	height: 180px;
+	margin-top: 20px;
+	background-color: #999999;
+	padding-top: 20px;
+}
+
+.foot #ft {
+	height: 80px;
+	width: 300px;
+	margin-top: 0px;
+	margin-right: 500px;
+	margin-left: 500px;
+	padding-top: 10px;
+	margin-bottom: 10px;
+	color: #666;
+}
+.foot #f {
+	background-color:#666;
+	height: 1px;
+	width: 1300px;
+	margin: 0px;
+}
+
+.foot #fl {
+	color: #FFF;
+	height: 25px;
+	width: 600px;
+	margin-right: 500px;
+	margin-left: 380px;
+	float: left;
+	margin-bottom: 0px;
+}
+.foot #fl ul li {
+	float: left;
+	color: #999;
+	list-style-type: none;
+	margin-right: 15px;
+	margin-left: 50px;
+}
+.container .foot #fl ul li a {
+	font-size: 18px;
+	font-family: "微软雅黑";
+	height: 25px;
+	width: 150px;
+	text-align: center;
+	line-height: 1.5em;
+	color: #666;
+	margin-left: 2px;
+}
+
+.container .foot #fl ul li a:hover{
+	color: #000;
+}
+.foot #ft p {
+	text-align: center;
+	color: #666;
+	margin-top: 10px;
+}
+
+
+.container .foot #fe p {
+		width: 180px;
+	float: left;
+	margin-right: 600px;
+	margin-left: 560px;
+	height: 25px;
+	text-align: center;
+	color: #666;
+	margin-top: 5px;
+}
+

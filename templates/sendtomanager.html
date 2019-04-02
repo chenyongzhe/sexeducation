@@ -1,28 +1,397 @@
-{% extends 'headerbar.html' %}
-{% load staticfiles %} {% block main_content %}
-        <!-- /. NAV SIDE  -->
-        <div id="page-wrapper">
-            <div id="page-inner">
-                  <div class="row">
+{% load staticfiles %}
+<!DOCTYPE html>
+<html >
+<style>
+    .middle_bar_content{
 
-                      <div class="col-md-7">
-                           给网站管理员留言<br>
-                          <div >
-                              <textarea  class="content" name="desc" cols="60" rows="10"></textarea>
-                          </div>
+    }
+    .top_toolbars {
+    height: 30px;
+    min-width: 1240px;
+    background-color: #FFFFE0;
+    border-bottom: 1px solid #ececec;
+    font-size: 12px;
+    }
+    p.aboutus{
+    text-indent: 30px;
+    font-family: 微软雅黑;
+    font-size: 16px;
+    }
+
+</style>
+<head>
+    {% load staticfiles %}
+    <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
+    <meta charset="utf-8" />
+
+    <title>基于web2.0性教育</title>
+    <!-- Bootstrap Styles-->
+     {% load staticfiles %}
+
+    <link href="{% static "assets/css/bootstrap.css"  %}" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+
+    <link href="{% static "assets/css/font-awesome.css"  %}"  rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <style>
+        .top_toolbars a{
+            color: #FFFFE0;
+        }
+    </style>
+    <!-- Google Fonts-->
+     <style>
+        .page{
+            display: inline-block;
+            padding: 5px;
+            background-color: #4cae4c;
+            margin: 5px;
+
+        }
+        .isactive{
+            background-color: #5bc0de;
+        }
+         .modify-sentence{
+
+         }
+    </style>
+
+     <link href="{% static "mainpage/weixin.sogou.com_mainpage.css"  %}" rel="stylesheet" />
+     <link href="{% static "assets/css/bootstrap.css"  %}" rel="stylesheet" />
+
+    <script src="{% static "assets/js/jquery-1.11.3.min.js" %}"></script>
+
+
+
+
+
+
+</head>
+<body>
+
+
+
+
+
+   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+                <div class="row">
+                      <div class="col-xs-8  col-xs-offset-1" ><p style="font-size:30px; ">用户登录</p></div>
+                  </div>
+            </div>
+
+           <div id="">
+
+               <div >
+                   <div class="modal-body">
+
+
+                  <div class="row">
+                      <div class="col-xs-8  col-xs-offset-1" style="margin-top: 30px">
+                      账号<input  class="form-control" type="text" id="username" placeholder="请输入账号" >
+                      </div>
+                  </div>
+                   <div class="row">
+                      <div class="col-xs-8 col-xs-offset-1" style="margin-top: 30px">
+                      密码<input  class="form-control" type="password" id="password" placeholder="请输入密码" >
                       </div>
                   </div>
 
-                  <div class="row">
-                    <div class="col-md-2" style="margin-top:30px">
-                        <button  type="button" class="btn btn-primary sent_button">发送</button>
-                    </div>
+                 <div class="row">
+                      <div class="col-xs-8 col-xs-offset-1" style="margin-top: 30px">
+                     <div class="input">
+   <input id="t1" type="text" name="u" placeholder="验证码" onblur="but()" />
+   <span id="discode"></span>
+   <input type="button" value="换一换" class="c" style="height:20px;"onClick="createCode()">
+   </div>
+                      </div>
+                  </div>
+
+
+
+                   </div>
+                   <div class="modal-footer">
+                   <div class="row">
+                      <div class="col-xs-6 col-xs-offset-1" style="margin-top: 30px">
+                      <input class="btn btn-primary subt"  value="登录" ><span class="errorspan"></span>
+                      </div>
+                        <div class="col-xs-1" style="margin-top: 30px">
+                         <input class="btn btn-primary "  value="注册" onclick="location.href='/register/'"></span>
+
+                       </div>
+
+                  </div>
+
+                   </div>
+                  </div>
+
+
+
+
                 </div>
 
+
+
+                </div>
+
+         </div>
+
+
+
+
+
+
+
+
+<script language="javascript">
+var couldlogin=0;
+var code; //在全局 定义验证码
+function createCode()
+{ //创建验证码函数
+ code = "";
+ var codeLength =4;//验证码的长度
+ var selectChar = new Array(0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f','g','h','i','j','k',
+  'l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');//所有候选组成验证码的字符，当然也可以用中文的
+ for(var i=0;i<codeLength;i++)
+ {
+ var charIndex =Math.floor(Math.random()*36);
+ code +=selectChar[charIndex];
+ }
+// 设置验证码的显示样式，并显示
+ document.getElementById("discode").style.fontFamily="Fixedsys"; //设置字体
+ document.getElementById("discode").style.letterSpacing="5px"; //字体间距
+ document.getElementById("discode").style.color="#0ab000"; //字体颜色
+ document.getElementById("discode").innerHTML=code; // 显示
+}
+function but()
+{//验证验证码输入是否正确
+ var val1=document.getElementById("t1").value;
+ var val2=code;
+ if(val1!=val2){
+
+  couldlogin=0;
+ document.getElementById('t1').value="";
+  }else{
+  	couldlogin=1;
+
+  }
+ }
+
+
+ createCode()
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               <script>
+                   $('.subt').click(function () {
+                       if(couldlogin==0){
+                           alert("验证码错误");
+                       }else {
+
+                             $.ajax({
+             url:'/login/',
+             type:'POST',
+             data:{'username':$('#username').val(),'password':$("#password").val()},
+             success:function (data) {
+                 //alert(data);
+                 var obj=JSON.parse(data);
+                 if(obj.message=="登录成功"){
+                      $('.errorspan').html(obj.message)
+
+                    //alert("登录成功");
+                    location.reload();
+                 }
+                 else {
+                    $('.errorspan').html(obj.message)
+
+                 }
+
+
+
+
+                 }
+
+
+         })
+                  }
+                   });
+
+
+               </script>
+
+
+           </div>
+
+
+
+
+
+
+
+
+
+   <style>
+        .top_toolbars a{
+            color: #6A89C0;
+        }
+        </style>
+<div>
+<style>
+
+.navbar .navbar-nav>li>a{
+    color: #FFFFFF;
+}
+
+     .notshowinfor{
+            display: none;
+        }
+</style>
+    <nav class="navbar navbar-default" style="background-color:#009ac5">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a  style="color:white" class="navbar-brand " href="/">首页</a>
+    </div>
+
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div   class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li ><a style="color:white;font-size:18px;" href="/jz">家长<span class="sr-only">(current)</span></a></li>
+           <li><a style="color:white;font-size:18px;" href="/qsn">青少年</a></li>
+           <li><a style="color:white;font-size:18px;" href="/child">儿童</a></li>
+           <li><a style="color:white;font-size:18px;" href="/sent_article">讨论区</a></li>
+           <li><a style="color:white;font-size:18px;" href="/sendmessage">关于我们</a></li>
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+
+        <span  class="notuse">{{ loginstr |safe}}</span>
+
+        <li class="dropdown notshowinfor uu">
+          <a style="padding: 0px 0px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ loginstr |safe}}<span style="color: blue;z-index:999;width:12px;position: absolute;left: 18px; top: 52px;" class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/userinfor">我的主页</a></li>
+            <li><a href="/mymessage">我的消息</a></li>
+
+            <li role="separator" class="divider"></li>
+            <li><a href="/exit">退出登录</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<script>
+    if($('.logintip').attr('id')=="01"){
+        $('.notuse').addClass("notshowinfor");
+    }else {
+        $('.uu').css("display","none");
+        $("#00").css("margin-top","9px");
+    }
+    /*
+    if($('.logintip').attr('id')=="00"){
+        $('.notuse').addClass("notshowinfor");
+    }
+    */
+</script>
+
+
+
+
+</div>
+
+
+
+
+
+          <div class="wrapper">
+
+        <div class="main_left">
+{% comment %}            <div class="banners">
+                <img   src="{% static "mainpage/dm2.jpg" %}"   style="width: 640px; height: 340px"/>
+            </div>{% endcomment %}
+{% comment %}            <div class="tap_box">
+                <div class="tap">
+                   <a href="/">首页</a>
+                    <a href="/readarticle">文章</a>
+                    <a href="/videolist">性教育视频</a>
+                    <a href="/twjx">性教育科普</a>
+                    <a href="/sent_article">发表文章</a>
+                    <a href="/sendmessage/">给管理员留言</a>
+                </div>
             </div>
-            <!-- /. PAGE INNER  -->
-        </div>
+            <div class="news_box">{% endcomment %}
+{% comment %}                <ul class="news_list">
+
+
+
+
+                    <li>
+                        <div class="img_box">
+                            <img   src="{% static "mainpage/dm1.jpg" %}"    style="width: 120px;height: 120px" />
+                        </div>
+                        <div class="txt_box">
+
+
+                        </div>
+                        <div class="txt_info_more">
+                            <a href="#">性教育</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="#">32分钟前</a>
+                        </div>
+                    </li>
+
+                </ul>{% endcomment %}
+                    <div class="row" style="width: 100%;z-index: 999">
+
+        <!-- /. NAV SIDE  -->
+
         <!-- /. PAGE WRAPPER  -->
+    </div>
     </div>
     <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
@@ -43,6 +412,7 @@
 
     <!-- Custom Js -->
     <script src="{% static "assets/js/custom-scripts.js" %}"></script>
+
 
 <script>
         $('.sent_button').click(function () {
@@ -73,6 +443,133 @@
          })
          });
     </script>
+{#    <p>have a try</p>#}
+
+    <head>
+      <title>Food Trucks</title>
+
+      <!-- Custom CSS -->
+      <link href="{% static "assets/css/custom.css" %}" rel="stylesheet">
+
+<!--
+      &lt;!&ndash; Leaflet CSS &ndash;&gt;
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+	    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+	    crossorigin=""/>
+
+      &lt;!&ndash; Leaflet JavaScript &ndash;&gt;
+      <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+	      integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+        crossorigin=""></script>
+
+      &lt;!&ndash; Map Section &ndash;&gt;
+      <section>
+      <div id="USCheading"><center>
+          <a href="http://www.uscannenbergmedia.com/" target="_blank"><img src="photos/annenberg.png" height=40px width=300px></img></a>
+          <h1>Food Trucks of the USC Village</h1>
+          <div id="subhead"><p>What awaits inside the many food trucks surrounding USC's University Village?</p>
+          <p><i>Click around the map to explore...</i></p></div>
+      </div><br></center>
+-->
+    </head>
+
+    <body>
+        <div id="wrapper">
+{% comment %}          <div id="column-left">
+            <div id="mapid"></div>
+          </div>
+          <div id="column-right">
+            <div id="infoArea"></div><br><br>
+          </div>{% endcomment %}
+        </div>
+{#      </section>#}
+
+      <!-- Transitional Section -->
+{% comment %}      <section>
+        <div id="transition">
+          <img src="photos/intro.jpg" height='500' width='400'></img>
+        </div>
+      </section>{% endcomment %}
+
+      <!-- Intro Section -->
+      <section>
+        <div id="intro" class="section">
+          <h2>关于我们</h2>
+          <p class="aboutus">本网站是2018年江西省高等学校大学生实践创新训练计划项目《基于 web2. 0的性教育普及和研究》的实物成果。</p>
+          <p  class="aboutus">网站的创建者是一群大学生，希望借助互联网这个平台，搭建一个性教育知识普及公益性网站，
+              通过网络爬虫、机器学习、数据分析与数据挖掘等技术来网罗各种性教育科学知识，
+              并将现有资源进行优化整合，以期提供给青少年全面的性教育。</p>
+        </div>
+      </section>
+
+      <!-- 联系方式 -->
+      <section>
+        <div id="intro" class="section">
+          <h2>联系方式</h2>
+          <p  class="aboutus">1、电子邮箱：572551802@qq.com
+（           （接受文章、图片、问题等投稿）。2、在线给管理员留言。</p>
+{#          <p  class="aboutus"></p>#}
+        </div>
+      </section>
+
+      <!-- 网站声明 -->
+      <section>
+        <div id="intro" class="section">
+            <h2>网站声明</h2>
+            <p  class="aboutus">本网站所收集的部分公开资料来源于互联网，转载的目的在于传递更多信息及用于网络分享，
+                并不代表本站赞同其观点和对其真实性负责，也不构成任何其他建议。</p>
+            <p  class="aboutus">本站部分作品是由网友自主投稿和发布、编辑整理上传，对此类作品本站仅提供交流平台，不为其版权负责。
+                如果您发现网站上有侵犯您的知识产权的作品，请与我们取得联系，我们会及时修改或删除。</p>
+        </div>
+      </section>
 
 
-{% endblock %}
+
+      <!--JQuery Library -->
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js "></script>
+      <!-- Main JS File -->
+      <script src="{% static "assets/js/us/js-us.js" %} "></script>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>All Rights Reserved &copy; NCU 2019 | Sex Education | Chen & Lu </p>
+      </div>
+  <div id="page-inner">
+                  <div class="row">
+
+                      <div class="col-md-12">
+<br>
+                          <div >
+                              <textarea  class="content" name="desc" cols="120" rows="10"
+                              style="margin: 0px; width: 1000px; height: 280px; resize: none;" placeholder="给网站管理员留言"></textarea>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-2" style="margin-top:30px">
+                        <button  type="button" class="btn btn-primary sent_button">发送</button>
+                    </div>
+                </div>
+
+            </div>
+    </body>
+
+</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+{#   <div style="margin-top: 50px;">#}
+{#  {% block main_content %}{% endblock %}#}
+{#  </div>#}
+
+
+</body>
+
+</html>
