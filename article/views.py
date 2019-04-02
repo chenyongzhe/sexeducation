@@ -1541,7 +1541,7 @@ def parent(request):
         data[i].content = re.sub("[A-Za-z0-9\!\%\[\]\,\。<>&/\"=-_.-: ;]", "", data[i].content)
         data[i].content = data[i].content[0:90]
     userAgent = request.META['HTTP_USER_AGENT']
-    wholook = "给家长看的"
+    wholook = "家长指南"
     if (judge_pc_or_mobile(userAgent)):
         return render(request, 'mmainpage.html',
                       {'article': data, 'num': num, 'page_str': page_str, 'loginstr': loginstr})
@@ -1665,7 +1665,7 @@ def articletp(request):
         return render(request, 'mmainpage.html',
                       {'article': data, 'num': num, 'page_str': page_str, 'loginstr': loginstr})
 
-    return render(request, 'parent.html', {'wholook':wholook,'article': data, 'num': num, 'page_str': page_str, 'loginstr': loginstr})
+    return render(request, 'articletp.html', {'wholook':wholook,'article': data, 'num': num, 'page_str': page_str, 'loginstr': loginstr})
 
 
 
