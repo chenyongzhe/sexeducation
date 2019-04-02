@@ -17,7 +17,11 @@
     font-family: 微软雅黑;
     font-size: 16px;
     }
-
+{% comment %}
+    p.big{
+        zoom: 0.5;
+    }
+{% endcomment %}
 </style>
 <head>
     {% load staticfiles %}
@@ -502,15 +506,6 @@ function but()
         </div>
       </section>
 
-      <!-- 联系方式 -->
-      <section>
-        <div id="intro" class="section">
-          <h2>联系方式</h2>
-          <p  class="aboutus">1、电子邮箱：572551802@qq.com
-（           （接受文章、图片、问题等投稿）。2、在线给管理员留言。</p>
-{#          <p  class="aboutus"></p>#}
-        </div>
-      </section>
 
       <!-- 网站声明 -->
       <section>
@@ -523,6 +518,15 @@ function but()
         </div>
       </section>
 
+      <!-- 联系方式 -->
+      <section>
+        <div id="intro" class="section">
+          <h2>联系方式</h2>
+          <p  class="aboutus">1、电子邮箱：572551802@qq.com
+（接受文章、图片、问题等投稿）。2、在线给管理员留言。</p>
+{#          <p  class="aboutus"></p>#}
+        </div>
+      </section>
 
 
       <!--JQuery Library -->
@@ -531,8 +535,8 @@ function but()
       <script src="{% static "assets/js/us/js-us.js" %} "></script>
 
       <!-- Footer -->
-      <div class="footer">
-        <p>All Rights Reserved &copy; NCU 2019 | Sex Education | Chen & Lu </p>
+      <div class="footer" >
+        <p class="big">All Rights Reserved &copy; NCU 2019 | Sex Education | Chen & Lu </p>
       </div>
   <div id="page-inner">
                   <div class="row">

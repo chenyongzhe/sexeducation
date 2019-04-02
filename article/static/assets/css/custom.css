@@ -118,4 +118,5 @@ section {
     color: white;
     text-align: left;
     font-size: 10px;
+    z-index: 99;
   }
