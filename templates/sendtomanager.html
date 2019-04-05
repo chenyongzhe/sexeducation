@@ -28,7 +28,9 @@
     <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
     <meta charset="utf-8" />
 
-    <title>基于web2.0性教育</title>
+    <meta name="description" content="性教育 性教育普及 伊甸园的烦恼 web2.0 网络爬虫">
+    <meta name="Keywords" content="性教育 性教育普及 伊甸园的烦恼 web2.0 网络爬虫">
+    <title>伊甸园的烦恼</title>
     <!-- Bootstrap Styles-->
      {% load staticfiles %}
 
@@ -418,35 +420,7 @@ function but()
     <script src="{% static "assets/js/custom-scripts.js" %}"></script>
 
 
-<script>
-        $('.sent_button').click(function () {
-             $.ajax({
-             url:'/insert_message/',
-             type:'POST',
-             data:{'content':$('.content').val()},
-             success:function (data) {
-                 var obj=JSON.parse(data);
-                 if(obj.state){
-                    alert("留言成功");
-                 }
-                 else {
-                     alert("请求出错");
-                 }
-                /** var obj=JSON.parse(data)
-                 if(obj.state){
-                    alert("名字是"+obj.name+"密码是"+obj.password);
-                 }
-                 else {
-                     alert("请求出错");
-                 }
-                 //alert("名字是"+$('#name').val()+"密码是"+$('#pw').val());
-                 **/
-                 }
 
-
-         })
-         });
-    </script>
 {#    <p>have a try</p>#}
 
     <head>
@@ -530,14 +504,12 @@ function but()
 
 
       <!--JQuery Library -->
-      <script src="https://code.jquery.com/jquery-3.3.1.min.js "></script>
+{#      <script src="https://code.jquery.com/jquery-3.3.1.min.js "></script>#}
       <!-- Main JS File -->
       <script src="{% static "assets/js/us/js-us.js" %} "></script>
 
       <!-- Footer -->
-      <div class="footer" >
-        <p class="big">All Rights Reserved &copy; NCU 2019 | Sex Education | Chen & Lu </p>
-      </div>
+
   <div id="page-inner">
                   <div class="row">
 
@@ -566,8 +538,44 @@ function but()
         </div>
 
     </div>
+<br>
+        <br><br>
+        <br>
 
 
+   <div align="center" style="margin-top: 50px" >
+            <a style="color: black" class="ft_1" href="#">Copyright All Rights Reserved © NCU 2019 | Sex Education </a>
+            <p class="ft_2" ></p>
+        </div>
+<script>
+        $('.sent_button').click(function () {
+             $.ajax({
+             url:'/insert_message/',
+             type:'POST',
+             data:{'content':$('.content').val()},
+             success:function (data) {
+                 var obj=JSON.parse(data);
+                 if(obj.state){
+                    alert("留言成功");
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+                /** var obj=JSON.parse(data)
+                 if(obj.state){
+                    alert("名字是"+obj.name+"密码是"+obj.password);
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+                 //alert("名字是"+$('#name').val()+"密码是"+$('#pw').val());
+                 **/
+                 }
+
+
+         })
+         });
+    </script>
 
 {#   <div style="margin-top: 50px;">#}
 {#  {% block main_content %}{% endblock %}#}

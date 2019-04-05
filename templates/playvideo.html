@@ -6,7 +6,9 @@
     <link REL="SHORTCUT ICON" HREF="{% static "favicon.ico" %}"/>
     <meta charset="utf-8" />
 
-    <title>基于web2.0性教育</title>
+    <meta name="description" content="性教育 性教育普及 伊甸园的烦恼 web2.0 网络爬虫">
+    <meta name="Keywords" content="性教育 性教育普及 伊甸园的烦恼 web2.0 网络爬虫">
+    <title>伊甸园的烦恼</title>
     <!-- Bootstrap Styles-->
      {% load staticfiles %}
 
@@ -516,7 +518,7 @@ function but()
      <div class="middle_bar" style="top:15px">
         <div class="middle_bar_content">
             <div class="logo" >
-               <img class="logo_img"   src="{% static "mainpage/logo.png" %}"    style="height: 36px;width: 140px"/>
+               <img class="logo_img"   src="{% static "mainpage/logo.png" %}"    style="height: 50px;width: 140px"/>
             </div>
             <form action="/s/" action="GET">
                 <div id="input_con">
@@ -756,7 +758,7 @@ if (isIE()) {
         element: document.getElementById('player1'),
         video: {
 
-            url: 'http://47.107.139.203/static/video/%E7%AE%80%E5%8D%95%E8%B0%88%E8%B0%88%E6%80%A7%E5%8F%96%E5%90%91.mp4',
+            url: '{{ video.vurl }}',
             pic: '{{ video.imgurl }}',
 
         },

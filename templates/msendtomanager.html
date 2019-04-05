@@ -1,5 +1,41 @@
 {% extends 'mheaderbar.html' %}
 {% load staticfiles %} {% block m_content %}
+ <link href="{% static "assets/css/custom.css" %}" rel="stylesheet">
+ <script src="{% static "assets/js/us/js-us.js" %} "></script>
+
+        <section>
+        <div id="intro" style="padding:unset"  class="section">
+          <h2>关于我们</h2>
+          <p class="aboutus">本网站是2018年江西省高等学校大学生实践创新训练计划项目《基于 web2. 0的性教育普及和研究》的实物成果。</p>
+          <p  class="aboutus">网站的创建者是一群大学生，希望借助互联网这个平台，搭建一个性教育知识普及公益性网站，
+              通过网络爬虫、机器学习、数据分析与数据挖掘等技术来网罗各种性教育科学知识，
+              并将现有资源进行优化整合，以期提供给青少年全面的性教育。</p>
+        </div>
+      </section>
+
+
+      <!-- 网站声明 -->
+      <section>
+        <div id="intro" style="padding:unset" class="section">
+            <h2>网站声明</h2>
+            <p  class="aboutus">本网站所收集的部分公开资料来源于互联网，转载的目的在于传递更多信息及用于网络分享，
+                并不代表本站赞同其观点和对其真实性负责，也不构成任何其他建议。</p>
+            <p  class="aboutus">本站部分作品是由网友自主投稿和发布、编辑整理上传，对此类作品本站仅提供交流平台，不为其版权负责。
+                如果您发现网站上有侵犯您的知识产权的作品，请与我们取得联系，我们会及时修改或删除。</p>
+        </div>
+      </section>
+
+      <!-- 联系方式 -->
+      <section>
+        <div id="intro" style="padding:unset" class="section">
+          <h2>联系方式</h2>
+          <p  class="aboutus">1、电子邮箱：572551802@qq.com
+（接受文章、图片、问题等投稿）。2、在线给管理员留言。</p>
+{#          <p  class="aboutus"></p>#}
+        </div>
+      </section>
+
+
 
       <div class="row">
 
@@ -18,7 +54,35 @@
                 </div>
 
 
+<script>
+        $('.sent_button').click(function () {
+             $.ajax({
+             url:'/insert_message/',
+             type:'POST',
+             data:{'content':$('.content').val()},
+             success:function (data) {
+                 var obj=JSON.parse(data);
+                 if(obj.state){
+                    alert("留言成功");
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+                /** var obj=JSON.parse(data)
+                 if(obj.state){
+                    alert("名字是"+obj.name+"密码是"+obj.password);
+                 }
+                 else {
+                     alert("请求出错");
+                 }
+                 //alert("名字是"+$('#name').val()+"密码是"+$('#pw').val());
+                 **/
+                 }
 
+
+         })
+         });
+    </script>
 
 
 {% endblock %}

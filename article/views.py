@@ -360,7 +360,7 @@ def article(request):
           myclass="fa fa-thumbs-up"
     origin="";
     if myarticle.origin:
-        origin="内容爬取于: "+myarticle.origin
+        origin="源于: "+myarticle.origin
 
     myrender=render(request,myhtml,{'article':myarticle,'comment':comment,'comment_cookie':comment_cookie,'supportcount':myarticle.supportcount,'myclass':myclass,'origin':origin,"loginstr":loginstr})
     myrender.set_cookie('comment_cookie',"N")
@@ -1418,7 +1418,7 @@ def homepage(request):
     page_list.append(nav2)
     page_str = "".join(page_list)
 
-    resulta = models.Article.objects.filter(type_id=9)
+    resulta = models.Article.objects.filter(type_id=12)
 
     dataa = []
     resnum=resulta.count()
@@ -1441,8 +1441,8 @@ def homepage(request):
     userAgent = request.META['HTTP_USER_AGENT']
     # print(userAgent)
     if (judge_pc_or_mobile(userAgent)):
-        return render(request, 'mvideolist.html',
-                      {'usercount': ipuser.id, 'videolist': data, 'num': num, 'page_str': page_str,
+        return render(request, 'mhome.html',
+                      {"article4":artcile4,"article1":artcile1,"article2":artcile2,"article3":artcile3,'usercount': ipuser.id, 'videolist': data, 'num': num, 'page_str': page_str,
                        "loginstr": loginstr})
 
     return render(request, 'home.html',{"article4":artcile4,"article1":artcile1,"article2":artcile2,"article3":artcile3,'usercount': ipuser.id, 'videolist': data, 'num': num, 'page_str': page_str, "loginstr": loginstr})
@@ -1454,7 +1454,7 @@ def parent(request):
     # cache.set("name","陈永喆")
     # myname=cache.get("name")
     # print(myname)
-    result = models.Article.objects.filter(type_id=11)
+    result = models.Article.objects.filter(type_id__in=[8,11])
     count = len(result)
     print("一共"+str(count))
     num = "总共" + str(count) + "篇文章"
@@ -1543,7 +1543,7 @@ def parent(request):
     userAgent = request.META['HTTP_USER_AGENT']
     wholook = "家长指南"
     if (judge_pc_or_mobile(userAgent)):
-        return render(request, 'mmainpage.html',
+        return render(request, 'mparent.html',
                       {'article': data, 'num': num, 'page_str': page_str, 'loginstr': loginstr})
 
     return render(request, 'parent.html', {"wholook":wholook,'article': data, 'num': num, 'page_str': page_str, 'loginstr': loginstr})
@@ -1908,7 +1908,7 @@ def qsn(request):
     userAgent = request.META['HTTP_USER_AGENT']
     # print(userAgent)
     if (judge_pc_or_mobile(userAgent)):
-        return render(request, 'mvideolist.html',
+        return render(request, 'mqsn.html',
                       {'usercount': ipuser.id, 'videolist': data, 'num': num, 'page_str': page_str,
                        "loginstr": loginstr})
 
@@ -1919,29 +1919,46 @@ def qsn(request):
 
 
 def child(request):
+    user_ip = getuserip(request)
+
+    ipp = models.IpTable.objects.filter(userip=user_ip).first()
+    ipuser = None
+    if not ipp:
+        ipuser = models.IpTable.objects.create(userip=user_ip)
+    else:
+        ipuser = ipp
+    ##print("id是"+str(ipuser.id))
     loginstr = islogin(request)
+    typevid = request.GET.get("tp", 0)
+    # result = models.Videolist.objects.all()
     addscore(request, 2)
     # cache.set("name","陈永喆")
     # myname=cache.get("name")
     # print(myname)
-    wholook = "儿童性教育"
-
-    tp=8
-    result = models.Article.objects.filter(type_id=tp)
+    result = None
+    if typevid == 0 or typevid == "0":
+        typevid = 7
+        result = models.Videolist.objects.filter(videotp=7)
+    else:
+        result = models.Videolist.objects.filter(videotp=typevid)
     count = len(result)
-    print("一共" + str(count))
-    num = "总共" + str(count) + "篇文章"
-    current_page = 1
+    num = "总共" + str(count) + "个视频"
+    current_page = request.GET.get("p", 1)
     print(current_page)
     current_page = int(current_page)
     start = (current_page - 1) * 8
     end = current_page * 8
     ##print(result[1].title)
-    result.reverse()
+    # result.reverse()
     ##print(result[1].title)
+    # data1 = result[count - end-1:count - start-1]
     result1 = list(result)
     result1.reverse()
     data = result1[start:end]
+    # print(data)
+    # data = list(data)
+    # data.reverse()
+    # print(data)
     ##print(data[1].title)
     all_count = count
     total_count, y = divmod(all_count, 8)
@@ -1949,7 +1966,7 @@ def child(request):
         total_count += 1
     page_list = []
     nav = """<nav aria-label= "Page navigation" >
-                <ul class ="pagination" >"""
+                        <ul class ="pagination" >"""
     page_list.append(nav)
     page_num = 7
     start_index = 1
@@ -1970,53 +1987,55 @@ def child(request):
     pre = ""
     if current_page == 1:
         pre = """<li>
-                    <a href="#" aria-label = "Previous" >
-                    <span aria-hidden = "true" > &laquo; </span></a>
-                   </li>"""
+                            <a href="#" aria-label = "Previous" >
+                            <span aria-hidden = "true" > &laquo; </span></a>
+                           </li>"""
 
         # pre = '<a class="page" href="#">上一页</a>'
     else:
-        pre = '<li>  <a href = "/articletp/'
-        pre2 = """?p=%s&tp=%s" aria-label="Previous" >
-                           <span aria-hidden="true" > &laquo; </span></a>
-                          </li>""" % (current_page - 1, tp)
+        pre = '<li>  <a href = "/child'
+        pre2 = """?p=%s" aria-label="Previous" >
+                                   <span aria-hidden="true" > &laquo; </span></a>
+                                  </li>""" % (current_page - 1)
         pre = pre + pre2
         #        print(pre)
     page_list.append(pre)
 
     for i in range(int(start_index), int(end_index)):
         if i == current_page:
-            temp = '<li class ="active" > <a href="/articletp?&p=%s&tp=%s">%s</a></li>' % (i, tp, i)
+            temp = '<li class ="active" > <a href="/child?&p=%s&tp=%s">%s</a></li>' % (i, typevid, i)
             # temp = '<a class="page isactive" href="/s/?keyword='+keyword+'&p=%s">%s</a>' % (i, i)
         else:
             # temp = '<a class="page" href="/s/?keyword='+keyword+'&p=%s">%s</a>' % (i, i)
-            temp = '<li> <a href="/articletp?p=%s&tp=%s">%s</a></li>' % (i, tp, i)
+            temp = '<li> <a href="/child?p=%s&tp=%s">%s</a></li>' % (i, typevid, i)
         page_list.append(temp)
     afterpage = ""
     if current_page == total_count:
         # afterpage = '<a class="page" href="#">下一页</a>'
         afterpage = """<li>
-                            <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span></a>
-                           </li>"""
+                                    <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span></a>
+                                   </li>"""
     else:
-        afterpage = '<li>  <a href = "/articletp?'
-        afterpage2 = """p=%s&tp=%s" aria-label="Next" >
-                                   <span aria-hidden ="true">&raquo;</span></a>
-                                  </li>""" % (current_page + 1, tp)
+        afterpage = '<li>  <a href = "/child?'
+        afterpage2 = """p=%s" aria-label="Next" >
+                                           <span aria-hidden ="true">&raquo;</span></a>
+                                          </li>""" % (current_page + 1)
         afterpage = afterpage + afterpage2
         # afterpage = '<a class="page" href="/s/?keyword='+keyword+'&p=%s">下一页</a>' % (current_page + 1)
         page_list.append(afterpage)
     nav2 = '</ul> </nav>'
     page_list.append(nav2)
     page_str = "".join(page_list)
-    for i in range(len(data)):
-        data[i].content = re.sub("[A-Za-z0-9\!\%\[\]\,\。<>&/\"=-_.-: ;]", "", data[i].content)
-        data[i].content = data[i].content[0:90]
+    # for i in range(len(data)):
+    #     data[i].content = re.sub("[A-Za-z0-9\!\%\[\]\,\。<>/\"=-_.-: ;]", "", data[i].content)
+    #     data[i].content = data[i].content[0:90]
     userAgent = request.META['HTTP_USER_AGENT']
+    # print(userAgent)
     if (judge_pc_or_mobile(userAgent)):
-        return render(request, 'mmainpage.html',
-                      {'article': data, 'num': num, 'page_str': page_str, 'loginstr': loginstr})
+        return render(request, 'mchild.html',
+                      {'usercount': ipuser.id, 'videolist': data, 'num': num, 'page_str': page_str,
+                       "loginstr": loginstr})
 
     return render(request, 'child.html',
-                  {'wholook': wholook, 'article': data, 'num': num, 'page_str': page_str, 'loginstr': loginstr})
+                  {'usercount': ipuser.id, 'videolist': data, 'num': num, 'page_str': page_str, "loginstr": loginstr})
