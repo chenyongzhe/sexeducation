@@ -13,8 +13,8 @@
                          imageName = "/static/mainpage/dm"+i+".jpg";
                         </script>
 
-                        <div style="border: 2px solid #dddddd;margin-bottom: 20px">
-                        <div class="row">
+                        <div style="border: 2px solid #dddddd;margin-bottom: 20px;margin-right: 3px;margin-left: 3px;">
+                        <div class="row" style="width: 98%">
                             <div class="col-xs-8"><h7 style="color: blue"><a href="/article/?id={{ item.article_id }}">{{ item.title}}</a></h7></div>
                         <div class="col-xs-2 col-xs-offset-1"><img id="{{ item.article_id }}"  src=""    style="width: 50px;height: 50px" />
 
@@ -25,9 +25,9 @@
                             $("#{{ item.article_id }}").attr('src',imageName);
                     </script>
 
-                        <div class="row" >
-                         <div class="col-xs-12">
-                             <p class="txt_info" style="color: #888;   font-size: 14.5px;">{{ item.content}}</p>
+                        <div class="row" style="width: 95%;margin-left: 0;margin-right: 0px;padding: 0px" >
+                         <div style="width: 100%;margin:0px;padding:0px; ">
+                             <p  style="width: 97%;color: #888;   font-size: 14.5px;">{{ item.content}}</p>
                         </div>
                          </div>
 

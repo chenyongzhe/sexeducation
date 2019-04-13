@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" >
+<html lang="zh" style="overflow-x:hidden;">
 <head>
      {% load staticfiles %}
     <meta charset="UTF-8">
@@ -153,7 +153,14 @@
 
 
 </head>
-<body>
+<body style="
+position: absolute;
+
+left: 0;top: 0;
+
+
+overflow-x:hidden;
+overflow-y: auto;">
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -430,7 +437,7 @@ function but()
 
 
 
-                <div >
+                <div style="width: 100%" >
                            <div style="margin-top: 0px;margin-left: 4px;">
                       {% block m_content %}{% endblock %}
 

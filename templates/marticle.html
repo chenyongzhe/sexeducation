@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" >
+<html lang="zh" style="overflow-x:hidden;" >
 <head>
      {% load staticfiles %}
     <meta charset="UTF-8">
@@ -153,7 +153,19 @@
 
 
 </head>
-<body>
+<body style="
+width: 100%;
+
+height: 100%;
+
+position: absolute;
+
+left: 0;top: 0;
+
+overflow: hidden;
+overflow-x:hidden;
+overflow-y: auto;
+">
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -409,7 +421,7 @@ function but()
                                 </div>
 
 
-    <div style="z-index: 1;margin-top: 15px" >
+    <div style="width: 98%" style="z-index: 1;margin-top: 15px" >
                     <ol class="breadcrumb" style="    margin-bottom: 0px;">
    <li ><a  href="/videolist">视频教育</a></li>
   <li><a href="/readarticle">文章</a></li>
@@ -432,7 +444,7 @@ function but()
 
 
                 <div >
-                           <div style="margin-top: 0px;margin-left: 4px;">
+                           <div  style="margin-top: 0px;margin-left: 4px;">
  <style>
         .top_toolbars a{
             color: #6A89C0;
@@ -554,8 +566,8 @@ function but()
 
 
 
-    <div class="row" style="margin-top: 20px">
-     <div class="col-xs-12">
+    <div class="row" style=" -webkit-box-sizing: unset;    padding-right: 0px;   margin-right: -1px;margin-top: 20px;width:100%">
+     <div style="padding-right: 0px" class="col-xs-12">
      <h4> {{  article.title }}</h4>
      </div>
         <style>
@@ -564,7 +576,7 @@ function but()
 
             }
         </style>
-    <div class="col-xs-12">
+    <div style="padding-right: 0px" class="col-xs-12">
                              <div  class="mycontent">
                              <p  class="txt_info" style="color: #888;  padding-top: 10px;  font-size: 14.5px;">{{ article.content |safe}}</p>
                              </div>

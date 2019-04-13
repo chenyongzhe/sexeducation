@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" >
+<html lang="zh"  style="overflow-x:hidden;">
 <head>
      {% load staticfiles %}
     <meta charset="UTF-8">
@@ -153,7 +153,19 @@
 
 
 </head>
-<body>
+<body style="
+width: 100%;
+
+height: 100%;
+
+position: absolute;
+
+left: 0;top: 0;
+
+overflow: hidden;
+overflow-x:hidden;
+overflow-y: auto;
+">
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -409,7 +421,7 @@ function but()
                                 </div>
 
 
-    <div style="z-index: 1;margin-top: 30px" >
+    <div  style="width: 100%;z-index: 1;margin-top: 25px" >
 
             <div class="banners" style="margin-left: 8px">
                 <div    style="width: 97%; height: 200px">
@@ -486,7 +498,7 @@ function but()
     </div>
 
 
-            <div class="news_box">
+            <div style="width:98%" >
                      <span style="margin-left: 20px;">您是第<span style="color: #30a5ff">{{ usercount }}</span>位访问的游客</span>
 
 
@@ -497,7 +509,26 @@ function but()
 
     <div class="ui hidden divider">  </div>
 <div class="ui grid"style="margin-left: 10px;margin-left: 5px" >
-<div class="row" style="margin-right: 12px;margin-left: -2px">
+<div  style="position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: inherit;
+    -ms-flex-pack: inherit;
+    justify-content: inherit;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+
+    padding: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;width: 95%">
    {% for video in videolist %}
 
          <div  style="width: 45%;margin-top: 20px;margin-left: 10px" >
