@@ -3,6 +3,7 @@
 
 from django.http import JsonResponse
 from django.shortcuts import render
+
 #wangchaojun
 # Create your views here.
 from django.shortcuts import  HttpResponse
@@ -19,6 +20,19 @@ from django.db.models import Q
 import re
 
 import random
+
+
+def is_contain_chinese(check_str):
+    """
+    判断字符串中是否包含中文
+    :param check_str: {str} 需要检测的字符串
+    :return: {bool} 包含返回True， 不包含返回False
+    """
+    for ch in check_str:
+        if u'\u4e00' <= ch <= u'\u9fff':
+            return True
+    return False
+
 def getuserip(request):
     ip=""
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -224,6 +238,8 @@ def search(request):
     loginstr = islogin(request)
     addscore(request, 2)
     keyword=request.GET.get("keyword",None)
+    if keyword=="":
+        return redirect("/")
     result=None
     if  keyword :
         result = models.Article.objects.raw("select distinct * from article where title like '%%"+keyword+"%%'")
@@ -529,6 +545,7 @@ def register(request):
      if request.method=='POST':
         try:
            username = request.POST.get('username', None)
+           print(username)
            password1 = request.POST.get('password1', None)
            password2 = request.POST.get('password2', None)
            email = request.POST.get('email', None)
@@ -537,7 +554,9 @@ def register(request):
            if username=="":
                error=error+"账号不能为空"
                return render(request, myhtml, {'error': error,"loginstr":loginstr})
-           if not ( (username.isalpha() or username.isdigit()) and username.isalnum()):
+           #result =re.compile(u'[u\4e00-\u9fa5]')
+           if not  ( username.isalnum() and ( not is_contain_chinese(username))):
+               print("不是字母数字")
                error = error + " 账号只能是字母和数字"
                return render(request, myhtml, {'error': error,"loginstr":loginstr})
            if nickname=="":
