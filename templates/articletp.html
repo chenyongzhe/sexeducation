@@ -483,23 +483,15 @@ function but()
             </div>
             <div class="news_box">
                 <ul class="news_list">
-                    <script>
-                        var i=0;
-                    var imageName ="";
-                    </script>
+
                     {% for item in article %}
-                        <script>
-                        i+=1;
-                         imageName = "/static/mainpage/dm"+i+".jpg";
-                        </script>
+
 
                     <li>
-                        <div class="img_box">
-                            <img id="{{ item.article_id }}"  src=""    style="width: 120px;height: 120px" />
+                        <div class="img_box" style="width: 40px">
+
                         </div>
-                        <script>
-                            $("#{{ item.article_id }}").attr('src',imageName);
-                        </script>
+
                         <div class="txt_box">
                             <h3><a href="/article/?id={{ item.article_id }}">{{ item.title}}</a></h3>
                             <p class="txt_info">{{ item.content}}</p>

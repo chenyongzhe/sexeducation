@@ -291,7 +291,7 @@
 </head>
 <body>
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -320,29 +320,32 @@
                       </div>
                   </div>
 
-                      <div class="row">
+                         <div class="row">
                       <div class="col-xs-8 col-xs-offset-1" style="margin-top: 30px">
                      <div class="input">
-   <input id="t1" type="text" name="u" placeholder="验证码" onblur="but()" />
+   <input id="t1"  style="line-height:unset" type="text" name="u" placeholder="验证码" onblur="but()" />
    <span id="discode"></span>
    <input type="button" value="换一换" class="c" style="height:20px;"onClick="createCode()">
    </div>
                       </div>
                   </div>
 
+
+
                    </div>
                    <div class="modal-footer">
                    <div class="row">
-                      <div class="col-xs-6 col-xs-offset-2" style="margin-top: 30px">
+                      <div class="col-xs-6 " style="margin-top: 30px">
                       <input class="btn btn-primary subt"  value="登录" ><span class="errorspan"></span>
                       </div>
+                       <div class="col-xs-1" style="margin-top: 30px">
+                         <input class="btn btn-primary "  value="注册" onclick="location.href='/register/'"></span>
+
+                       </div>
 
                   </div>
-                     <div class="row">
-                      <div class="col-xs-4 col-xs-offset-3" style="margin-top: 5px">
-                      <a href="/register/" style="color: red;">没有账户账号我要注册</a>
-                      </div>
-                  </div>
+
+
                    </div>
                   </div>
 
@@ -356,7 +359,8 @@
                 </div>
 
          </div>
-             <script language="javascript">
+
+<script language="javascript">
 var couldlogin=0;
 var code; //在全局 定义验证码
 function createCode()
@@ -465,6 +469,7 @@ function but()
                </script>
 
 
+
            </div>
 
 
@@ -472,7 +477,7 @@ function but()
 
 
 
-<div>
+
 <style>
 
 .navbar .navbar-nav>li>a{
@@ -579,8 +584,8 @@ function but()
 
 
                     <li>
-                        <div class="img_box">
-                            <img   src="{% static "mainpage/dm1.jpg" %}"    style="width: 120px;height: 120px" />
+                        <div class="img_box" style="width: 20px">
+
                         </div>
                         <div class="txt_box">
                             <h3> {{  article.title }}</h3>
