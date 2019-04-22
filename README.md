@@ -26,7 +26,10 @@ pip install pymysql<br>
 #### 以Nginx+ uwsgi + Django + MySQL  + python3.5 部署于linux centos7 阿里云服务器中
 ####网站首页
 <br>
-<img src="https://chenyongzhe.github.io/shome.png"  width="700" height="900">
+<img src="https://chenyongzhe.github.io/shome.png"  width="700" height="900"><br>
+####视频弹幕<br>
+<img src="https://chenyongzhe.github.io/sp.png"  width="700" height="500"><br>
+
 
 
 
