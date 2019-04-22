@@ -22,8 +22,8 @@ pip install pymysql<br>
 
 
 ####项目为性教育公益网站
-####支持视频弹幕，留言评论等
-#### 以Nginx+ uwsgi + diango + MySQL  + python3.5 部署于linux centos7 阿里云服务器中
+####支持视频弹幕，登录注册、关注点赞、留言评论等
+#### 以Nginx+ uwsgi + Django + MySQL  + python3.5 部署于linux centos7 阿里云服务器中
 ####网站首页
 <br>
 <img src="https://chenyongzhe.github.io/shome.png"  width="700" height="900">
