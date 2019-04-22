@@ -28,7 +28,7 @@ pip install pymysql<br>
 <br>
 <img src="https://chenyongzhe.github.io/shome.png"  width="700" height="900"><br>
 ####视频弹幕<br>
-<img src="https://chenyongzhe.github.io/sp.png"  width="700" height="500"><br>
+<img src="https://chenyongzhe.github.io/sp.png"  width="900" height="400"><br>
 
 
 
