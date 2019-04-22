@@ -1,7 +1,7 @@
 # sexeducation
 双创性教育
 ##本项目为本人参加南昌大学双创训练做的项目
-项目演示地址：http://47.107.139.207<br>
+项目演示地址：http://47.107.139.203<br>
 项目依赖的python3.5库<br>
 
 Django 2.0<br>
@@ -26,7 +26,7 @@ pip install pymysql<br>
 #### 以Nginx+ uwsgi + diango + MySQL  + python3.5 部署于linux centos7 阿里云服务器中
 ####网站首页
 <br>
-<img href="https://chenyongzhe.github.io/shome.png"  width="700" height="900">
+<img src="https://chenyongzhe.github.io/shome.png"  width="700" height="900">
 
 
 
