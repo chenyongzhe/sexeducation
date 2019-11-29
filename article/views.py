@@ -11,6 +11,7 @@ from django.shortcuts import redirect
 import os
 import json
 from article import models
+from django.shortcuts import render_to_response
 from django.core.cache import cache
 ##from alipay import AliPay
 from django.conf import settings
@@ -2058,3 +2059,9 @@ def child(request):
 
     return render(request, 'child.html',
                   {'usercount': ipuser.id, 'videolist': data, 'num': num, 'page_str': page_str, "loginstr": loginstr})
+
+
+
+def page_not_found(request):
+     return render_to_response('404.html')
+

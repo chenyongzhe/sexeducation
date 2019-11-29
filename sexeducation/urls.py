@@ -67,7 +67,9 @@ path("jz/",views.parent),
 path("articletp/",views.articletp),
 path("child/",views.child),
 path("qsn/",views.qsn),
+path("404/",views.page_not_found)
     #url(r'^favicon.ico$',RedirectView.as_view(url=r'/static/favicon.ico')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-
+handler404 = views.page_not_found
+handler500=views.page_not_found
